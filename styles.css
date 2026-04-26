@@ -597,6 +597,45 @@ input[type="range"] {
   background: linear-gradient(90deg, var(--accent), var(--accent-2));
 }
 
+.forecast-card {
+  overflow: hidden;
+}
+
+.forecast-0 { color: var(--accent); }
+.forecast-1 { color: var(--accent-2); }
+.forecast-2 { color: #f2c36b; }
+.forecast-3 { color: #ff7a7a; }
+.forecast-4 { color: #c8a2ff; }
+
+.forecast-grid {
+  display: grid;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.forecast-metric {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  border: 1px solid color-mix(in srgb, currentColor 42%, var(--line));
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.035);
+  padding: 10px 12px;
+}
+
+.forecast-metric small {
+  display: block;
+  color: var(--muted);
+  margin-top: 3px;
+}
+
+.forecast-metric > span {
+  font-size: 1.1rem;
+  font-weight: 900;
+  color: currentColor;
+}
+
 .log-grid {
   display: grid;
   gap: 8px;
@@ -659,5 +698,9 @@ input[type="range"] {
 
   .week-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .forecast-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }

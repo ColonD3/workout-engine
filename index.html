@@ -18,6 +18,11 @@
 
       <nav class="tabs" aria-label="Main sections">
         <button class="tab active" data-tab="generator">Generator</button>
+        <button class="tab" data-tab="beginner">Beginner</button>
+        <button class="tab" data-tab="posture">Posture</button>
+        <button class="tab" data-tab="calisthenics">Calisthenics</button>
+        <button class="tab" data-tab="flips">Flips</button>
+        <button class="tab" data-tab="mobility">Mobility</button>
         <button class="tab" data-tab="recomp">Recomp</button>
         <button class="tab" data-tab="jump">Jump Blocks</button>
         <button class="tab" data-tab="saved">Saved</button>
@@ -180,6 +185,307 @@
           </section>
 
           <section class="result" id="workoutResult"></section>
+        </section>
+
+        <section class="panel" id="beginner">
+          <div class="section-head">
+            <div>
+              <h2>Beginner Mode</h2>
+              <p>Simple goal sliders, simple equipment, clear plan.</p>
+            </div>
+            <button class="primary" id="generateBeginnerBtn">Build Plan</button>
+          </div>
+
+          <section class="card">
+            <div class="inline-head">
+              <h3>What You Care About</h3>
+              <button class="ghost" id="resetBeginnerBtn">Reset</button>
+            </div>
+            <p class="compact-copy">Set the big priorities. The engine turns this into a balanced starter routine.</p>
+            <div class="slider-grid" id="beginnerSliders"></div>
+          </section>
+
+          <section class="card">
+            <h3>Simple Equipment</h3>
+            <div class="chip-grid" id="beginnerEquipmentPicker"></div>
+          </section>
+
+          <section class="card">
+            <h3>Physique Priorities</h3>
+            <p class="compact-copy">Optional. Use normal beginner language and the engine will translate it into smarter training targets.</p>
+            <div class="chip-grid" id="beginnerPhysiqueToggle"></div>
+            <div class="chip-grid profile-selects" id="beginnerPhysiquePicker"></div>
+            <div id="beginnerPhysiqueCoach" class="stack empty-state">Physique priority coaching is off.</div>
+          </section>
+
+          <section class="card">
+            <h3>Setup</h3>
+            <div class="readiness-grid">
+              <label>
+                Sessions / week
+                <select id="beginnerSessionsInput">
+                  <option value="2">2</option>
+                  <option value="3" selected>3</option>
+                  <option value="4">4</option>
+                </select>
+              </label>
+              <label>
+                Session length
+                <select id="beginnerLengthInput">
+                  <option value="20">20 minutes</option>
+                  <option value="35" selected>35 minutes</option>
+                  <option value="50">50 minutes</option>
+                </select>
+              </label>
+              <label>
+                Current confidence
+                <select id="beginnerConfidenceInput">
+                  <option value="low">Low</option>
+                  <option value="medium" selected>Medium</option>
+                  <option value="high">High</option>
+                </select>
+              </label>
+              <label>
+                Training days
+                <select id="beginnerDaysInput">
+                  <option value="flexible" selected>Flexible</option>
+                  <option value="fixed">Same days weekly</option>
+                  <option value="busy">Busy / unpredictable</option>
+                </select>
+              </label>
+            </div>
+          </section>
+
+          <section class="result" id="beginnerResult"></section>
+        </section>
+
+        <section class="panel" id="posture">
+          <div class="section-head">
+            <div>
+              <h2>Posture Finder</h2>
+              <p>Find hidden weak links behind shoulder, pelvis, and knee mechanics.</p>
+            </div>
+            <button class="primary" id="generatePostureBtn">Diagnose</button>
+          </div>
+
+          <section class="card">
+            <div class="inline-head">
+              <h3>Posture Signals</h3>
+              <button class="ghost" id="resetPostureBtn">Reset</button>
+            </div>
+            <p class="compact-copy">Use rough 0-10 ratings. Higher means the issue shows up more often.</p>
+            <div class="slider-grid" id="postureSliders"></div>
+          </section>
+
+          <section class="card">
+            <h3>Posture Equipment</h3>
+            <div class="chip-grid" id="postureEquipmentPicker"></div>
+          </section>
+
+          <section class="card">
+            <h3>Context</h3>
+            <div class="readiness-grid">
+              <label>
+                Desk / sitting time
+                <select id="postureDeskInput">
+                  <option value="low">Low</option>
+                  <option value="medium" selected>Medium</option>
+                  <option value="high">High</option>
+                </select>
+              </label>
+              <label>
+                Main sport / training
+                <select id="postureTrainingInput">
+                  <option value="general" selected>General lifting</option>
+                  <option value="running">Running / jumping</option>
+                  <option value="calisthenics">Calisthenics</option>
+                  <option value="desk">Mostly sedentary</option>
+                </select>
+              </label>
+              <label>
+                Current pain
+                <select id="posturePainInput">
+                  <option value="none" selected>None</option>
+                  <option value="mild">Mild</option>
+                  <option value="moderate">Moderate</option>
+                </select>
+              </label>
+              <label>
+                Time per day
+                <select id="postureTimeInput">
+                  <option value="8">8 minutes</option>
+                  <option value="12" selected>12 minutes</option>
+                  <option value="20">20 minutes</option>
+                </select>
+              </label>
+            </div>
+          </section>
+
+          <section class="result" id="postureResult"></section>
+        </section>
+
+        <section class="panel" id="calisthenics">
+          <div class="section-head">
+            <div>
+              <h2>Calisthenics</h2>
+              <p>Build skill, straight-arm strength, and bodyweight progressions.</p>
+            </div>
+            <button class="primary" id="generateCalisthenicsPlanBtn">Build Skill Plan</button>
+          </div>
+
+          <section class="card">
+            <div class="inline-head">
+              <h3>Skill Goals</h3>
+              <button class="ghost" id="resetCalisthenicsPlanBtn">Reset</button>
+            </div>
+            <p class="compact-copy">Pick one or more skills. The plan blends practice and strength support.</p>
+            <div class="chip-grid" id="calisthenicsGoalPicker"></div>
+          </section>
+
+          <section class="card">
+            <h3>Calisthenics Equipment</h3>
+            <div class="chip-grid" id="calisthenicsEquipmentPicker"></div>
+          </section>
+
+          <section class="card">
+            <h3>Skill Bias</h3>
+            <div class="slider-grid" id="calisthenicsPlanSliders"></div>
+            <div class="readiness-grid profile-selects">
+              <label>
+                Sessions / week
+                <select id="calisthenicsSessionsInput">
+                  <option value="2">2</option>
+                  <option value="3" selected>3</option>
+                  <option value="4">4</option>
+                </select>
+              </label>
+              <label>
+                Current level
+                <select id="calisthenicsLevelInput">
+                  <option value="new">New</option>
+                  <option value="base" selected>Has basics</option>
+                  <option value="strong">Strong basics</option>
+                </select>
+              </label>
+            </div>
+          </section>
+
+          <section class="result" id="calisthenicsPlanResult"></section>
+        </section>
+
+        <section class="panel" id="flips">
+          <div class="section-head">
+            <div>
+              <h2>Flips</h2>
+              <p>Build safe progression work for rotation, tucking, and landings.</p>
+            </div>
+            <button class="primary" id="generateFlipPlanBtn">Build Flip Plan</button>
+          </div>
+
+          <section class="card">
+            <div class="inline-head">
+              <h3>Flip Goals</h3>
+              <button class="ghost" id="resetFlipPlanBtn">Reset</button>
+            </div>
+            <p class="compact-copy">Pick one or more. The plan blends prerequisite strength, drills, and confidence progressions.</p>
+            <div class="chip-grid" id="flipGoalPicker"></div>
+          </section>
+
+          <section class="card">
+            <h3>Flip Equipment</h3>
+            <div class="chip-grid" id="flipEquipmentPicker"></div>
+          </section>
+
+          <section class="card">
+            <h3>Skill Bias</h3>
+            <div class="slider-grid" id="flipSliders"></div>
+            <div class="readiness-grid profile-selects">
+              <label>
+                Sessions / week
+                <select id="flipSessionsInput">
+                  <option value="1">1</option>
+                  <option value="2" selected>2</option>
+                  <option value="3">3</option>
+                </select>
+              </label>
+              <label>
+                Current level
+                <select id="flipLevelInput">
+                  <option value="new" selected>New / cautious</option>
+                  <option value="basics">Has basics</option>
+                  <option value="trained">Trained</option>
+                </select>
+              </label>
+              <label>
+                Surface
+                <select id="flipSurfaceInput">
+                  <option value="soft" selected>Soft / mat</option>
+                  <option value="trampoline">Trampoline</option>
+                  <option value="floor">Firm floor</option>
+                </select>
+              </label>
+            </div>
+          </section>
+
+          <section class="result" id="flipPlanResult"></section>
+        </section>
+
+        <section class="panel" id="mobility">
+          <div class="section-head">
+            <div>
+              <h2>Mobility + Flexibility</h2>
+              <p>Build usable ROM, passive flexibility, and active end-range control.</p>
+            </div>
+            <button class="primary" id="generateMobilityPlanBtn">Build Mobility Plan</button>
+          </div>
+
+          <section class="card">
+            <div class="inline-head">
+              <h3>Mobility + Flexibility Goals</h3>
+              <button class="ghost" id="resetMobilityPlanBtn">Reset</button>
+            </div>
+            <p class="compact-copy">Choose joint mobility goals, flexibility goals, or both.</p>
+            <div class="chip-grid" id="mobilityGoalPicker"></div>
+          </section>
+
+          <section class="card">
+            <h3>Equipment</h3>
+            <div class="chip-grid" id="mobilityEquipmentPicker"></div>
+          </section>
+
+          <section class="card">
+            <h3>Bias Sliders</h3>
+            <div class="slider-grid" id="mobilitySliders"></div>
+            <div class="readiness-grid profile-selects">
+              <label>
+                Time
+                <select id="mobilityTimeInput">
+                  <option value="8">8 minutes</option>
+                  <option value="12" selected>12 minutes</option>
+                  <option value="20">20 minutes</option>
+                  <option value="30">30 minutes</option>
+                </select>
+              </label>
+              <label>
+                Days / week
+                <select id="mobilityFrequencyInput">
+                  <option value="2">2</option>
+                  <option value="4" selected>4</option>
+                  <option value="6">6</option>
+                </select>
+              </label>
+              <label>
+                Intensity
+                <select id="mobilityIntensityInput">
+                  <option value="easy">Easy</option>
+                  <option value="moderate" selected>Moderate</option>
+                  <option value="hard">Hard but controlled</option>
+                </select>
+              </label>
+            </div>
+          </section>
+
+          <section class="result" id="mobilityPlanResult"></section>
         </section>
 
         <section class="panel" id="recomp">
@@ -456,6 +762,7 @@
             <h2>How It Works</h2>
             <p>This app uses rule-based workout generation based on muscles, goals, equipment, readiness, and preferences. It is not medical advice.</p>
             <p>Each exercise has tags for muscles, equipment, pattern, fatigue, joint stress, difficulty, and goal fit. The athlete sliders bias the engine toward hypertrophy, max strength, neural/power work, jump exposure, tendon capacity, joint caution, density, and variation.</p>
+            <p>Beginner, posture, calisthenics, flips, mobility, jump, and recomp sections use the same local-first rule engine style: your choices stay in this browser and the app turns high-leverage inputs into practical training or nutrition plans.</p>
           </section>
         </section>
       </main>

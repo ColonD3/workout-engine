@@ -256,6 +256,176 @@ const defaultRecompProfile = {
   weekendConsistency: 5,
 };
 
+const BEGINNER_SLIDERS = [
+  ["muscleGrowth", "Muscle growth", "Higher values add more hypertrophy volume and simple progression."],
+  ["fatLoss", "Fat loss", "Higher values add more steps, conditioning, and density without making lifting random."],
+  ["strengthGain", "Strength gain", "Higher values add heavier-feeling compound work, longer rests, and rep quality."],
+  ["aesthetics", "Aesthetics", "Higher values bias upper chest, lats, side delts, glutes, and arms."],
+];
+
+const BEGINNER_EQUIPMENT = ["Bodyweight", "Pull-up bar", "Free-weights", "Machines", "Cable machine"];
+
+const BEGINNER_PHYSIQUE_PRIORITIES = [
+  ["biggerChest", "Bigger chest"],
+  ["absSummer", "Abs for summer"],
+  ["vTaper", "V-taper"],
+  ["biggerArms", "Bigger arms"],
+  ["widerShoulders", "Wider shoulders"],
+  ["biggerGlutes", "Bigger glutes"],
+  ["athleticLegs", "Athletic legs"],
+  ["leanerWaist", "Leaner waist"],
+];
+
+const defaultBeginnerProfile = {
+  muscleGrowth: 6,
+  fatLoss: 4,
+  strengthGain: 5,
+  aesthetics: 5,
+  equipment: ["Bodyweight", "Free-weights"],
+  usePhysiquePriorities: false,
+  physiquePriorities: [],
+  sessions: "3",
+  length: "35",
+  confidence: "medium",
+  days: "flexible",
+};
+
+const POSTURE_SLIDERS = [
+  ["forwardShoulder", "Forward shoulder lean", "Shoulders sit forward, upper traps dominate, or chest feels tight."],
+  ["anteriorPelvicTilt", "Anterior pelvic tilt", "Ribs flare, low back arches, or hip flexors feel constantly tight."],
+  ["kneeTracking", "Knee tracking", "Knees cave, wobble, or miss the toe line on squats, stairs, or landings."],
+  ["quadDominance", "Quad dominance", "Quads take over while glutes/hamstrings feel hard to access."],
+  ["thoracicMobility", "Stiff upper back", "Hard to extend or rotate through the upper back."],
+  ["ankleMobility", "Limited ankle mobility", "Heels lift, knees cannot travel, or calves feel restrictive."],
+  ["hipStability", "Hip stability", "Pelvis shifts, hips drop, or single-leg control feels uneven."],
+  ["scapularControl", "Scapular control", "Hard to set shoulder blades without shrugging or winging."],
+];
+
+const POSTURE_EQUIPMENT = ["Bodyweight", "Bands", "Dumbbells", "Bench", "Cable machine", "Machines", "Pull-up bar"];
+
+const defaultPostureProfile = {
+  forwardShoulder: 4,
+  anteriorPelvicTilt: 4,
+  kneeTracking: 4,
+  quadDominance: 4,
+  thoracicMobility: 4,
+  ankleMobility: 4,
+  hipStability: 4,
+  scapularControl: 4,
+  equipment: ["Bodyweight", "Bands"],
+  desk: "medium",
+  training: "general",
+  pain: "none",
+  time: "12",
+};
+
+const CALISTHENICS_GOALS = [
+  ["pullUp", "Pull-up strength"],
+  ["dip", "Dip strength"],
+  ["pushUp", "Push-up mastery"],
+  ["handstand", "Handstand"],
+  ["lSit", "L-sit / compression"],
+  ["frontLever", "Front lever"],
+  ["planche", "Planche"],
+  ["muscleUp", "Muscle-up"],
+  ["pistol", "Pistol squat"],
+];
+
+const CALISTHENICS_EQUIPMENT = ["Bodyweight", "Pull-up bar", "Bands", "Parallettes", "Rings", "Dumbbells", "Bench", "Cable machine"];
+
+const CALISTHENICS_PLAN_SLIDERS = [
+  ["straightArm", "Straight-arm strength", "Planche, front lever, scapular depression, and locked-elbow control."],
+  ["bentArm", "Bent-arm strength", "Pull-ups, dips, push-ups, rows, and pressing strength."],
+  ["skillPractice", "Skill practice", "More low-fatigue technical holds and frequent crisp exposures."],
+  ["coreCompression", "Core compression", "L-sit, hollow body, pelvic control, and active compression."],
+  ["jointTolerance", "Joint tolerance", "Higher values allow harder wrists/elbows/shoulders progressions."],
+  ["conditioning", "Density", "Higher values make sessions denser; lower values preserve quality and rest."],
+];
+
+const defaultCalisthenicsPlan = {
+  goals: ["pullUp"],
+  equipment: ["Bodyweight", "Pull-up bar", "Bands"],
+  straightArm: 5,
+  bentArm: 6,
+  skillPractice: 6,
+  coreCompression: 5,
+  jointTolerance: 5,
+  conditioning: 4,
+  sessions: "3",
+  level: "base",
+};
+
+const FLIP_GOALS = [
+  ["backFlip", "Back flips"],
+  ["frontFlip", "Front flips"],
+  ["sideFlip", "Side flips"],
+  ["twisting", "Twisting"],
+  ["tucking", "Tucking strength"],
+  ["landing", "Landing confidence"],
+];
+
+const FLIP_SLIDERS = [
+  ["jumpPower", "Jump power", "How much the plan should build takeoff height and pop."],
+  ["airAwareness", "Air awareness", "How much the plan should bias spotting, shapes, and safe progressions."],
+  ["tuckSpeed", "Tuck speed", "How much the plan should train fast knees-to-chest and compact rotation."],
+  ["landingControl", "Landing control", "How much the plan should bias sticks, deceleration, and quiet landings."],
+  ["fearManagement", "Fear management", "How much the plan should use lower-risk progressions and confidence reps."],
+];
+
+const FLIP_EQUIPMENT = ["Open floor", "Soft mat", "Trampoline", "Foam pit", "Wedge mat", "Spotter", "Pull-up bar", "Bands"];
+
+const defaultFlipProfile = {
+  goals: ["backFlip"],
+  equipment: ["Open floor", "Soft mat"],
+  jumpPower: 5,
+  airAwareness: 5,
+  tuckSpeed: 5,
+  landingControl: 6,
+  fearManagement: 6,
+  sessions: "2",
+  level: "new",
+  surface: "soft",
+};
+
+const MOBILITY_GOALS = [
+  ["wristMobility", "Wrist mobility"],
+  ["shoulderRom", "Shoulder ROM"],
+  ["thoracicSpine", "T-spine rotation"],
+  ["overheadPosition", "Overhead position"],
+  ["deepSquat", "Deep squat"],
+  ["ankleDorsiflexion", "Ankle dorsiflexion"],
+  ["hipInternalRotation", "Hip internal rotation"],
+  ["hipExternalRotation", "Hip external rotation"],
+  ["hamstrings", "Hamstrings"],
+  ["frontSplits", "Front splits"],
+  ["middleSplits", "Middle splits"],
+  ["pancake", "Pancake fold"],
+  ["backbend", "Bridge / backbend"],
+];
+
+const MOBILITY_SLIDERS = [
+  ["passiveFlexibility", "Passive flexibility", "Longer relaxed holds and end-range tolerance."],
+  ["activeFlexibility", "Active flexibility", "Strength to lift, hold, and control the range without assistance."],
+  ["jointMobility", "Joint mobility", "Controlled articular motion, end-range strength, and usable ROM."],
+  ["loadedMobility", "Loaded mobility", "Squats, hinges, split squats, pulses, and strength inside the range."],
+  ["dailyConsistency", "Daily consistency", "Higher values assume short frequent sessions; lower values use fewer longer sessions."],
+];
+
+const MOBILITY_EQUIPMENT = ["Bodyweight", "Bands", "Dumbbells", "Bench", "Wall", "Yoga block", "Pull-up bar"];
+
+const defaultMobilityProfile = {
+  goals: ["deepSquat"],
+  equipment: ["Bodyweight", "Wall"],
+  passiveFlexibility: 5,
+  activeFlexibility: 5,
+  jointMobility: 6,
+  loadedMobility: 4,
+  dailyConsistency: 6,
+  time: "12",
+  frequency: "4",
+  intensity: "moderate",
+};
+
 const GENERATOR_INJURIES = [
   ["shoulder", "Shoulder"],
   ["elbow", "Elbow"],
@@ -371,8 +541,18 @@ const defaultState = {
   profile: { ...defaultProfile },
   jumpProfile: { ...defaultJumpProfile },
   recompProfile: { ...defaultRecompProfile },
+  beginnerProfile: { ...defaultBeginnerProfile },
+  postureProfile: { ...defaultPostureProfile },
+  calisthenicsPlan: { ...defaultCalisthenicsPlan },
+  flipProfile: { ...defaultFlipProfile },
+  mobilityProfile: { ...defaultMobilityProfile },
   currentJumpBlock: null,
   currentRecompPlan: null,
+  currentBeginnerPlan: null,
+  currentPosturePlan: null,
+  currentCalisthenicsPlan: null,
+  currentFlipPlan: null,
+  currentMobilityPlan: null,
   savedJumpBlocks: [],
   savedRecompPlans: [],
   favorites: [],
@@ -431,10 +611,24 @@ function loadState() {
       profile: { ...defaultState.profile, ...(parsed.profile || {}) },
       jumpProfile: { ...defaultState.jumpProfile, ...(parsed.jumpProfile || {}) },
       recompProfile: { ...defaultState.recompProfile, ...(parsed.recompProfile || {}) },
+      beginnerProfile: { ...defaultState.beginnerProfile, ...(parsed.beginnerProfile || {}) },
+      postureProfile: { ...defaultState.postureProfile, ...(parsed.postureProfile || {}) },
+      calisthenicsPlan: { ...defaultState.calisthenicsPlan, ...(parsed.calisthenicsPlan || {}) },
+      flipProfile: { ...defaultState.flipProfile, ...(parsed.flipProfile || {}) },
+      mobilityProfile: { ...defaultState.mobilityProfile, ...(parsed.mobilityProfile || {}) },
       muscleGoals: parsed.muscleGoals || {},
     };
     if (!Array.isArray(next.jumpProfile.goals)) next.jumpProfile.goals = parsed.jumpProfile?.goal ? [parsed.jumpProfile.goal] : [...defaultJumpProfile.goals];
     if (!Array.isArray(next.jumpProfile.equipment)) next.jumpProfile.equipment = [...defaultJumpProfile.equipment];
+    if (!Array.isArray(next.beginnerProfile.equipment)) next.beginnerProfile.equipment = [...defaultBeginnerProfile.equipment];
+    if (!Array.isArray(next.beginnerProfile.physiquePriorities)) next.beginnerProfile.physiquePriorities = [];
+    if (!Array.isArray(next.postureProfile.equipment)) next.postureProfile.equipment = [...defaultPostureProfile.equipment];
+    if (!Array.isArray(next.calisthenicsPlan.goals)) next.calisthenicsPlan.goals = [...defaultCalisthenicsPlan.goals];
+    if (!Array.isArray(next.calisthenicsPlan.equipment)) next.calisthenicsPlan.equipment = [...defaultCalisthenicsPlan.equipment];
+    if (!Array.isArray(next.flipProfile.goals)) next.flipProfile.goals = [...defaultFlipProfile.goals];
+    if (!Array.isArray(next.flipProfile.equipment)) next.flipProfile.equipment = [...defaultFlipProfile.equipment];
+    if (!Array.isArray(next.mobilityProfile.goals)) next.mobilityProfile.goals = [...defaultMobilityProfile.goals];
+    if (!Array.isArray(next.mobilityProfile.equipment)) next.mobilityProfile.equipment = [...defaultMobilityProfile.equipment];
     ["favorites", "blocked", "savedRoutines", "logs", "savedJumpBlocks", "savedRecompPlans"].forEach((key) => {
       if (!Array.isArray(next[key])) next[key] = [];
     });
@@ -461,11 +655,27 @@ function init() {
   hydrateProfile();
   hydrateJumpProfile();
   hydrateRecompProfile();
+  hydrateBeginnerProfile();
+  hydratePostureProfile();
+  hydrateCalisthenicsPlan();
+  hydrateFlipProfile();
+  hydrateMobilityProfile();
   renderJumpPickers();
+  renderBeginnerEquipment();
+  renderBeginnerPhysiquePriorities();
+  renderPostureEquipment();
+  renderCalisthenicsPickers();
+  renderFlipPickers();
+  renderMobilityPickers();
   renderGoalEditor();
   renderWorkout();
   renderJumpBlock();
   renderRecompPlan();
+  renderBeginnerPlan();
+  renderPosturePlan();
+  renderCalisthenicsPlan();
+  renderFlipPlan();
+  renderMobilityPlan();
   renderSavedJumpBlocks();
   renderSavedRecompPlans();
   renderSaved();
@@ -493,13 +703,24 @@ function init() {
   });
   document.getElementById("exerciseSearch").addEventListener("input", renderPreferences);
   document.getElementById("workoutResult").addEventListener("click", (event) => {
-    if (!(event.target instanceof Element)) return;
-    const rerollButton = event.target.closest("[data-reroll]");
+    const target = eventTargetElement(event);
+    if (!target) return;
+    const rerollButton = target.closest("[data-reroll]");
     if (rerollButton) rerollExercise(rerollButton.dataset.reroll);
-    const regressButton = event.target.closest("[data-regress]");
+    const regressButton = target.closest("[data-regress]");
     if (regressButton) regressExercise(regressButton.dataset.regress);
-    const resetButton = event.target.closest("[data-reset-exercise]");
+    const resetButton = target.closest("[data-reset-exercise]");
     if (resetButton) resetExercise(resetButton.dataset.resetExercise);
+  });
+  document.getElementById("beginnerResult").addEventListener("click", (event) => {
+    const target = eventTargetElement(event);
+    if (!target) return;
+    const rerollButton = target.closest("[data-beginner-reroll]");
+    if (rerollButton) rerollBeginnerExercise(rerollButton.dataset.beginnerReroll);
+    const regressButton = target.closest("[data-beginner-regress]");
+    if (regressButton) regressBeginnerExercise(regressButton.dataset.beginnerRegress);
+    const resetButton = target.closest("[data-beginner-reset]");
+    if (resetButton) resetBeginnerExercise(resetButton.dataset.beginnerReset);
   });
   document.getElementById("resetProfileBtn").addEventListener("click", () => {
     state.profile = { ...defaultProfile };
@@ -537,6 +758,66 @@ function init() {
     hydrateRecompProfile();
     renderAll();
   });
+  document.getElementById("generateBeginnerBtn").addEventListener("click", () => {
+    state.currentBeginnerPlan = generateBeginnerPlan();
+    saveState();
+    renderAll();
+    document.getElementById("beginnerResult").scrollIntoView({ behavior: "smooth", block: "start" });
+  });
+  document.getElementById("resetBeginnerBtn").addEventListener("click", () => {
+    state.beginnerProfile = { ...defaultBeginnerProfile };
+    saveState();
+    renderAll();
+  });
+  document.getElementById("generatePostureBtn").addEventListener("click", () => {
+    state.currentPosturePlan = generatePosturePlan();
+    saveState();
+    renderAll();
+    document.getElementById("postureResult").scrollIntoView({ behavior: "smooth", block: "start" });
+  });
+  document.getElementById("resetPostureBtn").addEventListener("click", () => {
+    state.postureProfile = { ...defaultPostureProfile };
+    saveState();
+    renderAll();
+  });
+  document.getElementById("generateCalisthenicsPlanBtn").addEventListener("click", () => {
+    state.currentCalisthenicsPlan = generateCalisthenicsPlan();
+    saveState();
+    renderAll();
+    document.getElementById("calisthenicsPlanResult").scrollIntoView({ behavior: "smooth", block: "start" });
+  });
+  document.getElementById("resetCalisthenicsPlanBtn").addEventListener("click", () => {
+    state.calisthenicsPlan = { ...defaultCalisthenicsPlan };
+    saveState();
+    renderAll();
+  });
+  document.getElementById("generateFlipPlanBtn").addEventListener("click", () => {
+    state.currentFlipPlan = generateFlipPlan();
+    saveState();
+    renderAll();
+    document.getElementById("flipPlanResult").scrollIntoView({ behavior: "smooth", block: "start" });
+  });
+  document.getElementById("resetFlipPlanBtn").addEventListener("click", () => {
+    state.flipProfile = { ...defaultFlipProfile };
+    saveState();
+    renderAll();
+  });
+  document.getElementById("generateMobilityPlanBtn").addEventListener("click", () => {
+    state.currentMobilityPlan = generateMobilityPlan();
+    saveState();
+    renderAll();
+    document.getElementById("mobilityPlanResult").scrollIntoView({ behavior: "smooth", block: "start" });
+  });
+  document.getElementById("resetMobilityPlanBtn").addEventListener("click", () => {
+    state.mobilityProfile = { ...defaultMobilityProfile };
+    saveState();
+    renderAll();
+  });
+}
+
+function eventTargetElement(event) {
+  if (event.target instanceof Element) return event.target;
+  return event.target?.parentElement || null;
 }
 
 function wirePressFeedback() {
@@ -876,6 +1157,244 @@ function hydrateRecompProfile() {
   });
 }
 
+function hydrateBeginnerProfile() {
+  hydrateSliderSet("beginnerSliders", BEGINNER_SLIDERS, state.beginnerProfile, "beginner");
+  [
+    ["beginnerSessionsInput", "sessions"],
+    ["beginnerLengthInput", "length"],
+    ["beginnerConfidenceInput", "confidence"],
+    ["beginnerDaysInput", "days"],
+  ].forEach(([id, key]) => {
+    const input = document.getElementById(id);
+    if (!input) return;
+    input.value = state.beginnerProfile[key];
+    input.onchange = () => {
+      state.beginnerProfile[key] = input.value;
+      saveState();
+    };
+  });
+}
+
+function hydratePostureProfile() {
+  hydrateSliderSet("postureSliders", POSTURE_SLIDERS, state.postureProfile, "posture");
+  [
+    ["postureDeskInput", "desk"],
+    ["postureTrainingInput", "training"],
+    ["posturePainInput", "pain"],
+    ["postureTimeInput", "time"],
+  ].forEach(([id, key]) => {
+    const input = document.getElementById(id);
+    if (!input) return;
+    input.value = state.postureProfile[key];
+    input.onchange = () => {
+      state.postureProfile[key] = input.value;
+      saveState();
+    };
+  });
+}
+
+function hydrateCalisthenicsPlan() {
+  hydrateSliderSet("calisthenicsPlanSliders", CALISTHENICS_PLAN_SLIDERS, state.calisthenicsPlan, "skill");
+  [
+    ["calisthenicsSessionsInput", "sessions"],
+    ["calisthenicsLevelInput", "level"],
+  ].forEach(([id, key]) => {
+    const input = document.getElementById(id);
+    if (!input) return;
+    input.value = state.calisthenicsPlan[key];
+    input.onchange = () => {
+      state.calisthenicsPlan[key] = input.value;
+      saveState();
+    };
+  });
+}
+
+function hydrateFlipProfile() {
+  hydrateSliderSet("flipSliders", FLIP_SLIDERS, state.flipProfile, "flip");
+  [
+    ["flipSessionsInput", "sessions"],
+    ["flipLevelInput", "level"],
+    ["flipSurfaceInput", "surface"],
+  ].forEach(([id, key]) => {
+    const input = document.getElementById(id);
+    if (!input) return;
+    input.value = state.flipProfile[key];
+    input.onchange = () => {
+      state.flipProfile[key] = input.value;
+      saveState();
+    };
+  });
+}
+
+function hydrateMobilityProfile() {
+  hydrateSliderSet("mobilitySliders", MOBILITY_SLIDERS, state.mobilityProfile, "mobility");
+  [
+    ["mobilityTimeInput", "time"],
+    ["mobilityFrequencyInput", "frequency"],
+    ["mobilityIntensityInput", "intensity"],
+  ].forEach(([id, key]) => {
+    const input = document.getElementById(id);
+    if (!input) return;
+    input.value = state.mobilityProfile[key];
+    input.onchange = () => {
+      state.mobilityProfile[key] = input.value;
+      saveState();
+    };
+  });
+}
+
+function hydrateSliderSet(containerId, sliders, profile, suffix) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+  container.innerHTML = sliders.map(([key, label, help]) => `
+    <label class="slider-control">
+      <span class="slider-label">${label}<output id="${key}${suffix}Output">${profile[key]}</output></span>
+      <input type="range" min="0" max="10" step="1" value="${profile[key]}" data-slider-scope="${suffix}" data-slider-key="${key}" />
+      <small>${help}</small>
+    </label>
+  `).join("");
+  container.querySelectorAll("[data-slider-key]").forEach((input) => {
+    input.addEventListener("input", () => {
+      profile[input.dataset.sliderKey] = Number(input.value);
+      document.getElementById(`${input.dataset.sliderKey}${suffix}Output`).textContent = input.value;
+      saveState();
+    });
+  });
+}
+
+function renderGoalChipPicker(containerId, options, selected, dataName, onToggle) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+  container.innerHTML = options.map(([id, label]) => `<button class="chip ${selected.includes(id) ? "active" : ""}" data-${dataName}="${id}">${label}</button>`).join("");
+  container.querySelectorAll(`[data-${dataName}]`).forEach((button) => {
+    button.addEventListener("click", () => onToggle(button.dataset[dataName.replace(/-([a-z])/g, (_, letter) => letter.toUpperCase())]));
+  });
+}
+
+function renderBeginnerEquipment() {
+  renderMultiPicker("beginnerEquipmentPicker", BEGINNER_EQUIPMENT, state.beginnerProfile.equipment, "beginner-equipment", (item) => {
+    state.beginnerProfile.equipment = toggleArrayValue(state.beginnerProfile.equipment, item);
+    if (!state.beginnerProfile.equipment.length) state.beginnerProfile.equipment = ["Bodyweight"];
+    saveState();
+    renderBeginnerEquipment();
+  });
+}
+
+function renderBeginnerPhysiquePriorities() {
+  const toggle = document.getElementById("beginnerPhysiqueToggle");
+  const picker = document.getElementById("beginnerPhysiquePicker");
+  const coach = document.getElementById("beginnerPhysiqueCoach");
+  if (!toggle || !picker || !coach) return;
+  toggle.innerHTML = `
+    <button class="chip ${state.beginnerProfile.usePhysiquePriorities ? "" : "active"}" data-beginner-physique-enabled="false">Keep it simple</button>
+    <button class="chip ${state.beginnerProfile.usePhysiquePriorities ? "active" : ""}" data-beginner-physique-enabled="true">Prioritize a look</button>
+  `;
+  toggle.querySelectorAll("[data-beginner-physique-enabled]").forEach((button) => {
+    button.addEventListener("click", () => {
+      state.beginnerProfile.usePhysiquePriorities = button.dataset.beginnerPhysiqueEnabled === "true";
+      if (!state.beginnerProfile.usePhysiquePriorities) state.beginnerProfile.physiquePriorities = [];
+      saveState();
+      renderBeginnerPhysiquePriorities();
+    });
+  });
+
+  if (!state.beginnerProfile.usePhysiquePriorities) {
+    picker.innerHTML = "";
+    coach.className = "stack empty-state";
+    coach.textContent = "Physique priority coaching is off.";
+    return;
+  }
+
+  picker.innerHTML = BEGINNER_PHYSIQUE_PRIORITIES.map(([id, label]) => `
+    <button class="chip ${state.beginnerProfile.physiquePriorities.includes(id) ? "active" : ""}" data-beginner-physique="${id}">${label}</button>
+  `).join("");
+  picker.querySelectorAll("[data-beginner-physique]").forEach((button) => {
+    button.addEventListener("click", () => {
+      state.beginnerProfile.physiquePriorities = toggleArrayValue(state.beginnerProfile.physiquePriorities, button.dataset.beginnerPhysique);
+      saveState();
+      renderBeginnerPhysiquePriorities();
+    });
+  });
+  const translations = beginnerPhysiqueTranslations(state.beginnerProfile);
+  coach.className = translations.length ? "stack" : "stack empty-state";
+  coach.innerHTML = translations.length
+    ? translations.map((note) => `<div class="list-item">${note}</div>`).join("")
+    : "Choose one or two priorities. The engine will translate vague goals into useful targets.";
+}
+
+function renderPostureEquipment() {
+  renderMultiPicker("postureEquipmentPicker", POSTURE_EQUIPMENT, state.postureProfile.equipment, "posture-equipment", (item) => {
+    state.postureProfile.equipment = toggleArrayValue(state.postureProfile.equipment, item);
+    if (!state.postureProfile.equipment.length) state.postureProfile.equipment = ["Bodyweight"];
+    saveState();
+    renderPostureEquipment();
+  });
+}
+
+function renderCalisthenicsPickers() {
+  const goals = document.getElementById("calisthenicsGoalPicker");
+  if (goals) {
+    goals.innerHTML = CALISTHENICS_GOALS.map(([id, label]) => `<button class="chip ${state.calisthenicsPlan.goals.includes(id) ? "active" : ""}" data-calisthenics-goal="${id}">${label}</button>`).join("");
+    goals.querySelectorAll("[data-calisthenics-goal]").forEach((button) => {
+      button.addEventListener("click", () => {
+        state.calisthenicsPlan.goals = toggleArrayValue(state.calisthenicsPlan.goals, button.dataset.calisthenicsGoal);
+        if (!state.calisthenicsPlan.goals.length) state.calisthenicsPlan.goals = ["pullUp"];
+        saveState();
+        renderCalisthenicsPickers();
+      });
+    });
+  }
+  renderMultiPicker("calisthenicsEquipmentPicker", CALISTHENICS_EQUIPMENT, state.calisthenicsPlan.equipment, "calisthenics-equipment", (item) => {
+    state.calisthenicsPlan.equipment = toggleArrayValue(state.calisthenicsPlan.equipment, item);
+    if (!state.calisthenicsPlan.equipment.length) state.calisthenicsPlan.equipment = ["Bodyweight"];
+    saveState();
+    renderCalisthenicsPickers();
+  });
+}
+
+function renderFlipPickers() {
+  renderGoalChipPicker("flipGoalPicker", FLIP_GOALS, state.flipProfile.goals, "flip-goal", (goal) => {
+    state.flipProfile.goals = toggleArrayValue(state.flipProfile.goals, goal);
+    if (!state.flipProfile.goals.length) state.flipProfile.goals = ["backFlip"];
+    saveState();
+    renderFlipPickers();
+  });
+  renderMultiPicker("flipEquipmentPicker", FLIP_EQUIPMENT, state.flipProfile.equipment, "flip-equipment", (item) => {
+    state.flipProfile.equipment = toggleArrayValue(state.flipProfile.equipment, item);
+    if (!state.flipProfile.equipment.length) state.flipProfile.equipment = ["Open floor"];
+    saveState();
+    renderFlipPickers();
+  });
+}
+
+function renderMobilityPickers() {
+  renderGoalChipPicker("mobilityGoalPicker", MOBILITY_GOALS, state.mobilityProfile.goals, "mobility-goal", (goal) => {
+    state.mobilityProfile.goals = toggleArrayValue(state.mobilityProfile.goals, goal);
+    if (!state.mobilityProfile.goals.length) state.mobilityProfile.goals = ["deepSquat"];
+    saveState();
+    renderMobilityPickers();
+  });
+  renderMultiPicker("mobilityEquipmentPicker", MOBILITY_EQUIPMENT, state.mobilityProfile.equipment, "mobility-equipment", (item) => {
+    state.mobilityProfile.equipment = toggleArrayValue(state.mobilityProfile.equipment, item);
+    if (!state.mobilityProfile.equipment.length) state.mobilityProfile.equipment = ["Bodyweight"];
+    saveState();
+    renderMobilityPickers();
+  });
+}
+
+function renderMultiPicker(containerId, options, selected, type, onToggle) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+  container.innerHTML = options.map((item) => buttonChip(item, selected.includes(item), type)).join("");
+  container.querySelectorAll("button").forEach((button) => {
+    button.addEventListener("click", () => onToggle(button.dataset.value));
+  });
+}
+
+function toggleArrayValue(items, value) {
+  return items.includes(value) ? items.filter((item) => item !== value) : [...items, value];
+}
+
 function renderJumpPickers() {
   const goalPicker = document.getElementById("jumpGoalPicker");
   goalPicker.innerHTML = JUMP_GOALS.map(([id, label]) => buttonChip(label, state.jumpProfile.goals.includes(id), "jump-goal").replace(`data-value="${escapeAttr(label)}"`, `data-value="${id}"`)).join("");
@@ -939,6 +1458,783 @@ function renderGoalEditor() {
       renderGoalEditor();
     });
   });
+}
+
+function generateBeginnerPlan() {
+  const profile = { ...state.beginnerProfile };
+  const fatLoss = profile.fatLoss >= 7;
+  const strength = profile.strengthGain >= 7;
+  const growth = profile.muscleGrowth >= 6;
+  const aesthetics = profile.aesthetics >= 6;
+  const sessions = Number(profile.sessions);
+  const sets = profile.length === "20" ? "2" : strength ? "3-4" : "3";
+  const reps = strength ? "5-8" : growth ? "8-12" : "8-10";
+  const density = fatLoss ? "Finish with 8-12 minutes of brisk incline walking, bike, or step intervals." : "Finish with 5 minutes of easy mobility or walking.";
+  const slots = beginnerSlots(profile, { strength, growth, aesthetics }).slice(0, profile.length === "20" ? 4 : 5);
+  const routine = slots
+    .map((slot, index) => createBeginnerExercise(slot, profile, { sets, reps, index }))
+    .filter(Boolean);
+  const notes = [
+    `Beginner priority blend: muscle growth ${profile.muscleGrowth}/10, fat loss ${profile.fatLoss}/10, strength ${profile.strengthGain}/10, aesthetics ${profile.aesthetics}/10.`,
+    ...beginnerPhysiqueTranslations(profile),
+    strength ? "Strength is high: add weight only when every rep looks the same and you finish with reps in reserve." : "Progress by adding reps first, then load.",
+    fatLoss ? "Fat loss is high: keep lifting quality, then use steps and short finishers for the calorie burn." : "Fat loss is not the main driver, so the plan protects recovery and skill.",
+    profile.confidence === "low" ? "Low confidence: repeat this same template for 2-3 weeks before adding variety." : "Use the same movement slots each week, but rotate easy substitutions when needed.",
+    profile.days === "busy" ? "Busy schedule: any 2 completed sessions count. Do not restart the week because one day moves." : `${sessions} sessions per week with at least one rest day between harder lower-body sessions.`,
+  ];
+  return {
+    id: crypto.randomUUID(),
+    title: "Beginner Starter Plan",
+    createdAt: new Date().toISOString(),
+    profile,
+    routine,
+    finisher: density,
+    notes,
+  };
+}
+
+function beginnerSlots(profile, flags) {
+  const priorities = profile.usePhysiquePriorities ? profile.physiquePriorities : [];
+  const wants = (id) => priorities.includes(id);
+  const pushTarget = wants("biggerChest") ? "Upper chest" : flags.aesthetics ? "Upper chest" : "Mid/lower chest";
+  const lowerTarget = wants("biggerGlutes") ? "Glutes" : flags.aesthetics ? "Glutes" : "Quads";
+  const slots = [
+    { slot: "lower", label: wants("biggerGlutes") ? "Glute-focused lower base" : "Lower-body base", targetMuscle: lowerTarget, patterns: ["squat", "single leg", "hinge"], preferred: wants("biggerGlutes") ? ["bulgarian-split-squat", "db-romanian-deadlift", "goblet-squat", "deep-leg-press"] : ["deep-leg-press", "goblet-squat", "bulgarian-split-squat", "step-down"], goal: flags.strength ? "Strength" : "Strength + Hypertrophy" },
+    { slot: "push", label: wants("biggerChest") ? "Chest priority push" : "Beginner push", targetMuscle: pushTarget, patterns: ["horizontal press", "upper press"], preferred: wants("biggerChest") ? ["incline-db-press", "feet-elevated-push-up", "db-bench-press", "machine-chest-press"] : ["db-bench-press", "machine-chest-press", "push-up", "feet-elevated-push-up"], goal: flags.growth ? "Hypertrophy" : "Strength + Hypertrophy" },
+    { slot: "pull", label: wants("vTaper") || wants("absSummer") ? "V-taper pull" : "Beginner pull", targetMuscle: "Lats", patterns: ["vertical pull", "row"], preferred: ["lat-pulldown", "pull-up-negative", "scapular-pull-up", "one-arm-db-row", "chest-supported-db-row"], goal: flags.strength ? "Strength" : "Strength + Hypertrophy" },
+    { slot: "hinge", label: wants("athleticLegs") ? "Athletic posterior chain" : "Hinge / posterior chain", targetMuscle: "Hamstrings", patterns: ["hinge", "knee flexion"], preferred: ["hamstring-curl", "db-romanian-deadlift", "back-extension"], goal: "Strength + Hypertrophy" },
+  ];
+
+  if (wants("absSummer") || wants("leanerWaist")) {
+    slots.push({ slot: "core", label: "Waist + trunk control", targetMuscle: "Abs", patterns: ["anti-extension", "anti-rotation", "anti-lateral flexion"], preferred: ["dead-bug", "pallof-press", "band-pallof-press", "side-plank"], goal: "Low-hypertrophy strength" });
+  } else if (wants("widerShoulders") || wants("vTaper") || flags.aesthetics) {
+    slots.push({ slot: "aesthetic", label: wants("widerShoulders") ? "Shoulder width accessory" : "Aesthetic accessory", targetMuscle: "Side delts", patterns: ["lateral raise", "rear delt", "row"], preferred: ["db-lateral-raise", "cable-lateral-raise", "band-face-pull", "prone-db-rear-delt-raise"], goal: "Hypertrophy" });
+  } else if (wants("biggerArms")) {
+    slots.push({ slot: "arms", label: "Arm accessory", targetMuscle: "Biceps", patterns: ["curl", "elbow extension"], preferred: ["db-curl", "hammer-curl", "cable-pushdown", "db-overhead-triceps-extension"], goal: "Hypertrophy" });
+  } else {
+    slots.push({ slot: "core", label: "Core control", targetMuscle: "Abs", patterns: ["anti-extension", "anti-rotation", "anti-lateral flexion"], preferred: ["dead-bug", "pallof-press", "band-pallof-press", "side-plank"], goal: "Low-hypertrophy strength" });
+  }
+  return slots;
+}
+
+function beginnerPhysiqueTranslations(profile) {
+  if (!profile.usePhysiquePriorities || !profile.physiquePriorities?.length) return [];
+  const priorities = new Set(profile.physiquePriorities);
+  const notes = [];
+  if (priorities.has("absSummer")) notes.push("Abs for summer translation: visible abs mostly come from lower body fat plus enough shoulder/lats/chest to create a V-taper. The plan trains core, but it will not waste the whole session on ab burnouts.");
+  if (priorities.has("leanerWaist")) notes.push("Leaner waist translation: use fat-loss habits, steps, and trunk control. Side-bend volume is kept low so the goal stays a smaller-looking waist, not more oblique pump.");
+  if (priorities.has("biggerChest")) notes.push("Bigger chest translation: prioritize upper-chest-friendly pressing and push-up progressions, then add volume slowly so shoulders and elbows keep up.");
+  if (priorities.has("vTaper")) notes.push("V-taper translation: lats and side delts matter more than doing endless ab exercises.");
+  if (priorities.has("widerShoulders")) notes.push("Wider shoulders translation: side delts and rear delts get priority while pressing stays simple.");
+  if (priorities.has("biggerArms")) notes.push("Bigger arms translation: arms grow fastest when pulling, pressing, and a small amount of direct curls/extensions all progress.");
+  if (priorities.has("biggerGlutes")) notes.push("Bigger glutes translation: split squats, hinges, and deep controlled leg work beat random kickbacks for beginners.");
+  if (priorities.has("athleticLegs")) notes.push("Athletic legs translation: build squat, hinge, single-leg control, and calves before chasing flashy leg finishers.");
+  return notes;
+}
+
+function createBeginnerExercise(slot, profile, prescription, usedIds = new Set()) {
+  const exercise = pickBeginnerExercise(slot, profile, usedIds);
+  if (!exercise) return null;
+  const item = beginnerPlanExercise(exercise, slot, profile, prescription);
+  item.baseline = snapshotBeginnerPlan(item);
+  return item;
+}
+
+function pickBeginnerExercise(slot, profile, usedIds = new Set(), currentId = "") {
+  const preferred = slot.preferred
+    .map((id) => EXERCISES.find((exercise) => exercise.id === id))
+    .filter(Boolean);
+  const pool = [
+    ...preferred,
+    ...EXERCISES.filter((exercise) => {
+      const hitsMuscle = exercise.primary.includes(slot.targetMuscle) || exercise.secondary.includes(slot.targetMuscle);
+      return hitsMuscle && slot.patterns.includes(exercise.pattern);
+    }),
+  ];
+  const seen = new Set();
+  return pool
+    .filter((exercise) => {
+      if (seen.has(exercise.id)) return false;
+      seen.add(exercise.id);
+      return exercise.id !== currentId && !usedIds.has(exercise.id) && beginnerExerciseAvailable(exercise, profile) && !state.blocked.includes(exercise.id);
+    })
+    .map((exercise) => ({ exercise, score: scoreBeginnerExercise(exercise, slot, profile) }))
+    .sort((a, b) => b.score - a.score)[0]?.exercise || null;
+}
+
+function beginnerPlanExercise(exercise, slot, profile, prescription) {
+  const strength = profile.strengthGain >= 7;
+  const growth = profile.muscleGrowth >= 6;
+  const isPullupPattern = ["pull-up", "pull-up-negative", "scapular-pull-up", "band-assisted-pull-up"].includes(exercise.id);
+  let reps = strength ? "5-8" : growth ? "8-12" : prescription.reps;
+  if (isPullupPattern) reps = exercise.id === "pull-up-negative" ? "2-4 slow negatives" : "3-8 clean reps";
+  if (exercise.pattern.includes("anti") || exercise.defaultReps.includes("sec")) reps = exercise.defaultReps;
+  const item = {
+    id: crypto.randomUUID(),
+    exerciseId: exercise.id,
+    exercise,
+    slot: slot.slot,
+    slotLabel: slot.label,
+    targetMuscle: slot.targetMuscle,
+    goal: slot.goal,
+    order: prescription.index + 1,
+    sets: exercise.pattern.includes("anti") ? "2" : prescription.sets,
+    reps,
+    rest: strength ? "90 sec-2 min" : "60-90 sec",
+    rir: profile.confidence === "low" ? "3-4" : "2-3",
+    eccentric: exercise.id === "pull-up-negative" ? "5 sec" : tempoForExercise(exercise, slot.goal).eccentric,
+    concentric: exercise.id === "pull-up-negative" ? "Step/jump assist" : tempoForExercise(exercise, slot.goal).concentric,
+    why: `${slot.label}: ${exercise.why}`,
+    tradeoff: "",
+    isRegressed: false,
+  };
+  return item;
+}
+
+function snapshotBeginnerPlan(item) {
+  return {
+    exerciseId: item.exercise.id,
+    slot: item.slot,
+    slotLabel: item.slotLabel,
+    targetMuscle: item.targetMuscle,
+    goal: item.goal,
+    order: item.order,
+    sets: item.sets,
+    reps: item.reps,
+    rest: item.rest,
+    rir: item.rir,
+    eccentric: item.eccentric,
+    concentric: item.concentric,
+    why: item.why,
+  };
+}
+
+function applyBeginnerSnapshot(item, snapshot) {
+  const exercise = EXERCISES.find((candidate) => candidate.id === snapshot.exerciseId) || item.exercise;
+  return {
+    ...item,
+    exerciseId: exercise.id,
+    exercise,
+    slot: snapshot.slot,
+    slotLabel: snapshot.slotLabel,
+    targetMuscle: snapshot.targetMuscle,
+    goal: snapshot.goal,
+    order: snapshot.order,
+    sets: snapshot.sets,
+    reps: snapshot.reps,
+    rest: snapshot.rest,
+    rir: snapshot.rir,
+    eccentric: snapshot.eccentric,
+    concentric: snapshot.concentric,
+    why: snapshot.why,
+    tradeoff: `Reset to ${exercise.name}.`,
+    isRegressed: false,
+    baseline: snapshot,
+  };
+}
+
+function beginnerExerciseAvailable(exercise, profile) {
+  return exercise.equipment.every((item) => {
+    if (item === "Bodyweight") return profile.equipment.includes("Bodyweight");
+    if (item === "Pull-up bar") return profile.equipment.includes("Pull-up bar");
+    if (item === "Cable machine") return profile.equipment.includes("Cable machine");
+    if (["Dumbbells", "Barbell", "Bench", "Bands", "Back extension"].includes(item)) return profile.equipment.includes("Free-weights");
+    if (["Machines", "Leg press", "Leg extension", "Hamstring curl", "Adductor machine", "Calf raise machine"].includes(item)) return profile.equipment.includes("Machines");
+    return false;
+  });
+}
+
+function scoreBeginnerExercise(exercise, slot, profile) {
+  let score = 0;
+  const preferredIndex = slot.preferred.indexOf(exercise.id);
+  if (preferredIndex >= 0) score += 50 - preferredIndex * 6;
+  if (exercise.primary.includes(slot.targetMuscle)) score += 12;
+  if (exercise.pattern === slot.patterns[0]) score += 5;
+  if (profile.confidence === "low") score -= Math.max(0, exercise.difficulty - 2) * 8 + exercise.jointStress;
+  if (profile.strengthGain >= 7 && exercise.bestGoals.includes("Strength")) score += 6;
+  if (profile.muscleGrowth >= 7 && exercise.bestGoals.includes("Hypertrophy")) score += 5;
+  if (profile.fatLoss >= 7 && exercise.fatigue <= 3) score += 3;
+  if (state.favorites.includes(exercise.id)) score += 5;
+  return score;
+}
+
+function renderBeginnerPlan() {
+  const container = document.getElementById("beginnerResult");
+  if (!container) return;
+  const plan = state.currentBeginnerPlan;
+  if (!plan) {
+    container.innerHTML = "";
+    return;
+  }
+  if (!Array.isArray(plan.routine) || plan.routine.some((item) => !item.exercise)) {
+    const rebuilt = generateBeginnerPlan();
+    plan.routine = rebuilt.routine;
+    plan.finisher = rebuilt.finisher;
+    plan.notes = rebuilt.notes;
+    saveState();
+  }
+  container.innerHTML = `
+    <article class="result-card">
+      <h2>${plan.title}</h2>
+      <div class="meta-strip">
+        <span class="pill">${plan.profile.sessions} sessions/week</span>
+        <span class="pill">${plan.profile.length} min</span>
+        <span class="pill">${plan.profile.equipment.join(", ")}</span>
+      </div>
+      <div class="stack">
+        ${plan.routine.map(renderBeginnerExerciseCard).join("")}
+      </div>
+      <p class="note">${plan.finisher}</p>
+      <h3>Rules</h3>
+      <ul>${plan.notes.map((note) => `<li>${note}</li>`).join("")}</ul>
+    </article>
+  `;
+  container.querySelectorAll("[data-beginner-reroll]").forEach((button) => {
+    button.addEventListener("click", (event) => {
+      event.stopPropagation();
+      rerollBeginnerExercise(button.dataset.beginnerReroll);
+    });
+  });
+  container.querySelectorAll("[data-beginner-regress]").forEach((button) => {
+    button.addEventListener("click", (event) => {
+      event.stopPropagation();
+      regressBeginnerExercise(button.dataset.beginnerRegress);
+    });
+  });
+  container.querySelectorAll("[data-beginner-reset]").forEach((button) => {
+    button.addEventListener("click", (event) => {
+      event.stopPropagation();
+      resetBeginnerExercise(button.dataset.beginnerReset);
+    });
+  });
+}
+
+function renderBeginnerExerciseCard(item) {
+  return `
+    <article class="exercise-card">
+      <div class="exercise-top">
+        <div class="exercise-title">
+          <span class="exercise-index">${item.order}</span>
+          <div>
+            <h3>${item.exercise.name}</h3>
+            <small class="muted">${item.slotLabel} - ${item.targetMuscle}</small>
+          </div>
+        </div>
+        <div class="exercise-actions">
+          <button class="small-button" data-beginner-reroll="${item.id}">Reroll</button>
+          <button class="small-button" data-beginner-regress="${item.id}">Regress</button>
+          <button class="small-button" data-beginner-reset="${item.id}">Reset</button>
+        </div>
+      </div>
+      <div class="spec-grid">
+        <div class="spec"><span>Sets</span><strong>${item.sets}</strong></div>
+        <div class="spec"><span>Reps / time</span><strong>${item.reps}</strong></div>
+        <div class="spec"><span>Rest</span><strong>${item.rest}</strong></div>
+        <div class="spec"><span>RIR</span><strong>${item.rir}</strong></div>
+        <div class="spec"><span>Eccentric</span><strong>${item.eccentric}</strong></div>
+        <div class="spec"><span>Concentric</span><strong>${item.concentric}</strong></div>
+      </div>
+      <p><strong>Cue:</strong> ${item.exercise.cue}</p>
+      <p><strong>Why:</strong> ${item.why}</p>
+      ${item.tradeoff ? `<p class="note">${item.tradeoff}</p>` : ""}
+    </article>
+  `;
+}
+
+function rerollBeginnerExercise(planId) {
+  const plan = state.currentBeginnerPlan;
+  const current = plan?.routine.find((item) => item.id === planId);
+  if (!current) return;
+  const usedIds = new Set(plan.routine.filter((item) => item.id !== planId).map((item) => item.exercise.id));
+  const slot = beginnerSlotFromItem(current);
+  const replacementExercise = pickBeginnerExercise(slot, plan.profile, usedIds, current.exercise.id);
+  if (!replacementExercise) {
+    current.tradeoff = `No beginner-friendly substitute is available for ${current.exercise.name} with this simple equipment setup.`;
+    saveState();
+    renderBeginnerPlan();
+    return;
+  }
+  const replacement = beginnerPlanExercise(replacementExercise, slot, plan.profile, {
+    sets: current.sets,
+    reps: current.reps,
+    index: current.order - 1,
+  });
+  replacement.id = current.id;
+  replacement.baseline = snapshotBeginnerPlan(replacement);
+  replacement.tradeoff = replacement.exercise.pattern === current.exercise.pattern
+    ? `Rerolled from ${current.exercise.name}. Same beginner slot, new exercise.`
+    : `Rerolled from ${current.exercise.name}. Closest beginner substitute changed from ${current.exercise.pattern} to ${replacement.exercise.pattern}.`;
+  plan.routine = plan.routine.map((item) => (item.id === planId ? replacement : item));
+  saveState();
+  renderBeginnerPlan();
+}
+
+function regressBeginnerExercise(planId) {
+  const plan = state.currentBeginnerPlan;
+  const current = plan?.routine.find((item) => item.id === planId);
+  if (!current) return;
+  if (!current.baseline) current.baseline = snapshotBeginnerPlan(current);
+  const usedIds = new Set(plan.routine.filter((item) => item.id !== planId).map((item) => item.exercise.id));
+  const candidates = beginnerRegressionCandidates(current, plan.profile, usedIds);
+  if (!candidates.length) {
+    current.tradeoff = `No easier beginner regression is available for ${current.exercise.name} with the selected simple equipment. Use fewer reps, slower eccentrics, or add assistance.`;
+    saveState();
+    renderBeginnerPlan();
+    return;
+  }
+  const replacement = beginnerPlanExercise(candidates[0].exercise, beginnerSlotFromItem(current), plan.profile, {
+    sets: current.sets,
+    reps: current.reps,
+    index: current.order - 1,
+  });
+  replacement.id = current.id;
+  replacement.baseline = current.baseline;
+  replacement.isRegressed = true;
+  applyRegressionPrescription(replacement, current);
+  replacement.tradeoff = regressionMessage(current.exercise, replacement.exercise, replacement);
+  plan.routine = plan.routine.map((item) => (item.id === planId ? replacement : item));
+  saveState();
+  renderBeginnerPlan();
+}
+
+function resetBeginnerExercise(planId) {
+  const plan = state.currentBeginnerPlan;
+  const current = plan?.routine.find((item) => item.id === planId);
+  if (!current) return;
+  const restored = applyBeginnerSnapshot(current, current.baseline || snapshotBeginnerPlan(current));
+  plan.routine = plan.routine.map((item) => (item.id === planId ? restored : item));
+  saveState();
+  renderBeginnerPlan();
+}
+
+function beginnerSlotFromItem(item) {
+  const slotDefaults = {
+    lower: ["squat", "single leg"],
+    push: ["horizontal press", "upper press"],
+    pull: ["vertical pull", "row"],
+    hinge: ["hinge", "knee flexion"],
+    aesthetic: ["lateral raise", "curl", "elbow extension"],
+    arms: ["curl", "elbow extension"],
+    core: ["anti-extension", "anti-rotation", "anti-lateral flexion"],
+  };
+  return {
+    slot: item.slot,
+    label: item.slotLabel,
+    targetMuscle: item.targetMuscle,
+    goal: item.goal,
+    patterns: slotDefaults[item.slot] || [item.exercise.pattern],
+    preferred: beginnerPreferredForSlot(item.slot),
+  };
+}
+
+function beginnerPreferredForSlot(slot) {
+  return {
+    lower: ["deep-leg-press", "goblet-squat", "bulgarian-split-squat", "step-down"],
+    push: ["db-bench-press", "machine-chest-press", "push-up", "feet-elevated-push-up"],
+    pull: ["lat-pulldown", "pull-up-negative", "scapular-pull-up", "one-arm-db-row", "chest-supported-db-row"],
+    hinge: ["hamstring-curl", "db-romanian-deadlift", "back-extension"],
+    aesthetic: ["db-lateral-raise", "cable-lateral-raise", "db-curl", "cable-pushdown"],
+    arms: ["db-curl", "hammer-curl", "cable-pushdown", "db-overhead-triceps-extension"],
+    core: ["dead-bug", "pallof-press", "band-pallof-press", "side-plank"],
+  }[slot] || [];
+}
+
+function beginnerRegressionCandidates(current, profile, usedIds) {
+  return regressionCandidatesForAvailability(current, usedIds, (exercise) => beginnerExerciseAvailable(exercise, profile));
+}
+
+function generatePosturePlan() {
+  const profile = { ...state.postureProfile };
+  const ranked = POSTURE_SLIDERS
+    .map(([key, label]) => ({ key, label, score: Number(profile[key]) }))
+    .sort((a, b) => b.score - a.score);
+  const active = ranked.filter((item) => item.score >= 5).slice(0, 4);
+  const top = active.length ? active : ranked.slice(0, 2);
+  const drills = top.flatMap((item) => postureDrillsFor(item.key, profile)).slice(0, Number(profile.time) >= 20 ? 8 : 5);
+  const notes = [
+    profile.pain === "moderate" ? "Moderate pain: keep every drill below 3/10 pain and treat this as a gentle control plan, not rehab or medical care." : "These are movement-quality drills, not medical diagnosis.",
+    profile.desk === "high" ? "High sitting time: use one 2-minute reset midday plus the full plan later." : "Run this before lifting or on off days.",
+    profile.training === "running" ? "Running/jumping context: knee tracking, ankle mobility, and hip stability get extra priority." : "Keep the work low fatigue so it improves your main training instead of stealing from it.",
+  ];
+  return {
+    id: crypto.randomUUID(),
+    title: `${top[0].label} Posture Plan`,
+    createdAt: new Date().toISOString(),
+    profile,
+    diagnosis: top,
+    drills,
+    notes,
+  };
+}
+
+function postureDrillsFor(key, profile) {
+  const has = (item) => profile.equipment.includes(item);
+  const band = has("Bands");
+  const cable = has("Cable machine");
+  const db = has("Dumbbells");
+  const bench = has("Bench");
+  const map = {
+    forwardShoulder: [
+      `${band ? "Band Face Pull" : cable ? "Cable Face Pull" : "Prone Y-T-W Raise"} - 2 x 12-20, pause with shoulders down`,
+      `${band ? "Band External Rotation" : "Wall Slide"} - 2 x 8-12, ribs down`,
+    ],
+    anteriorPelvicTilt: [
+      "Dead Bug with full exhale - 2 x 6-10 each",
+      `${bench ? "Couch Stretch" : "Half-Kneeling Hip Flexor Stretch"} - 2 x 30 sec each, glute squeezed`,
+    ],
+    kneeTracking: [
+      `${band ? "Banded TKE + Split Squat ISO" : "Step-Down to Stick"} - 2-3 x 5-8 each`,
+      "Short-foot balance - 2 x 20 sec each",
+    ],
+    quadDominance: [
+      `${db ? "DB Romanian Deadlift" : "Hip Hinge Wall Tap"} - 2-3 x 8-10, hamstrings load first`,
+      "Glute Bridge ISO - 2 x 20-30 sec",
+    ],
+    thoracicMobility: [
+      "Bench T-spine extension breathing - 2 x 5 breaths",
+      "Open Book Rotation - 2 x 6 each",
+    ],
+    ankleMobility: [
+      "Knee-to-wall ankle rocks - 2 x 10 each",
+      `${db ? "Loaded Soleus Raise" : "Bent-knee calf raise"} - 2 x 10-15`,
+    ],
+    hipStability: [
+      `${band ? "Lateral Band Walk" : "Side Plank Clamshell"} - 2 x 8-12 each`,
+      "Single-leg RDL reach - 2 x 5 each, slow",
+    ],
+    scapularControl: [
+      `${has("Pull-up bar") ? "Scapular Pull-Up" : "Scapular Push-Up"} - 2 x 6-10`,
+      `${band ? "Band Straight-Arm Pulldown" : "Prone Swimmer"} - 2 x 10-15`,
+    ],
+  };
+  return map[key] || [];
+}
+
+function renderPosturePlan() {
+  const container = document.getElementById("postureResult");
+  if (!container) return;
+  const plan = state.currentPosturePlan;
+  if (!plan) {
+    container.innerHTML = "";
+    return;
+  }
+  container.innerHTML = `
+    <article class="result-card">
+      <h2>${plan.title}</h2>
+      <div class="meta-strip">
+        <span class="pill">${plan.profile.time} min/day</span>
+        <span class="pill">${plan.profile.pain} pain</span>
+        <span class="pill">${plan.profile.equipment.join(", ")}</span>
+      </div>
+      <h3>Likely Weak Links</h3>
+      <div class="stack">
+        ${plan.diagnosis.map((item) => `<div class="list-item"><strong>${item.label}</strong><p>${item.score}/10 signal strength</p></div>`).join("")}
+      </div>
+      <h3>Daily Reset</h3>
+      <div class="stack">
+        ${plan.drills.map((item, index) => `<div class="exercise-card"><div class="exercise-title"><span class="exercise-index">${index + 1}</span><strong>${item}</strong></div></div>`).join("")}
+      </div>
+      <h3>Notes</h3>
+      <ul>${plan.notes.map((note) => `<li>${note}</li>`).join("")}</ul>
+    </article>
+  `;
+}
+
+function generateCalisthenicsPlan() {
+  const profile = { ...state.calisthenicsPlan };
+  const goals = profile.goals.map((id) => Object.fromEntries(CALISTHENICS_GOALS)[id] || id);
+  const sessions = Number(profile.sessions);
+  const planSessions = Array.from({ length: sessions }, (_, index) => calisthenicsSession(index, profile));
+  const notes = [
+    `Goal blend: ${goals.join(", ")}.`,
+    profile.straightArm >= 7 ? "Straight-arm priority is high: holds stay crisp, with long rests and no elbow pain." : "Straight-arm work is included only where it supports the selected goals.",
+    profile.jointTolerance <= 4 ? "Low joint tolerance: use easier progressions, neutral wrists when possible, and stop before irritation accumulates." : "Progress only when positions look clean across all sets.",
+    profile.skillPractice >= 7 ? "High skill practice: frequent low-fatigue exposures beat grinding rare max attempts." : "Skill work is balanced with basic strength.",
+  ];
+  return {
+    id: crypto.randomUUID(),
+    title: "Calisthenics Skill Plan",
+    createdAt: new Date().toISOString(),
+    profile,
+    sessions: planSessions,
+    notes,
+  };
+}
+
+function calisthenicsSession(index, profile) {
+  const focus = calisthenicsFocus(index, profile.goals);
+  const drills = [
+    "Warm-up: wrists, scapular circles, hollow body breathing - 5 minutes",
+    ...calisthenicsSkillDrills(focus, profile),
+    ...calisthenicsStrengthDrills(focus, profile),
+  ];
+  return {
+    name: `Session ${String.fromCharCode(65 + index)} - ${focus}`,
+    drills: drills.slice(0, profile.conditioning >= 7 ? 7 : 6),
+  };
+}
+
+function calisthenicsFocus(index, goals) {
+  const focusMap = {
+    pullUp: "Vertical Pull",
+    dip: "Dip Strength",
+    pushUp: "Push Strength",
+    handstand: "Handstand Line",
+    lSit: "Compression",
+    frontLever: "Front Lever",
+    planche: "Planche Lean",
+    muscleUp: "Pull + Transition",
+    pistol: "Single-Leg Strength",
+  };
+  return focusMap[goals[index % goals.length]] || "Base Strength";
+}
+
+function calisthenicsSkillDrills(focus, profile) {
+  const has = (item) => profile.equipment.includes(item);
+  const easy = profile.level === "new" || profile.jointTolerance <= 4;
+  if (focus.includes("Handstand")) return [`${easy ? "Wall plank walk-up" : "Chest-to-wall handstand hold"} - 4 x 15-30 sec`, "Wall line drill - 3 x 20 sec"];
+  if (focus.includes("Front Lever")) return [`${has("Pull-up bar") ? "Tuck front lever hold" : "Hollow body pulldown"} - 4 x 6-12 sec`, "Scapular pull-up - 3 x 5-8"];
+  if (focus.includes("Planche")) return [`${easy ? "Planche lean on incline" : "Planche lean"} - 4 x 8-20 sec`, "Scapular push-up - 3 x 8-12"];
+  if (focus.includes("Compression")) return ["L-sit tuck hold - 5 x 6-15 sec", "Seated compression lift - 3 x 8-12"];
+  if (focus.includes("Transition")) return [`${has("Bands") ? "Band-assisted transition drill" : "Low bar transition drill"} - 4 x 3-5`, "Explosive chest-to-bar pull path - 3 x 3"];
+  return profile.skillPractice >= 6 ? ["Technique primer for main skill - 4 x low-fatigue reps"] : [];
+}
+
+function calisthenicsStrengthDrills(focus, profile) {
+  const has = (item) => profile.equipment.includes(item);
+  const assistedPull = has("Bands") ? "Band-Assisted Pull-Up" : "Pull-Up Negative";
+  const rows = has("Rings") ? "Ring Row" : has("Pull-up bar") ? "Inverted Row under bar" : "Prone W Raise";
+  const push = has("Parallettes") ? "Parallette Push-Up" : "Push-Up";
+  const dip = has("Rings") && profile.jointTolerance >= 6 ? "Ring Dip Regression" : "Bench Dip or Eccentric Dip";
+  if (focus.includes("Vertical Pull")) return [`${has("Pull-up bar") ? assistedPull : rows} - 3-4 x 3-8`, `${rows} - 3 x 8-12`, "Hollow body hold - 2 x 20-30 sec"];
+  if (focus.includes("Dip")) return [`${dip} - 3-4 x 4-8`, `${push} - 3 x 8-12`, "Support hold - 3 x 10-20 sec"];
+  if (focus.includes("Push")) return [`${push} - 3-4 x 6-15`, "Pike Push-Up - 3 x 5-10", "Side plank - 2 x 20-30 sec each"];
+  if (focus.includes("Single-Leg")) return ["Box pistol squat or assisted pistol - 4 x 3-6 each", "Step-down - 3 x 6-8 each", "Calf raise - 2 x 10-15 each"];
+  return [`${push} - 3 x 8-12`, `${has("Pull-up bar") ? assistedPull : rows} - 3 x 5-10`, "Dead Bug - 2 x 8 each"];
+}
+
+function renderCalisthenicsPlan() {
+  const container = document.getElementById("calisthenicsPlanResult");
+  if (!container) return;
+  const plan = state.currentCalisthenicsPlan;
+  if (!plan) {
+    container.innerHTML = "";
+    return;
+  }
+  container.innerHTML = `
+    <article class="result-card">
+      <h2>${plan.title}</h2>
+      <div class="meta-strip">
+        <span class="pill">${plan.profile.sessions} sessions/week</span>
+        <span class="pill">${plan.profile.level}</span>
+        <span class="pill">${plan.profile.equipment.join(", ")}</span>
+      </div>
+      <div class="stack">
+        ${plan.sessions.map((session) => `
+          <section class="exercise-card">
+            <h3>${session.name}</h3>
+            <ol>${session.drills.map((drill) => `<li>${drill}</li>`).join("")}</ol>
+          </section>
+        `).join("")}
+      </div>
+      <h3>Rules</h3>
+      <ul>${plan.notes.map((note) => `<li>${note}</li>`).join("")}</ul>
+    </article>
+  `;
+}
+
+function generateFlipPlan() {
+  const profile = { ...state.flipProfile };
+  const goalNames = profile.goals.map((goal) => Object.fromEntries(FLIP_GOALS)[goal] || goal);
+  const sessions = Array.from({ length: Number(profile.sessions) }, (_, index) => flipSession(index, profile));
+  const notes = [
+    `Goal blend: ${goalNames.join(", ")}.`,
+    profile.level === "new" ? "New / cautious: no blind max attempts. Use mats, progressions, and a qualified spotter for new inversions." : "Keep skill reps crisp and stop before rotation speed or landing control drops.",
+    profile.fearManagement >= 7 ? "Fear management is high: the block uses more prerequisite shapes, low-risk entries, and confidence reps." : "Confidence work stays present, but the plan can move faster if quality is there.",
+    profile.surface === "floor" ? "Firm floor: avoid new flip attempts unless the skill is already consistent on softer surfaces." : "Soft surface selected: still treat landing quality as the limiter.",
+  ];
+  return {
+    id: crypto.randomUUID(),
+    title: `${goalNames.slice(0, 2).join(" + ")} Flip Plan`,
+    createdAt: new Date().toISOString(),
+    profile,
+    sessions,
+    notes,
+  };
+}
+
+function flipSession(index, profile) {
+  const focus = flipFocus(index, profile.goals);
+  const drills = [
+    "Prep: ankle bounces, snap-downs, hollow/arch switches - 5 minutes",
+    ...flipSkillDrills(focus, profile),
+    ...flipSupportDrills(focus, profile),
+  ];
+  return {
+    name: `Session ${String.fromCharCode(65 + index)} - ${focus}`,
+    drills: drills.slice(0, profile.level === "trained" ? 7 : 6),
+  };
+}
+
+function flipFocus(index, goals) {
+  const focusMap = {
+    backFlip: "Back flip progressions",
+    frontFlip: "Front flip progressions",
+    sideFlip: "Side flip progressions",
+    twisting: "Twisting shapes",
+    tucking: "Tuck speed",
+    landing: "Landing confidence",
+  };
+  return focusMap[goals[index % goals.length]] || "Flip basics";
+}
+
+function flipSkillDrills(focus, profile) {
+  const has = (item) => profile.equipment.includes(item);
+  const safe = profile.level === "new" || profile.fearManagement >= 7 || !has("Spotter");
+  if (focus.includes("Back")) return [
+    `${has("Wedge mat") ? "Backward roll down wedge" : "Backward roll to hollow"} - 4 x 3-5`,
+    safe ? "Macaco / bridge kickover path rehearsal - 3 x 3 each" : "Spotted back tuck timer - 4 x 2-3",
+    `${has("Trampoline") ? "Trampoline set jump to back drop" : "Set jump + arm swing stick"} - 4 x 3`,
+  ];
+  if (focus.includes("Front")) return [
+    `${has("Wedge mat") ? "Dive roll down wedge" : "Dive roll to stand"} - 4 x 3`,
+    has("Trampoline") ? "Trampoline front tuck shape - 4 x 2-3" : "Punch jump to fast tuck snap - 4 x 3",
+    "Forward roll to immediate vertical jump - 3 x 3",
+  ];
+  if (focus.includes("Side")) return [
+    "Cartwheel snap-down - 4 x 3 each",
+    `${has("Soft mat") ? "Side roll to tuck shape" : "Aerial entry line drill"} - 3 x 3 each`,
+    "Lateral bound to stick - 3 x 4 each",
+  ];
+  if (focus.includes("Twisting")) return [
+    "Quarter-turn jump stick - 4 x 3 each",
+    "Half-turn jump stick - 3 x 2 each",
+    "Hollow-to-arch twist shape on floor - 3 x 5 each",
+  ];
+  if (focus.includes("Tuck")) return [
+    "Tuck jump with fast knee drive - 5 x 3",
+    `${has("Pull-up bar") ? "Hanging knee snap" : "V-up tuck snap"} - 3 x 6-10`,
+    "Hollow rock to tuck - 3 x 6",
+  ];
+  return [
+    "Snap-down to stick - 4 x 3",
+    "Drop landing to quiet freeze - 3 x 3",
+    "Single-leg stick landing - 2 x 4 each",
+  ];
+}
+
+function flipSupportDrills(focus, profile) {
+  const highLanding = profile.landingControl >= 7 || focus.includes("Landing");
+  const power = profile.jumpPower >= 6 ? ["Countermovement jump - 4 x 2, full reset"] : ["Pogo hop - 3 x 12 sec, quiet contacts"];
+  const tuck = profile.tuckSpeed >= 6 ? ["Dead bug tuck snap - 3 x 8 each"] : ["Hollow hold - 2 x 20-30 sec"];
+  const landing = highLanding ? ["Split squat ISO or wall sit - 2 x 20-30 sec", "Calf raise with pause - 2 x 10-15"] : ["Easy calf raise - 2 x 10"];
+  return [...power, ...tuck, ...landing];
+}
+
+function renderFlipPlan() {
+  const container = document.getElementById("flipPlanResult");
+  if (!container) return;
+  const plan = state.currentFlipPlan;
+  if (!plan) {
+    container.innerHTML = "";
+    return;
+  }
+  container.innerHTML = `
+    <article class="result-card">
+      <h2>${plan.title}</h2>
+      <div class="meta-strip">
+        <span class="pill">${plan.profile.sessions} sessions/week</span>
+        <span class="pill">${plan.profile.level}</span>
+        <span class="pill">${plan.profile.equipment.join(", ")}</span>
+      </div>
+      <div class="stack">
+        ${plan.sessions.map((session) => `
+          <section class="exercise-card">
+            <h3>${session.name}</h3>
+            <ol>${session.drills.map((drill) => `<li>${drill}</li>`).join("")}</ol>
+          </section>
+        `).join("")}
+      </div>
+      <h3>Safety Rules</h3>
+      <ul>${plan.notes.map((note) => `<li>${note}</li>`).join("")}</ul>
+    </article>
+  `;
+}
+
+function generateMobilityPlan() {
+  const profile = { ...state.mobilityProfile };
+  const goalNames = profile.goals.map((goal) => Object.fromEntries(MOBILITY_GOALS)[goal] || goal);
+  const drills = profile.goals.flatMap((goal) => mobilityDrillsFor(goal, profile));
+  const cap = Number(profile.time) <= 8 ? 4 : Number(profile.time) <= 12 ? 6 : Number(profile.time) <= 20 ? 8 : 10;
+  const notes = [
+    `Goal blend: ${goalNames.join(", ")}.`,
+    `Bias: passive ${profile.passiveFlexibility}/10, active ${profile.activeFlexibility}/10, joint mobility ${profile.jointMobility}/10, loaded mobility ${profile.loadedMobility}/10.`,
+    profile.passiveFlexibility >= 7 ? "Passive flexibility is high: use longer relaxed holds after the active work." : "Passive holds stay shorter so the range becomes usable, not just reachable.",
+    profile.activeFlexibility >= 7 ? "Active flexibility is high: every session includes lift-offs, end-range holds, or controlled reps." : "Active control is included lightly to keep positions honest.",
+    profile.intensity === "hard" ? "Hard intensity means strong but calm stretching. Avoid numbness, pinching, or sharp joint pain." : "Stay patient and repeatable. Mild stretch is enough when done often.",
+  ];
+  return {
+    id: crypto.randomUUID(),
+    title: `${goalNames.slice(0, 2).join(" + ")} Mobility Plan`,
+    createdAt: new Date().toISOString(),
+    profile,
+    drills: drills.slice(0, cap),
+    notes,
+  };
+}
+
+function mobilityDrillsFor(goal, profile) {
+  const has = (item) => profile.equipment.includes(item);
+  const passive = profile.passiveFlexibility >= 7 ? "45-75 sec" : "25-40 sec";
+  const active = profile.activeFlexibility >= 7 ? "3 x 6-10" : "2 x 5-6";
+  const loaded = profile.loadedMobility >= 7 ? "3 x 6-8 slow" : "2 x 6 controlled";
+  const band = has("Bands");
+  const block = has("Yoga block") ? "with yoga block" : "hands supported";
+  const map = {
+    wristMobility: [`Wrist rocks - ${active}`, `Palm lift-offs - 2 x 6 each`, `Prayer stretch - 2 x ${passive}`],
+    shoulderRom: [`${band ? "Band shoulder dislocates" : "Wall shoulder slides"} - ${active}`, "Prone swimmer - 2 x 6", `Lat stretch on wall - 2 x ${passive}`],
+    thoracicSpine: ["Open book rotation - 2 x 6 each", "Quadruped reach-through - 2 x 6 each", "Bench T-spine extension breathing - 2 x 5 breaths"],
+    overheadPosition: [`${band ? "Band lat opener" : "Wall lat stretch"} - 2 x ${passive}`, "Wall slide lift-off - 2 x 5", "Dead bug pullover - 2 x 6"],
+    deepSquat: [`Deep squat pry ${block} - 2 x ${passive}`, `Goblet squat hold or counterbalance squat - ${loaded}`, "Ankle rocks - 2 x 10 each"],
+    ankleDorsiflexion: ["Knee-to-wall rocks - 2 x 10 each", `Loaded soleus stretch - 2 x ${passive}`, "Tibialis raise - 2 x 12-20"],
+    hipInternalRotation: ["90/90 hip switches - 2 x 6 each", `90/90 IR lift-off - ${active}`, `Hip capsule hover hold - 2 x ${passive}`],
+    hipExternalRotation: ["90/90 external rotation hold - 2 x 30 sec", `Pigeon good morning - ${loaded}`, "Figure-4 lift-off - 2 x 5 each"],
+    hamstrings: [`Active straight-leg raise - ${active}`, `Hamstring floss ${has("Bands") ? "with band" : ""} - 2 x 10`, `Long hamstring hold - 2 x ${passive}`],
+    frontSplits: [`Half-split hamstring pulse - ${loaded}`, `Couch stretch - 2 x ${passive}`, `Supported front split ISO - 2 x ${passive}`],
+    middleSplits: [`Frog rock-back - ${loaded}`, `Horse stance hold - 3 x 20-40 sec`, `Supported middle split hold - 2 x ${passive}`],
+    pancake: [`Seated pancake good morning - ${loaded}`, "Straddle leg lift - 2 x 6 each", `Pancake relaxed hold - 2 x ${passive}`],
+    backbend: ["Wall bridge walk-down prep - 3 x 3", `Hip flexor stretch - 2 x ${passive}`, "Thoracic extension over bench or floor - 2 x 5 breaths"],
+  };
+  return map[goal] || [];
+}
+
+function renderMobilityPlan() {
+  const container = document.getElementById("mobilityPlanResult");
+  if (!container) return;
+  const plan = state.currentMobilityPlan;
+  if (!plan) {
+    container.innerHTML = "";
+    return;
+  }
+  container.innerHTML = `
+    <article class="result-card">
+      <h2>${plan.title}</h2>
+      <div class="meta-strip">
+        <span class="pill">${plan.profile.time} min</span>
+        <span class="pill">${plan.profile.frequency} days/week</span>
+        <span class="pill">${plan.profile.intensity}</span>
+      </div>
+      <div class="stack">
+        ${plan.drills.map((drill, index) => `
+          <div class="exercise-card">
+            <div class="exercise-title"><span class="exercise-index">${index + 1}</span><strong>${drill}</strong></div>
+          </div>
+        `).join("")}
+      </div>
+      <h3>Rules</h3>
+      <ul>${plan.notes.map((note) => `<li>${note}</li>`).join("")}</ul>
+    </article>
+  `;
 }
 
 function generateWorkout() {
@@ -1461,6 +2757,7 @@ function generateJumpBlock() {
   const sessionsPerWeek = Number(profile.sessions);
   const weeks = Array.from({ length: 8 }, (_, index) => buildJumpWeek(index + 1, profile, diagnosis, sessionsPerWeek));
   const notes = jumpBlockNotes(profile, diagnosis);
+  const injuryContext = jumpInjuryContext();
   return {
     id: crypto.randomUUID(),
     title: `${goal} 8-Week Block`,
@@ -1469,6 +2766,8 @@ function generateJumpBlock() {
     goals,
     profile,
     diagnosis,
+    injuryContext,
+    activeInjuries: activeJumpInjuries(),
     notes,
     weeks,
   };
@@ -1959,13 +3258,99 @@ function renderJumpBlock() {
       ${block.notes.map((note) => `<p class="note">${note}</p>`).join("")}
       <div class="card-actions">
         <button class="primary" id="saveJumpBlockBtn">Save Block</button>
+        <button class="ghost" id="forecastJumpBlockBtn">Forecast</button>
       </div>
     </article>
+    ${block.forecast ? renderJumpForecast(block.forecast) : ""}
     <div class="stack">
       ${block.weeks.map(renderJumpWeek).join("")}
     </div>
   `;
   document.getElementById("saveJumpBlockBtn")?.addEventListener("click", saveCurrentJumpBlock);
+  document.getElementById("forecastJumpBlockBtn")?.addEventListener("click", forecastCurrentJumpBlock);
+}
+
+function forecastCurrentJumpBlock() {
+  if (!state.currentJumpBlock) return;
+  state.currentJumpBlock.forecast = generateJumpForecast(state.currentJumpBlock);
+  saveState();
+  renderJumpBlock();
+  document.querySelector(".forecast-card")?.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+function generateJumpForecast(block) {
+  const profile = block.profile;
+  const diagnosis = block.diagnosis;
+  const goals = normalizedJumpGoals(profile);
+  const insuranceBoost = profile.insurance === "high" ? 1.18 : profile.insurance === "medium" ? 1.05 : 0.88;
+  const experienceBoost = profile.experience === "new" ? 1.18 : profile.experience === "trained" ? 0.82 : 1;
+  const injuryContext = block.injuryContext || jumpInjuryContext();
+  const riskDrag = diagnosis.risk >= 2 || injuryContext.moderate ? 0.78 : diagnosis.risk === 1 ? 0.9 : 1;
+  const strengthLinks = jumpStrengthLinks(profile);
+  const weak = new Set(strengthLinks.weak.map((link) => link.key));
+  const goalBoost = (matches) => matches.some((goal) => goals.includes(goal)) ? 1.2 : 1;
+  const weakBoost = (key) => weak.has(key) ? 1.18 : 1;
+  const baseMultiplier = insuranceBoost * experienceBoost * riskDrag;
+  const metrics = [
+    {
+      key: "squat",
+      name: "Squat / Leg Press Strength",
+      gain: forecastGain(7.2, baseMultiplier * goalBoost(["vertical", "approachVertical"]) * weakBoost("quadStrength"), 3, 13),
+    },
+    {
+      key: "hinge",
+      name: "Hinge / Hamstring Strength",
+      gain: forecastGain(6.4, baseMultiplier * goalBoost(["acceleration", "maxVelocity", "sprintSpeed"]) * weakBoost("hamstringStrength"), 3, 12),
+    },
+    {
+      key: "calf",
+      name: "Calf Raise / Tendon Capacity",
+      gain: forecastGain(5.8, baseMultiplier * goalBoost(["reactiveStiffness", "tendonDurability"]) * weakBoost("calfStrength"), 2, 11),
+    },
+    {
+      key: "singleLeg",
+      name: "Single-Leg Control Strength",
+      gain: forecastGain(6.8, baseMultiplier * goalBoost(["runningLongJump", "landingSkill"]) * Math.max(weakBoost("gluteStrength"), weakBoost("adductorStrength")), 3, 12),
+    },
+    {
+      key: "jumpPower",
+      name: "Jump Power Expression",
+      gain: forecastGain(5.4, baseMultiplier * goalBoost(["vertical", "approachVertical", "standingBroad", "runningLongJump"]) * (diagnosis.type === "Slow-strength dominant jumper" ? 1.16 : 1), 2, 10),
+    },
+  ];
+  return {
+    createdAt: new Date().toISOString(),
+    summary: "Percentage forecast if you complete the full 8-week block with clean reps, good recovery, and no pain flare-ups. These are training-effect estimates, not guaranteed outcomes.",
+    metrics,
+  };
+}
+
+function forecastGain(base, multiplier, min, max) {
+  return Math.round(Math.min(max, Math.max(min, base * multiplier)) * 10) / 10;
+}
+
+function renderJumpForecast(forecast) {
+  return `
+    <article class="result-card forecast-card">
+      <div class="inline-head">
+        <div>
+          <h2>8-Week Strength Forecast</h2>
+          <p>${forecast.summary}</p>
+        </div>
+      </div>
+      <div class="forecast-grid">
+        ${forecast.metrics.map((metric, index) => `
+          <div class="forecast-metric forecast-${index % 5}">
+            <div>
+              <strong>${metric.name}</strong>
+              <small>Projected 8-week change</small>
+            </div>
+            <span>+${metric.gain}%</span>
+          </div>
+        `).join("")}
+      </div>
+    </article>
+  `;
 }
 
 function renderJumpWeek(week) {
@@ -2467,6 +3852,10 @@ function regressExercise(planId) {
 }
 
 function regressionCandidates(current, usedIds) {
+  return regressionCandidatesForAvailability(current, usedIds, isAvailable);
+}
+
+function regressionCandidatesForAvailability(current, usedIds, availabilityFn) {
   const mapped = (REGRESSION_MAP[current.exercise.id] || [])
     .map((id) => EXERCISES.find((exercise) => exercise.id === id))
     .filter(Boolean);
@@ -2483,7 +3872,7 @@ function regressionCandidates(current, usedIds) {
     .filter((exercise) => {
       if (seen.has(exercise.id)) return false;
       seen.add(exercise.id);
-      return exercise.id !== current.exercise.id && !usedIds.has(exercise.id) && isAvailable(exercise) && !state.blocked.includes(exercise.id);
+      return exercise.id !== current.exercise.id && !usedIds.has(exercise.id) && availabilityFn(exercise) && !state.blocked.includes(exercise.id);
     })
     .map((exercise) => {
       let score = 0;
@@ -2500,12 +3889,14 @@ function regressionCandidates(current, usedIds) {
 }
 
 function applyRegressionPrescription(item, previous) {
-  item.sets = Math.max(1, Math.min(previous.sets || item.sets, item.exercise.id === "pull-up-negative" ? 3 : item.sets));
+  const previousSets = setCount(previous.sets, setCount(item.sets, 2));
+  const itemSets = setCount(item.sets, previousSets);
+  item.sets = Math.max(1, Math.min(previousSets || itemSets, item.exercise.id === "pull-up-negative" ? 3 : itemSets));
   item.rir = "3-4";
   item.rest = previous.rest?.includes("3") ? "2-3 min" : lengthenRest(previous.rest || item.rest);
 
   if (item.exercise.id === "pull-up-negative") {
-    item.sets = Math.min(3, Math.max(2, previous.sets || 2));
+    item.sets = Math.min(3, Math.max(2, previousSets || 2));
     item.reps = "2-4 reps";
     item.eccentric = "5 sec";
     item.concentric = "Step/jump assist";
@@ -2534,6 +3925,11 @@ function applyRegressionPrescription(item, previous) {
   if (!String(item.reps).includes("sec")) item.reps = regressionRepTarget(item.goal, item.exercise);
   item.eccentric = item.eccentric || "3-5 sec";
   item.concentric = item.concentric || "Smooth";
+}
+
+function setCount(value, fallback) {
+  const parsed = Number.parseInt(String(value), 10);
+  return Number.isFinite(parsed) ? parsed : fallback;
 }
 
 function regressionRepTarget(goal, exercise) {
@@ -2821,12 +4217,28 @@ function renderAll() {
   hydrateProfile();
   hydrateJumpProfile();
   hydrateRecompProfile();
+  hydrateBeginnerProfile();
+  hydratePostureProfile();
+  hydrateCalisthenicsPlan();
+  hydrateFlipProfile();
+  hydrateMobilityProfile();
   renderPickers();
   renderJumpPickers();
+  renderBeginnerEquipment();
+  renderBeginnerPhysiquePriorities();
+  renderPostureEquipment();
+  renderCalisthenicsPickers();
+  renderFlipPickers();
+  renderMobilityPickers();
   renderGoalEditor();
   renderWorkout();
   renderJumpBlock();
   renderRecompPlan();
+  renderBeginnerPlan();
+  renderPosturePlan();
+  renderCalisthenicsPlan();
+  renderFlipPlan();
+  renderMobilityPlan();
   renderSavedJumpBlocks();
   renderSavedRecompPlans();
   renderSaved();
