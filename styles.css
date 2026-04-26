@@ -546,6 +546,32 @@ input[type="range"] {
   color: #f8dfaa;
 }
 
+.coach-card {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #0f141b;
+  padding: 12px;
+  margin: 12px 0;
+}
+
+.landmark-grid {
+  display: grid;
+  gap: 8px;
+}
+
+.landmark-row {
+  display: grid;
+  gap: 3px;
+  padding: 9px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.landmark-row span,
+.landmark-row small {
+  color: var(--muted);
+}
+
 .block-week {
   border: 1px solid var(--line);
   border-radius: 8px;

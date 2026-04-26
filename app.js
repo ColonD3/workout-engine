@@ -133,6 +133,13 @@ const PROFILE_SLIDERS = [
   ["technicalSkill", "Technical skill", "Higher values allow more complex barbell, unilateral, and plyometric choices."],
 ];
 
+const HYPERTROPHY_COACH_SLIDERS = [
+  ["recentHardSets", "Recent weekly hard sets", "How many hard sets this muscle group usually gets per week right now."],
+  ["recoveryConfidence", "Recovery confidence", "How confident you are that you recover well between sessions."],
+  ["pumpQuality", "Pump / tension quality", "Whether target muscles actually feel loaded during hypertrophy work."],
+  ["sorenessCost", "Soreness cost", "How much soreness tends to interfere with your next sessions."],
+];
+
 const defaultProfile = {
   hypertrophyBias: 5,
   strengthBias: 5,
@@ -148,6 +155,16 @@ const defaultProfile = {
   surface: "normal",
   limiter: "none",
   jumpExperience: "some",
+};
+
+const defaultHypertrophyCoach = {
+  enabled: false,
+  recentHardSets: 8,
+  recoveryConfidence: 6,
+  pumpQuality: 6,
+  sorenessCost: 4,
+  performanceTrend: "flat",
+  progressionStyle: "double",
 };
 
 const JUMP_SLIDERS = [
@@ -640,6 +657,7 @@ const defaultState = {
   generatorInjuries: structuredClone(defaultGeneratorInjuries),
   jumpInjuries: structuredClone(defaultJumpInjuries),
   calisthenics: { ...defaultCalisthenicsProfile },
+  hypertrophyCoach: { ...defaultHypertrophyCoach },
   profile: { ...defaultProfile },
   jumpProfile: { ...defaultJumpProfile },
   recompProfile: { ...defaultRecompProfile },
@@ -723,6 +741,7 @@ function loadState() {
       generatorInjuries: mergeInjuryState(defaultGeneratorInjuries, parsed.generatorInjuries),
       jumpInjuries: mergeInjuryState(defaultJumpInjuries, parsed.jumpInjuries),
       calisthenics: { ...defaultState.calisthenics, ...(parsed.calisthenics || {}) },
+      hypertrophyCoach: { ...defaultState.hypertrophyCoach, ...(parsed.hypertrophyCoach || {}) },
       profile: { ...defaultState.profile, ...(parsed.profile || {}) },
       jumpProfile: { ...defaultState.jumpProfile, ...(parsed.jumpProfile || {}) },
       recompProfile: { ...defaultState.recompProfile, ...(parsed.recompProfile || {}) },
@@ -771,6 +790,7 @@ function init() {
   renderInjuryControls("generator");
   renderInjuryControls("jump");
   hydrateCalisthenics();
+  hydrateHypertrophyCoach();
   renderAll();
   document.getElementById("generateBtn").addEventListener("click", () => {
     state.currentWorkout = generateWorkout();
@@ -823,6 +843,12 @@ function init() {
     state.calisthenics = { ...defaultCalisthenicsProfile };
     saveState();
     hydrateCalisthenics();
+    renderAll();
+  });
+  document.getElementById("resetHypertrophyCoachBtn").addEventListener("click", () => {
+    state.hypertrophyCoach = { ...defaultHypertrophyCoach };
+    saveState();
+    hydrateHypertrophyCoach();
     renderAll();
   });
   document.getElementById("generateJumpBlockBtn").addEventListener("click", () => {
@@ -1168,6 +1194,76 @@ function hydrateCalisthenics() {
     state.calisthenics.straightArmPriority = Number(event.target.value);
     document.getElementById("straightArmPriorityOutput").textContent = event.target.value;
     saveState();
+  });
+}
+
+function hydrateHypertrophyCoach() {
+  const toggle = document.getElementById("hypertrophyCoachToggle");
+  const sliders = document.getElementById("hypertrophyCoachSliders");
+  const fields = document.getElementById("hypertrophyCoachFields");
+  if (!toggle || !sliders || !fields) return;
+
+  toggle.innerHTML = `
+    <button class="chip ${state.hypertrophyCoach.enabled ? "" : "active"}" data-hypertrophy-coach-enabled="false">Keep it simple</button>
+    <button class="chip ${state.hypertrophyCoach.enabled ? "active" : ""}" data-hypertrophy-coach-enabled="true">Tune volume</button>
+  `;
+  toggle.querySelectorAll("[data-hypertrophy-coach-enabled]").forEach((button) => {
+    button.addEventListener("click", () => {
+      state.hypertrophyCoach.enabled = button.dataset.hypertrophyCoachEnabled === "true";
+      saveState();
+      hydrateHypertrophyCoach();
+    });
+  });
+
+  if (!state.hypertrophyCoach.enabled) {
+    sliders.innerHTML = `<p class="empty-state">The engine will use conservative default volume landmarks.</p>`;
+    fields.innerHTML = "";
+    return;
+  }
+
+  sliders.innerHTML = HYPERTROPHY_COACH_SLIDERS.map(([key, label, help]) => `
+    <label class="slider-control">
+      <span class="slider-label">${label}<output id="${key}HypertrophyOutput">${state.hypertrophyCoach[key]}</output></span>
+      <input type="range" min="0" max="${key === "recentHardSets" ? "24" : "10"}" step="1" value="${state.hypertrophyCoach[key]}" data-hypertrophy-slider="${key}" />
+      <small>${help}</small>
+    </label>
+  `).join("");
+  sliders.querySelectorAll("[data-hypertrophy-slider]").forEach((input) => {
+    input.addEventListener("input", () => {
+      state.hypertrophyCoach[input.dataset.hypertrophySlider] = Number(input.value);
+      document.getElementById(`${input.dataset.hypertrophySlider}HypertrophyOutput`).textContent = input.value;
+      saveState();
+    });
+  });
+
+  fields.innerHTML = `
+    <label>
+      Recent performance
+      <select id="performanceTrendInput">
+        <option value="falling">Falling / reps dropping</option>
+        <option value="flat">Flat / stable</option>
+        <option value="rising">Rising / progressing</option>
+      </select>
+    </label>
+    <label>
+      Progression style
+      <select id="progressionStyleInput">
+        <option value="double">Add reps, then load</option>
+        <option value="load">Load focused</option>
+        <option value="volume">Volume focused</option>
+      </select>
+    </label>
+  `;
+  [
+    ["performanceTrendInput", "performanceTrend"],
+    ["progressionStyleInput", "progressionStyle"],
+  ].forEach(([id, key]) => {
+    const input = document.getElementById(id);
+    input.value = state.hypertrophyCoach[key];
+    input.onchange = () => {
+      state.hypertrophyCoach[key] = input.value;
+      saveState();
+    };
   });
 }
 
@@ -1682,9 +1778,8 @@ function beginnerPhysiqueTranslations(profile) {
   if (!profile.usePhysiquePriorities || !profile.physiquePriorities?.length) return [];
   const priorities = new Set(profile.physiquePriorities);
   const notes = [];
-  if (priorities.has("absSummer")) notes.push("Abs for summer translation: visible abs mostly come from lower body fat plus enough shoulder/lats/chest to create a V-taper. The plan trains core, but it will not waste the whole session on ab burnouts.");
-  if (priorities.has("absSummer") && profile.gender === "female") notes.push("Feminine abs framing: the plan keeps trunk work useful but does not automatically force a big V-taper bias unless you also choose V-taper or upper-body priority.");
-  if (priorities.has("absSummer") && profile.gender !== "female") notes.push("Masculine abs framing: the app treats this as low body fat plus upper chest, lats, and side delts for the visual frame most beginners actually mean.");
+  if (priorities.has("absSummer") && profile.gender === "female") notes.push("Abs for summer translation: visible abs mostly come from lower body fat, useful trunk control, glute/leg shape if you want it, and enough upper-body tone to frame the waist. The plan does not force a V-taper unless you choose it.");
+  if (priorities.has("absSummer") && profile.gender !== "female") notes.push("Abs for summer translation: visible abs mostly come from lower body fat plus upper chest, lats, and side delts for the visual frame most beginners actually mean. The plan trains core, but it will not waste the whole session on ab burnouts.");
   if (priorities.has("leanerWaist")) notes.push("Leaner waist translation: use fat-loss habits, steps, and trunk control. Side-bend volume is kept low so the goal stays a smaller-looking waist, not more oblique pump.");
   if (priorities.has("biggerChest")) notes.push("Bigger chest translation: prioritize upper-chest-friendly pressing and push-up progressions, then add volume slowly so shoulders and elbows keep up.");
   if (priorities.has("vTaper")) notes.push("V-taper translation: lats and side delts matter more than doing endless ab exercises.");
@@ -1768,6 +1863,7 @@ function snapshotBeginnerPlan(item) {
     rir: item.rir,
     eccentric: item.eccentric,
     concentric: item.concentric,
+    progression: item.progression,
     why: item.why,
   };
 }
@@ -2367,8 +2463,9 @@ function renderFlipPlan() {
 function generateMobilityPlan() {
   const profile = { ...state.mobilityProfile };
   const goalNames = profile.goals.map((goal) => Object.fromEntries(MOBILITY_GOALS)[goal] || goal);
-  const drills = profile.goals.flatMap((goal) => mobilityDrillsFor(goal, profile));
+  const drillGroups = profile.goals.map((goal) => mobilityDrillsFor(goal, profile));
   const cap = Number(profile.time) <= 8 ? 4 : Number(profile.time) <= 12 ? 6 : Number(profile.time) <= 20 ? 8 : 10;
+  const drills = interleaveGoalDrills(drillGroups, cap);
   const notes = [
     `Goal blend: ${goalNames.join(", ")}.`,
     `Bias: passive ${profile.passiveFlexibility}/10, active ${profile.activeFlexibility}/10, joint mobility ${profile.jointMobility}/10, loaded mobility ${profile.loadedMobility}/10.`,
@@ -2381,9 +2478,26 @@ function generateMobilityPlan() {
     title: `${goalNames.slice(0, 2).join(" + ")} Mobility Plan`,
     createdAt: new Date().toISOString(),
     profile,
-    drills: drills.slice(0, cap),
+    drills,
     notes,
   };
+}
+
+function interleaveGoalDrills(drillGroups, cap) {
+  const drills = [];
+  const seen = new Set();
+  const maxGroupLength = Math.max(0, ...drillGroups.map((group) => group.length));
+  for (let index = 0; index < maxGroupLength && drills.length < cap; index += 1) {
+    drillGroups.forEach((group) => {
+      const drill = group[index];
+      if (!drill || drills.length >= cap) return;
+      const key = drill.split(" - ")[0].toLowerCase();
+      if (seen.has(key)) return;
+      seen.add(key);
+      drills.push(drill);
+    });
+  }
+  return drills;
 }
 
 function mobilityDrillsFor(goal, profile) {
@@ -2473,9 +2587,9 @@ function generateWorkout() {
     .sort((a, b) => b.score - a.score)
     .forEach(({ muscle, goal }) => {
       if (chosen.length >= maxExercises) return;
-      const targetSlots = goal === "Maintenance" ? 1 : goal === "Strength + Hypertrophy" ? 2 : 1;
+      const targetSlots = targetSlotsForMuscleGoal(muscle, goal, length, selected.length);
       for (let slot = 0; slot < targetSlots && chosen.length < maxExercises; slot += 1) {
-        if (muscleSets[muscle] >= targetSetsForGoal(goal, length)) break;
+        if (muscleSets[muscle] >= targetSetsForGoal(goal, length, muscle)) break;
         const best = pickExercise({
           candidates,
           muscle,
@@ -2487,9 +2601,7 @@ function generateWorkout() {
         if (!best) break;
         chosen.push(planExercise(best, muscle, goal));
         patternCounts[best.pattern] = (patternCounts[best.pattern] || 0) + 1;
-        best.primary.concat(best.secondary).forEach((trainedMuscle) => {
-          if (muscleSets[trainedMuscle] !== undefined) muscleSets[trainedMuscle] += plannedSets(goal);
-        });
+        creditMuscleSets(muscleSets, best, muscle, goal);
       }
     });
 
@@ -2515,11 +2627,31 @@ function generateWorkout() {
     goals: { ...state.muscleGoals },
     readiness: { ...state.readiness },
     profile: { ...state.profile },
+    hypertrophyCoach: { ...state.hypertrophyCoach },
     calisthenics: { ...state.calisthenics },
     notes,
     exercises: chosen,
     routineNotes: "",
   };
+}
+
+function targetSlotsForMuscleGoal(muscle, goal, length, selectedCount) {
+  if (goal === "Maintenance") return 1;
+  if (goal === "Strength + Hypertrophy") return 2;
+  if (goal === "Hypertrophy" && length >= 50 && selectedCount <= 5 && ["Triceps", "Biceps", "Upper chest", "Mid/lower chest", "Glutes"].includes(muscle)) return 2;
+  return 1;
+}
+
+function creditMuscleSets(muscleSets, exercise, targetMuscle, goal) {
+  const directCredit = plannedSets(goal, targetMuscle);
+  exercise.primary.forEach((trainedMuscle) => {
+    if (muscleSets[trainedMuscle] === undefined) return;
+    muscleSets[trainedMuscle] += trainedMuscle === targetMuscle ? directCredit : 1;
+  });
+  exercise.secondary.forEach((trainedMuscle) => {
+    if (muscleSets[trainedMuscle] === undefined) return;
+    muscleSets[trainedMuscle] += trainedMuscle === targetMuscle ? Math.max(1, Math.floor(directCredit / 2)) : 0.5;
+  });
 }
 
 function musclePriority(muscle) {
@@ -2666,7 +2798,7 @@ function exerciseHitsGeneratorInjury(exercise) {
 }
 
 function planExercise(exercise, muscle, goal) {
-  let sets = plannedSets(goal);
+  let sets = plannedSets(goal, muscle);
   let reps = exercise.defaultReps;
   let rest = exercise.defaultRest;
   let rir = exercise.defaultRir;
@@ -2683,9 +2815,10 @@ function planExercise(exercise, muscle, goal) {
     rir = "1-3";
   }
   if (goal === "Strength + Hypertrophy") {
-    reps = ["squat", "hinge", "horizontal press", "upper press", "vertical pull", "row"].includes(exercise.pattern) ? "5-8" : "8-12";
-    rest = "2 min";
-    rir = "1-2";
+    const mainPattern = ["squat", "hinge", "horizontal press", "upper press", "vertical pull", "row", "single leg", "vertical press"].includes(exercise.pattern);
+    reps = mainPattern ? "5-8" : "8-12";
+    rest = mainPattern ? "2 min" : "75-90 sec";
+    rir = mainPattern ? "1-2" : "1-3";
   }
   if (goal === "Low-hypertrophy strength") {
     sets = Math.min(sets, 2);
@@ -2742,6 +2875,10 @@ function planExercise(exercise, muscle, goal) {
     sets = Math.min(sets, 2);
     reps = exercise.pattern === "landing" ? "3 perfect reps" : "2-3 easy reps";
   }
+  if (hypertrophyCoachApplies(goal)) {
+    if (state.hypertrophyCoach.performanceTrend === "falling" || state.hypertrophyCoach.recoveryConfidence <= 3 || state.hypertrophyCoach.sorenessCost >= 8) rir = "2-4";
+    if (state.hypertrophyCoach.performanceTrend === "rising" && state.hypertrophyCoach.recoveryConfidence >= 7 && state.hypertrophyCoach.sorenessCost <= 5) rir = goal === "Hypertrophy" ? "1-2" : rir;
+  }
 
   if (Number(state.readiness.length) <= 20) sets = Math.min(sets, 2);
   if (state.readiness.energy === "low") sets = Math.max(1, sets - 1);
@@ -2777,9 +2914,25 @@ function planExercise(exercise, muscle, goal) {
     rir,
     eccentric: tempo.eccentric,
     concentric: tempo.concentric,
+    progression: progressionTargetFor(exercise, muscle, goal),
     why: whySelected(exercise, muscle, goal),
     tradeoff: hitInjuries.length ? injuryTradeoff(hitInjuries) : "",
   };
+}
+
+function progressionTargetFor(exercise, muscle, goal) {
+  if (!hypertrophyCoachApplies(goal)) {
+    if (goal === "Strength") return "Add load when all sets hit the top of the rep range with the target RIR.";
+    if (goal === "Athletic / parkour carryover") return "Progress only while speed, landing quality, or control stays crisp.";
+    return "Progress reps or load when all sets stay inside the target RIR.";
+  }
+  const coach = state.hypertrophyCoach;
+  const landmarks = volumeLandmarksFor(muscle, goal);
+  if (coach.performanceTrend === "falling" || coach.recentHardSets >= landmarks.mrv - 1) return "Hold load steady this week; recover performance before adding more sets.";
+  if (coach.pumpQuality <= 3) return "Improve target-muscle tension first; add load only if the muscle still feels like the limiter.";
+  if (coach.progressionStyle === "load") return "Add the smallest load jump once all sets hit the top of the range at target RIR.";
+  if (coach.progressionStyle === "volume") return "Add one set next exposure only if soreness is manageable and reps are stable.";
+  return "Add reps until every set reaches the top of the range, then add the smallest load jump.";
 }
 
 function injuryTradeoff(injuries) {
@@ -2828,6 +2981,7 @@ function applyPlanSnapshot(item, snapshot) {
     rir: snapshot.rir,
     eccentric: snapshot.eccentric || tempoForExercise(exercise, snapshot.goal).eccentric,
     concentric: snapshot.concentric || tempoForExercise(exercise, snapshot.goal).concentric,
+    progression: snapshot.progression || progressionTargetFor(exercise, snapshot.targetMuscle, snapshot.goal),
     why: snapshot.why || whySelected(exercise, snapshot.targetMuscle, snapshot.goal),
     tradeoff: "",
     isRegressed: false,
@@ -2835,7 +2989,7 @@ function applyPlanSnapshot(item, snapshot) {
   };
 }
 
-function plannedSets(goal) {
+function plannedSets(goal, muscle = "") {
   const base = {
     Hypertrophy: 3,
     Strength: 3,
@@ -2844,12 +2998,14 @@ function plannedSets(goal) {
     Maintenance: 1,
     "Athletic / parkour carryover": 2,
   }[goal];
-  if (state.profile.volumeTolerance >= 8 && goal !== "Maintenance") return base + 1;
-  if (state.profile.volumeTolerance <= 2) return Math.max(1, base - 1);
-  return base;
+  let adjusted = base;
+  if (state.profile.volumeTolerance >= 8 && goal !== "Maintenance") adjusted += 1;
+  if (state.profile.volumeTolerance <= 2) adjusted -= 1;
+  adjusted += hypertrophyCoachSetShift(goal, muscle);
+  return Math.max(1, adjusted);
 }
 
-function targetSetsForGoal(goal, length) {
+function targetSetsForGoal(goal, length, muscle = "") {
   const base = {
     Hypertrophy: 5,
     Strength: 4,
@@ -2861,7 +3017,55 @@ function targetSetsForGoal(goal, length) {
   let adjusted = length <= 20 ? Math.min(base, 3) : length >= 70 ? base + 2 : base;
   if (state.profile.volumeTolerance >= 8) adjusted += 2;
   if (state.profile.volumeTolerance <= 2) adjusted = Math.max(1, adjusted - 2);
+  if (hypertrophyCoachApplies(goal)) adjusted += hypertrophyCoachTargetShift(muscle);
   return adjusted;
+}
+
+function hypertrophyCoachApplies(goal) {
+  return state.hypertrophyCoach?.enabled && goal.includes("Hypertrophy");
+}
+
+function hypertrophyCoachSetShift(goal, muscle) {
+  if (!hypertrophyCoachApplies(goal)) return 0;
+  const coach = state.hypertrophyCoach;
+  let shift = 0;
+  if (coach.performanceTrend === "falling") shift -= 1;
+  if (coach.sorenessCost >= 8 || coach.recoveryConfidence <= 3) shift -= 1;
+  const landmarks = volumeLandmarksFor(muscle, goal);
+  if (coach.recentHardSets >= landmarks.mrv - 1) shift -= 1;
+  if (coach.recentHardSets <= landmarks.mev - 2 && coach.performanceTrend !== "falling" && coach.recoveryConfidence >= 6 && coach.sorenessCost <= 5) shift += 1;
+  return Math.max(-1, Math.min(1, shift));
+}
+
+function hypertrophyCoachTargetShift(muscle) {
+  const coach = state.hypertrophyCoach || defaultHypertrophyCoach;
+  const landmarks = volumeLandmarksFor(muscle, state.muscleGoals[muscle] || "Hypertrophy");
+  if (coach.recentHardSets >= landmarks.mrv - 1 || coach.performanceTrend === "falling") return -2;
+  if (coach.recentHardSets < landmarks.mev && coach.recoveryConfidence >= 6 && coach.sorenessCost <= 6) return 2;
+  return 0;
+}
+
+function volumeLandmarksFor(muscle, goal) {
+  const small = ["Side delts", "Rear delts", "Biceps", "Triceps", "Forearms", "Calves", "Abs", "Obliques", "Neck"].includes(muscle);
+  const large = ["Quads", "Glutes", "Hamstrings", "Lats", "Mid back", "Upper chest", "Mid/lower chest"].includes(muscle);
+  let mev = small ? 4 : large ? 6 : 5;
+  let mav = small ? 10 : large ? 12 : 9;
+  let mrv = small ? 18 : large ? 20 : 16;
+  if (goal === "Strength + Hypertrophy") {
+    mev -= 1;
+    mav -= 1;
+    mrv -= 2;
+  }
+  if (state.profile.trainingAge === "beginner") {
+    mev = Math.max(2, mev - 2);
+    mav = Math.max(5, mav - 3);
+    mrv = Math.max(8, mrv - 5);
+  }
+  if (state.profile.trainingAge === "advanced") {
+    mav += 2;
+    mrv += 3;
+  }
+  return { mev, mav, mrv };
 }
 
 function whySelected(exercise, muscle, goal) {
@@ -2884,9 +3088,19 @@ function readinessNotes() {
   if (state.profile.limiter === "conditioning") notes.push("Limiter: conditioning. The engine trims fatigue and avoids turning power work into cardio.");
   if (state.profile.jumpExperience === "new" && state.profile.jumpBias >= 5) notes.push("Jump experience: new. Landing skill is preferred before higher-output jumps.");
   if (state.calisthenics.enabled && state.calisthenics.straightArmPriority >= 6) notes.push(`Calisthenics bias: straight-arm strength priority ${state.calisthenics.straightArmPriority}/10, so relevant muscles favor planche/front-lever/scapular patterns when equipment allows.`);
+  if (state.hypertrophyCoach.enabled) notes.push(...hypertrophyCoachNotes());
   activeGeneratorInjuries().forEach((injury) => {
     notes.push(`${injury.label} injury: average working pain ${injury.pain}/10. The engine avoids high-stress matching patterns where possible and uses higher RIR when not possible.`);
   });
+  return notes;
+}
+
+function hypertrophyCoachNotes() {
+  const coach = state.hypertrophyCoach;
+  const notes = [`Hypertrophy coach: using recent volume ${coach.recentHardSets} hard sets/week, recovery ${coach.recoveryConfidence}/10, pump quality ${coach.pumpQuality}/10, soreness cost ${coach.sorenessCost}/10, and ${coach.performanceTrend} performance to steer volume.`];
+  if (coach.performanceTrend === "falling" || coach.sorenessCost >= 8 || coach.recoveryConfidence <= 3) notes.push("Volume guardrail: performance or recovery looks limited, so the plan avoids pushing toward MRV today.");
+  else if (coach.pumpQuality <= 3) notes.push("Stimulus guardrail: pump/tension is low, so the plan prioritizes better target-muscle stimulus before blindly adding load.");
+  else if (coach.performanceTrend === "rising" && coach.recoveryConfidence >= 7) notes.push("Progression signal: performance and recovery look good, so priority hypertrophy work can progress carefully.");
   return notes;
 }
 
@@ -3093,17 +3307,27 @@ function jumpFocusPlan(goals, sessionsPerWeek, diagnosis, profile) {
 
 function buildJumpSession(focus, index, week, phase, profile, diagnosis) {
   const warmup = index === 0 ? "Warm-up: skips, ankle rocks, hip switches, 2 x 20m build-ups" : "Warm-up: pogos, snap-downs, marching switches, 2 relaxed build-ups";
-  const drills = [
+  const drills = dedupeDrills([
     warmup,
     ...jumpMainDrills(focus, week, phase, profile, diagnosis),
     jumpStrengthDrill(focus, week, profile, diagnosis),
     ...jumpInsuranceDrills(focus, week, profile, diagnosis),
-  ].filter(Boolean);
+  ].filter(Boolean));
   return {
     name: `Session ${String.fromCharCode(65 + index)} - ${focus}`,
     drills,
     cue: sessionCue(focus, diagnosis),
   };
+}
+
+function dedupeDrills(drills) {
+  const seen = new Set();
+  return drills.filter((drill) => {
+    const key = drill.split(" - ")[0].replace(/\(.+\)/, "").trim().toLowerCase();
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
 }
 
 function jumpMainDrills(focus, week, phase, profile, diagnosis) {
@@ -3249,13 +3473,34 @@ function jumpInsuranceDrills(focus, week, profile, diagnosis) {
     return drills;
   }
 
-  weakLinks.slice(0, high ? 3 : 1).forEach((link) => pushUnique(formatJumpStrengthSupport(profile, link.key, "support", injury)));
-  if (high || needsTendon || focus.includes("Tissue") || focus.includes("Calf")) pushUnique(`${injury.achilles >= 4 ? "Calf isometric hold" : calf} - ${injury.achilles >= 4 ? "3 x 20-30 sec" : high ? "3-4 x 8-12" : "3 x 8-10"}, controlled`);
-  if (medium || high) pushUnique(`${hinge} - ${week >= 3 && week <= 6 ? "3 x 5-6" : "2-3 x 6-8"}`);
-  if (high) pushUnique(`${adductor} - 2-3 x 8-12`);
-  if (high || profile.singleLegControl <= 5 || profile.landingConfidence <= 5) pushUnique(`${injury.knee >= 4 ? "Step-down to comfortable depth" : unilateral} - 2-3 x 5-8 each`);
+  const weakKeys = weakLinks.map((link) => link.key);
+  const focusKeys = jumpSupportKeysForFocus(focus);
+  const supportKeys = [
+    ...focusKeys.filter((key) => weakKeys.includes(key)),
+    ...focusKeys,
+    ...weakKeys,
+    ...(high ? ["hamstringStrength", "adductorStrength", "calfStrength", "gluteStrength", "trunkStrength"] : []),
+  ];
+  supportKeys.forEach((key) => {
+    const isCalf = key === "calfStrength";
+    const calfMaintenanceOnly = isCalf && calfIsStrong && !needsTendon && !focus.includes("Reactive") && !focus.includes("Elastic");
+    if (calfMaintenanceOnly) return;
+    pushUnique(formatJumpStrengthSupport(profile, key, "support", injury, weakKeys.includes(key) ? "weak link" : "support"));
+  });
+  if ((high || needsTendon || focus.includes("Tissue") || focus.includes("Calf")) && !(calfIsStrong && !needsTendon)) pushUnique(`${injury.achilles >= 4 ? "Calf isometric hold" : calf} - ${injury.achilles >= 4 ? "3 x 20-30 sec" : high ? "3-4 x 8-12" : "3 x 8-10"}, controlled`);
+  if (medium && !high) pushUnique(`${hinge} - ${week >= 3 && week <= 6 ? "3 x 5-6" : "2-3 x 6-8"}`);
+  if ((high || profile.singleLegControl <= 5 || profile.landingConfidence <= 5) && !focus.includes("Reactive")) pushUnique(`${injury.knee >= 4 ? "Step-down to comfortable depth" : unilateral} - 2-3 x 5-8 each`);
   if (!drills.length) pushUnique("Easy trunk brace or suitcase carry - 2 rounds, low fatigue");
   return drills.slice(0, high ? 4 : 2);
+}
+
+function jumpSupportKeysForFocus(focus) {
+  if (focus.includes("Reactive") || focus.includes("Elastic") || focus.includes("Tissue") || focus.includes("Calf")) return ["calfStrength", "trunkStrength", "adductorStrength"];
+  if (focus.includes("Acceleration") || focus.includes("Max velocity") || focus.includes("Hamstring") || focus.includes("Posterior")) return ["hamstringStrength", "gluteStrength", "calfStrength"];
+  if (focus.includes("Specific vertical")) return ["adductorStrength", "gluteStrength", "hamstringStrength", "quadStrength"];
+  if (focus.includes("Landing") || focus.includes("Single-leg")) return ["adductorStrength", "trunkStrength", "gluteStrength"];
+  if (focus.includes("Horizontal") || focus.includes("Bounds") || focus.includes("takeoff")) return ["gluteStrength", "adductorStrength", "hamstringStrength"];
+  return ["quadStrength", "hamstringStrength", "adductorStrength", "gluteStrength"];
 }
 
 function jumpStrengthLinks(profile) {
@@ -3297,7 +3542,7 @@ function bestStrengthLinkForFocus(profile, focus) {
   return preferred ? weakLinks.find((link) => link.key === preferred[1]) : weakLinks[0];
 }
 
-function formatJumpStrengthSupport(profile, key, role, injury) {
+function formatJumpStrengthSupport(profile, key, role, injury, label = "weak link") {
   const exerciseByKey = {
     quadStrength: injury.knee >= 4 ? "Leg Press to comfortable depth" : bestLowerStrengthExercise(profile),
     hamstringStrength: bestHingeExercise(profile),
@@ -3340,7 +3585,7 @@ function formatJumpStrengthSupport(profile, key, role, injury) {
       trunkStrength: "2 rounds, low fatigue",
     },
   };
-  return `${exerciseByKey[key]} - ${prescriptionByRole[role][key]} (${JUMP_STRENGTH_LABELS[key]} weak link)`;
+  return `${exerciseByKey[key]} - ${prescriptionByRole[role][key]} (${JUMP_STRENGTH_LABELS[key]} ${label})`;
 }
 
 function bestLowerStrengthExercise(profile) {
@@ -3803,7 +4048,8 @@ function generateRecompForecast(plan, weeks) {
   const desiredLossLb = targetWeight ? Math.max(0, weightLb - toLb(targetWeight, profile.unit)) : weightLb * (weeklyLossPct / 100) * weeks;
   const weeklyLoss = Math.min(desiredLossLb / weeks || weightLb * (weeklyLossPct / 100), weightLb * 0.012);
   const fatLost = Math.max(0, weeklyLoss * weeks * (profile.proteinConsistency >= 6 ? 0.88 : 0.78));
-  const musclePotential = (profile.muscleGainPriority / 10) * (profile.proteinConsistency / 10) * (profile.trainingConsistency / 10);
+  const trainingConsistency = Number(profile.trainingConsistency ?? profile.mealPrepWillingness ?? 6);
+  const musclePotential = (profile.muscleGainPriority / 10) * (profile.proteinConsistency / 10) * (trainingConsistency / 10);
   const trackingDrag = profile.tracking === "no" ? 0.78 : profile.tracking === "flexible" ? 0.9 : 1;
   const deficitDrag = profile.deficitAggression >= 8 ? 0.55 : profile.deficitAggression >= 6 ? 0.75 : 1;
   const muscleGained = Math.max(0, Math.min(weeks * 0.22, weeks * 0.11 * musclePotential * trackingDrag * deficitDrag));
@@ -4304,6 +4550,7 @@ function renderWorkout() {
         <span class="pill ${workout.readiness.pain === "moderate" ? "danger" : workout.readiness.pain === "mild" ? "warn" : ""}">Pain: ${workout.readiness.pain}</span>
       </div>
       ${workout.notes.map((note) => `<p class="note">${note}</p>`).join("")}
+      ${renderHypertrophyLandmarks(workout)}
       <div class="card-actions">
         <button class="primary" id="saveRoutineBtn">Save Routine</button>
         <button class="ghost" id="logCurrentBtn">Log This</button>
@@ -4352,8 +4599,40 @@ function renderExerciseCard(item) {
       </div>
       <p><strong>Cue:</strong> ${item.exercise.cue}</p>
       <p><strong>Why:</strong> ${item.why}</p>
+      <p><strong>Progression:</strong> ${item.progression || progressionTargetFor(item.exercise, item.targetMuscle, item.goal)}</p>
       ${item.tradeoff ? `<p class="note">${item.tradeoff}</p>` : ""}
     </article>
+  `;
+}
+
+function renderHypertrophyLandmarks(workout) {
+  if (!workout.hypertrophyCoach?.enabled) return "";
+  const rows = workout.selectedMuscles
+    .filter((muscle) => (workout.goals[muscle] || "").includes("Hypertrophy"))
+    .map((muscle) => {
+      const landmarks = volumeLandmarksFor(muscle, workout.goals[muscle] || "Hypertrophy");
+      const directSets = workout.exercises
+        .filter((item) => item.targetMuscle === muscle)
+        .reduce((total, item) => total + Number(item.sets || 0), 0);
+      const status = directSets < landmarks.mev ? "minimum-effective" : directSets > landmarks.mav ? "aggressive" : "productive";
+      return `
+        <div class="landmark-row">
+          <strong>${muscle}</strong>
+          <span>${directSets} direct sets today</span>
+          <small>MEV ${landmarks.mev} / MAV ${landmarks.mav} / MRV ${landmarks.mrv} weekly sets - ${status}</small>
+        </div>
+      `;
+    })
+    .join("");
+  if (!rows) return "";
+  return `
+    <div class="coach-card">
+      <div class="inline-head">
+        <h3>Volume Landmarks</h3>
+        <span class="pill">weekly guide</span>
+      </div>
+      <div class="landmark-grid">${rows}</div>
+    </div>
   `;
 }
 
@@ -4821,6 +5100,7 @@ function renderAll() {
   [
     [hydrateReadiness, "readiness"],
     [hydrateProfile, "profile"],
+    [hydrateHypertrophyCoach, "hypertrophy coach"],
     [hydrateJumpProfile, "jump profile"],
     [hydrateRecompProfile, "recomp profile"],
     [hydrateBeginnerProfile, "beginner profile"],
