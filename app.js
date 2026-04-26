@@ -288,6 +288,8 @@ const defaultBeginnerProfile = {
   length: "35",
   confidence: "medium",
   days: "flexible",
+  gender: "unspecified",
+  bodyFocus: "both",
 };
 
 const POSTURE_SLIDERS = [
@@ -448,12 +450,39 @@ const defaultCalisthenicsProfile = {
 };
 
 const REGRESSION_MAP = {
-  "pull-up": ["band-assisted-pull-up", "pull-up-negative", "lat-pulldown", "scapular-pull-up"],
-  "band-assisted-pull-up": ["pull-up-negative", "lat-pulldown", "scapular-pull-up"],
-  "lat-pulldown": ["band-assisted-pull-up", "scapular-pull-up"],
-  "incline-barbell-press": ["incline-db-press", "feet-elevated-push-up", "incline-db-squeeze-press"],
-  "back-squat": ["deep-leg-press", "goblet-squat", "tempo-split-squat"],
-  "barbell-romanian-deadlift": ["db-romanian-deadlift", "back-extension", "single-leg-hip-hinge"],
+  "pull-up": ["band-assisted-pull-up", "eccentric-chin-up", "pull-up-negative", "lat-pulldown", "scapular-pull-up", "band-straight-arm-pulldown"],
+  "band-assisted-pull-up": ["eccentric-chin-up", "pull-up-negative", "lat-pulldown", "scapular-pull-up", "band-straight-arm-pulldown"],
+  "lat-pulldown": ["half-kneeling-single-arm-pulldown", "band-assisted-pull-up", "scapular-pull-up", "band-straight-arm-pulldown"],
+  "incline-barbell-press": ["incline-db-press", "low-incline-machine-press", "feet-elevated-push-up", "incline-db-squeeze-press", "incline-push-up"],
+  "incline-db-press": ["low-incline-machine-press", "feet-elevated-push-up", "incline-db-squeeze-press", "incline-push-up"],
+  "db-bench-press": ["machine-chest-press", "push-up", "incline-push-up"],
+  "standing-overhead-press": ["landmine-press", "db-shoulder-press", "pike-push-up", "wall-handstand-line-hold"],
+  "db-shoulder-press": ["landmine-press", "pike-push-up", "wall-handstand-line-hold"],
+  "machine-lateral-raise": ["band-lateral-raise", "db-lateral-raise", "lean-away-cable-lateral-raise", "cable-lateral-raise", "band-face-pull"],
+  "db-lateral-raise": ["band-lateral-raise", "machine-lateral-raise", "lean-away-cable-lateral-raise", "cable-lateral-raise", "band-face-pull"],
+  "cable-lateral-raise": ["band-lateral-raise", "lean-away-cable-lateral-raise", "db-lateral-raise", "machine-lateral-raise", "band-face-pull"],
+  "lean-away-cable-lateral-raise": ["band-lateral-raise", "cable-lateral-raise", "db-lateral-raise", "machine-lateral-raise", "band-face-pull"],
+  "cable-rear-delt-fly": ["cable-face-pull", "band-face-pull", "prone-db-rear-delt-raise", "chest-supported-machine-row"],
+  "prone-db-rear-delt-raise": ["band-face-pull", "cable-face-pull", "chest-supported-db-row"],
+  "back-squat": ["deep-leg-press", "front-foot-elevated-split-squat", "goblet-squat", "tempo-split-squat", "box-squat-to-bench"],
+  "deep-leg-press": ["goblet-squat", "box-squat-to-bench", "step-down"],
+  "bulgarian-split-squat": ["front-foot-elevated-split-squat", "reverse-lunge", "step-down", "split-squat-iso-hold"],
+  "barbell-romanian-deadlift": ["db-romanian-deadlift", "hamstring-curl", "back-extension", "single-leg-hip-hinge", "hamstring-slider-curl"],
+  "db-romanian-deadlift": ["hamstring-curl", "back-extension", "single-leg-hip-hinge", "hamstring-slider-curl"],
+  "hamstring-curl": ["hamstring-slider-curl", "single-leg-hip-hinge", "back-extension", "single-leg-glute-bridge"],
+  "hamstring-slider-curl": ["hamstring-curl", "single-leg-hip-hinge", "single-leg-glute-bridge"],
+  "hip-thrust": ["db-hip-thrust", "single-leg-glute-bridge", "back-extension"],
+  "standing-calf-raise": ["seated-calf-raise", "single-leg-calf-raise", "calf-isometric-hold"],
+  "single-leg-calf-raise": ["db-single-leg-calf-raise", "seated-calf-raise", "calf-isometric-hold", "tibialis-raise"],
+  "db-single-leg-calf-raise": ["single-leg-calf-raise", "seated-calf-raise", "calf-isometric-hold", "tibialis-raise"],
+  "pogo-hop": ["calf-isometric-hold", "snap-down", "standing-calf-raise"],
+  "broad-jump": ["snap-down", "countermovement-jump", "skater-bound"],
+  "approach-jump": ["countermovement-jump", "snap-down", "pogo-hop"],
+  "diamond-push-up": ["close-grip-push-up", "cable-pushdown", "push-up"],
+  "close-grip-bench-press": ["close-grip-push-up", "cable-pushdown", "db-skull-crusher"],
+  "hanging-knee-raise": ["captain-chair-knee-raise", "reverse-crunch", "dead-bug"],
+  "copenhagen-plank": ["side-lying-adduction", "adductor-machine", "side-plank"],
+  "suitcase-carry": ["offset-farmer-carry", "pallof-press", "side-plank"],
 };
 
 const EXERCISES = [
@@ -485,6 +514,7 @@ const EXERCISES = [
   e("Prone DB Rear Delt Raise", ["Rear delts"], ["Mid back"], ["Dumbbells", "Bench"], "rear delt", ["Hypertrophy", "Maintenance"], 1, 1, 1, 2, "12-20", "60 sec", "1-3", "Keep the chest supported and reach wide.", "A simple rear-delt option when cables or bands are not available."),
   e("DB Lateral Raise", ["Side delts"], ["Upper traps"], ["Dumbbells"], "lateral raise", ["Hypertrophy", "Maintenance"], 1, 1, 1, 2, "12-20", "60 sec", "1-3", "Lead with the elbow and stop before shrugging.", "Direct side-delt volume for shoulder width."),
   e("Cable Lateral Raise", ["Side delts"], ["Upper traps"], ["Cable machine"], "lateral raise", ["Hypertrophy"], 1, 1, 2, 2, "10-18", "60 sec", "1-3", "Keep cable tension behind the body at the start.", "Constant side-delt tension with a strong stretched position."),
+  e("Band Lateral Raise", ["Side delts"], ["Upper traps"], ["Bands"], "lateral raise", ["Maintenance", "Hypertrophy"], 1, 1, 1, 1, "12-20", "45-60 sec", "2-3", "Step on the band lightly and raise only as high as you can without shrugging.", "Very easy side-delt volume and a good regression when weights feel too jumpy."),
   e("Standing Overhead Press", ["Front delts"], ["Triceps", "Side delts", "Abs"], ["Barbell"], "vertical press", ["Strength", "Strength + Hypertrophy"], 4, 3, 3, 4, "3-6", "3 min", "1-2", "Squeeze glutes and press close to your face.", "Primary shoulder strength with trunk stiffness demand."),
   e("DB Shoulder Press", ["Front delts"], ["Triceps", "Side delts"], ["Dumbbells"], "vertical press", ["Strength + Hypertrophy", "Hypertrophy"], 3, 2, 2, 3, "6-10", "2 min", "1-2", "Press up and slightly in without flaring the ribs.", "Good delt and triceps loading with natural shoulder motion."),
   e("Cable Pushdown", ["Triceps"], [], ["Cable machine"], "elbow extension", ["Hypertrophy", "Maintenance"], 1, 1, 1, 1, "8-15", "60-75 sec", "1-3", "Lock the upper arm still and finish hard.", "Low-joint-stress triceps volume that pairs well after pressing."),
@@ -518,6 +548,7 @@ const EXERCISES = [
   e("Skater Bound", ["Glutes", "Adductors"], ["Quads", "Calves", "Obliques"], ["Bodyweight"], "jump", ["Athletic / parkour carryover"], 3, 2, 3, 4, "3-5 each", "75-90 sec", "4", "Push sideways, land quietly, and own the hip position.", "Lateral power and unilateral landing control for athletic carryover."),
   e("Approach Jump", ["Quads", "Glutes", "Calves"], ["Abs"], ["Bodyweight"], "jump", ["Athletic / parkour carryover"], 3, 2, 4, 5, "2-3 reps", "2 min", "4", "Use a smooth approach and stop every set while springy.", "Specific jump practice for takeoff timing and neural output."),
   e("Single-Leg Calf Raise", ["Calves"], [], ["Bodyweight"], "calf raise", ["Strength", "Athletic / parkour carryover", "Maintenance"], 2, 1, 1, 2, "8-15 each", "60-75 sec", "1-3", "Use full range and avoid twisting the ankle.", "Useful calf strength with no machine needed."),
+  e("DB Single-Leg Calf Raise", ["Calves"], [], ["Dumbbells"], "calf raise", ["Strength", "Hypertrophy", "Athletic / parkour carryover"], 2, 1, 2, 2, "8-12 each", "75-90 sec", "1-3", "Hold support lightly and move through full range without bouncing.", "Loadable single-leg calf work when no calf machine is available."),
   e("Adductor Machine", ["Adductors"], [], ["Adductor machine"], "adduction", ["Strength", "Hypertrophy", "Athletic / parkour carryover"], 2, 1, 1, 1, "8-15", "75 sec", "1-3", "Control the outer range and squeeze inward.", "Direct adductor capacity for knee and hip control."),
   e("Copenhagen Plank", ["Adductors", "Obliques"], ["Abs"], ["Bench"], "adduction", ["Low-hypertrophy strength", "Athletic / parkour carryover", "Strength"], 3, 2, 2, 4, "10-25 sec each", "60-90 sec", "2-3", "Keep hips tall and ribs tucked.", "Adductor and lateral trunk strength with high carryover."),
   e("Dead Bug", ["Abs"], ["Obliques"], ["Bodyweight"], "anti-extension", ["Low-hypertrophy strength", "Maintenance", "Athletic / parkour carryover"], 1, 1, 1, 1, "6-10 each", "45-60 sec", "3", "Exhale, flatten ribs, and move only as far as you control.", "Bracing practice without high abdominal hypertrophy stimulus."),
@@ -526,9 +557,80 @@ const EXERCISES = [
   e("Band Pallof Press", ["Obliques", "Abs"], [], ["Bands"], "anti-rotation", ["Low-hypertrophy strength", "Athletic / parkour carryover", "Maintenance"], 1, 1, 1, 1, "8-12 each", "45-60 sec", "3", "Lock ribs down and pause fully extended.", "Portable anti-rotation work for trunk control."),
   e("Side Plank", ["Obliques"], ["Abs", "Glutes"], ["Bodyweight"], "anti-lateral flexion", ["Low-hypertrophy strength", "Maintenance", "Athletic / parkour carryover"], 1, 1, 1, 1, "20-45 sec each", "45-60 sec", "3", "Stack hips and push the floor away.", "Lateral trunk endurance with little hypertrophy bias."),
   e("Suitcase Carry", ["Obliques", "Forearms"], ["Abs"], ["Dumbbells"], "carry", ["Low-hypertrophy strength", "Athletic / parkour carryover", "Strength"], 3, 1, 1, 3, "30-45 sec each", "75-90 sec", "2", "Walk tall without leaning away from the load.", "Anti-lateral-flexion strength with useful real-world carryover."),
+  e("Incline Push-Up", ["Mid/lower chest"], ["Triceps", "Front delts", "Abs"], ["Bodyweight", "Bench"], "horizontal press", ["Maintenance", "Hypertrophy", "Athletic / parkour carryover"], 1, 1, 1, 1, "8-15", "60 sec", "3-4", "Keep a straight body line and use the bench height to make reps smooth.", "A reliable chest regression when standard push-ups or pressing loads are too hard."),
+  e("Low Incline Machine Press", ["Upper chest"], ["Triceps", "Front delts"], ["Machines"], "upper press", ["Hypertrophy", "Strength + Hypertrophy"], 2, 1, 2, 2, "8-12", "90 sec", "1-3", "Set the seat so handles start around upper chest height and press without shrugging.", "Stable upper-chest loading with less shoulder skill and easier rerolls than barbell pressing."),
+  e("High-to-Low Cable Fly", ["Mid/lower chest"], ["Front delts"], ["Cable machine"], "fly", ["Hypertrophy", "Maintenance"], 1, 1, 2, 2, "10-20", "60-75 sec", "1-3", "Hug down and in while keeping ribs stacked.", "Chest isolation that gives a lower-chest option without adding pressing fatigue."),
+  e("Close-Grip Push-Up", ["Triceps"], ["Mid/lower chest", "Front delts", "Abs"], ["Bodyweight"], "horizontal press", ["Strength", "Maintenance", "Athletic / parkour carryover"], 2, 1, 2, 2, "6-15", "75 sec", "2-3", "Use a narrow but comfortable hand width and keep elbows tracking back.", "A better triceps push-up regression than forcing diamond hand placement."),
+  e("Half-Kneeling Single-Arm Pulldown", ["Lats"], ["Biceps", "Abs"], ["Cable machine"], "vertical pull", ["Hypertrophy", "Strength + Hypertrophy", "Athletic / parkour carryover"], 2, 1, 2, 2, "8-12 each", "75-90 sec", "1-3", "Reach tall, lock ribs down, and pull elbow toward your front pocket.", "A lat pulldown variation with great control and trunk position feedback."),
+  e("Eccentric Chin-Up", ["Lats", "Biceps"], ["Mid back", "Forearms"], ["Pull-up bar"], "vertical pull", ["Strength", "Low-hypertrophy strength"], 2, 1, 2, 3, "2-4 reps", "2 min", "3-5", "Step to the top with palms facing you, pause, and lower for five seconds.", "Often easier than pull-up negatives while still building vertical-pull strength."),
+  e("Inverted Row", ["Mid back", "Lats"], ["Biceps", "Rear delts"], ["Pull-up bar"], "row", ["Strength + Hypertrophy", "Hypertrophy", "Maintenance"], 2, 1, 1, 2, "6-12", "75-90 sec", "1-3", "Keep hips tall and pull the chest to the bar.", "A bodyweight row that fills the mid-back gap when dumbbells or cables are unavailable."),
+  e("Machine Row", ["Mid back"], ["Lats", "Biceps", "Rear delts"], ["Machines"], "row", ["Hypertrophy", "Strength + Hypertrophy"], 2, 1, 2, 2, "8-12", "90 sec", "1-3", "Let the shoulder blades reach forward, then pull elbows back without leaning.", "Stable rowing volume for upper-back growth with low lower-back fatigue."),
+  e("Chest-Supported Machine Row", ["Mid back"], ["Lats", "Rear delts", "Biceps"], ["Machines"], "row", ["Hypertrophy", "Maintenance"], 1, 1, 2, 1, "10-15", "75-90 sec", "1-3", "Stay glued to the pad and row wide enough to feel upper back.", "Low-fatigue mid-back volume when recovery or low back is a limiter."),
+  e("Cable Face Pull", ["Rear delts"], ["Mid back"], ["Cable machine"], "rear delt", ["Hypertrophy", "Maintenance", "Low-hypertrophy strength"], 1, 1, 1, 1, "12-20", "45-60 sec", "2-3", "Pull toward the eyes and rotate thumbs back without arching.", "Shoulder-friendly rear-delt work with easy loading."),
+  e("Machine Lateral Raise", ["Side delts"], ["Upper traps"], ["Machines"], "lateral raise", ["Hypertrophy", "Maintenance"], 1, 1, 1, 1, "12-20", "60 sec", "1-3", "Keep shoulders down and drive the pads out, not up.", "Stable side-delt isolation that works well for high-quality hypertrophy volume."),
+  e("Lean-Away Cable Lateral Raise", ["Side delts"], ["Upper traps"], ["Cable machine"], "lateral raise", ["Hypertrophy"], 1, 1, 2, 2, "10-18 each", "60 sec", "1-3", "Lean away slightly and raise in the scapular plane without yanking.", "A strong side-delt reroll with more tension in the lengthened range."),
+  e("Landmine Press", ["Front delts"], ["Upper chest", "Triceps", "Abs"], ["Barbell"], "vertical press", ["Strength + Hypertrophy", "Athletic / parkour carryover", "Strength"], 2, 1, 2, 2, "6-10 each", "90 sec-2 min", "1-3", "Reach up and forward while ribs stay down.", "A shoulder-friendlier press that still builds front-delt and trunk force."),
+  e("Pike Push-Up", ["Front delts"], ["Triceps", "Upper chest"], ["Bodyweight"], "vertical press", ["Strength", "Athletic / parkour carryover", "Strength + Hypertrophy"], 3, 2, 3, 3, "4-10", "90 sec-2 min", "2-3", "Push the floor away and let the head travel between the hands.", "Bodyweight vertical pressing that bridges push-ups and handstand work."),
+  e("Wall Handstand Line Hold", ["Front delts"], ["Abs", "Triceps"], ["Bodyweight"], "straight arm", ["Low-hypertrophy strength", "Strength", "Athletic / parkour carryover"], 2, 2, 3, 3, "15-35 sec", "90 sec", "3-4", "Push tall through the floor and keep ribs tucked.", "Straight-arm shoulder strength with less elbow bending and useful calisthenics carryover."),
+  e("Cable Curl", ["Biceps"], ["Forearms"], ["Cable machine"], "curl", ["Hypertrophy", "Maintenance"], 1, 1, 1, 1, "10-15", "60 sec", "1-3", "Keep elbows still and squeeze without shoulder drift.", "Smooth biceps tension that rerolls well from dumbbell curls."),
+  e("Preacher Curl Machine", ["Biceps"], ["Forearms"], ["Machines"], "curl", ["Hypertrophy"], 1, 1, 2, 1, "8-15", "60-75 sec", "1-3", "Keep the upper arm on the pad and avoid bouncing from the bottom.", "Stable biceps volume with less cheating and easy load control."),
+  e("Reverse Curl", ["Forearms"], ["Biceps"], ["Dumbbells"], "curl", ["Hypertrophy", "Low-hypertrophy strength", "Strength"], 1, 1, 1, 2, "8-15", "60 sec", "2-3", "Curl with knuckles up and wrists stacked.", "Forearm and elbow-flexor strength without needing grip implements."),
+  e("Wrist Roller", ["Forearms"], [], ["Dumbbells"], "grip", ["Strength", "Hypertrophy"], 2, 1, 2, 2, "1-2 rolls", "60-90 sec", "2-3", "Roll smoothly both directions without shrugging.", "A simple forearm option when pinch holds are not the right fit."),
+  e("Band Neck Flexion", ["Neck"], [], ["Bands"], "neck", ["Strength", "Maintenance"], 2, 2, 2, 2, "8-12", "60 sec", "2-3", "Move through a small pain-free range and control the return.", "Adds an anterior-neck option so neck work is not only extension or isometrics."),
+  e("Neck Side Isometric", ["Neck"], [], ["Bodyweight"], "neck", ["Low-hypertrophy strength", "Maintenance"], 1, 1, 1, 1, "10-20 sec each", "45 sec", "3", "Press gently into your hand from the side without tilting.", "Low-risk lateral neck capacity with no equipment."),
+  e("Front-Foot Elevated Split Squat", ["Quads", "Glutes"], ["Adductors", "Calves"], ["Dumbbells"], "single leg", ["Strength + Hypertrophy", "Athletic / parkour carryover", "Hypertrophy"], 3, 2, 3, 3, "6-10 each", "90 sec-2 min", "1-3", "Let the front knee travel while the whole foot stays heavy.", "Deep quad and hip strength with excellent unilateral carryover."),
+  e("Reverse Lunge", ["Glutes", "Quads"], ["Adductors"], ["Dumbbells"], "single leg", ["Hypertrophy", "Strength + Hypertrophy", "Athletic / parkour carryover"], 3, 2, 2, 2, "8-12 each", "90 sec", "1-3", "Step back softly and pull through the front leg.", "A friendlier unilateral option than Bulgarian split squats for many knees."),
+  e("Box Squat to Bench", ["Quads", "Glutes"], ["Abs"], ["Bodyweight", "Bench"], "squat", ["Maintenance", "Low-hypertrophy strength", "Hypertrophy"], 1, 1, 1, 1, "6-12", "60-75 sec", "3", "Touch the bench lightly and stand without rocking.", "A beginner and knee-friendly squat regression with clear depth control."),
+  e("Tempo Split Squat", ["Quads", "Glutes"], ["Adductors"], ["Bodyweight"], "single leg", ["Low-hypertrophy strength", "Athletic / parkour carryover", "Maintenance"], 2, 1, 1, 2, "5-8 each", "60-90 sec", "3", "Lower for three seconds, pause, and stand without bouncing.", "A low-load split-squat regression that still trains useful knee and hip control."),
+  e("Split Squat Iso Hold", ["Quads", "Glutes"], ["Adductors"], ["Bodyweight"], "single leg", ["Low-hypertrophy strength", "Athletic / parkour carryover", "Maintenance"], 1, 1, 1, 2, "15-30 sec each", "60-75 sec", "3-4", "Hold a pain-free depth with knee tracking over toes.", "Low-pump unilateral strength and tendon-friendly knee control."),
+  e("DB Step-Up", ["Glutes", "Quads"], ["Adductors", "Calves"], ["Dumbbells", "Bench"], "single leg", ["Strength", "Athletic / parkour carryover", "Strength + Hypertrophy"], 3, 2, 3, 3, "5-8 each", "90 sec", "1-3", "Drive through the whole foot and avoid jumping off the back leg.", "Useful glute and single-leg force with a clear athletic role."),
+  e("DB Hip Thrust", ["Glutes"], ["Hamstrings"], ["Dumbbells", "Bench"], "hinge", ["Hypertrophy", "Strength + Hypertrophy"], 2, 1, 2, 2, "8-12", "90 sec", "1-3", "Pause at the top with ribs down and pelvis tucked.", "A glute-focused hip thrust option without needing a barbell."),
+  e("Single-Leg Glute Bridge", ["Glutes"], ["Hamstrings"], ["Bodyweight"], "hinge", ["Maintenance", "Low-hypertrophy strength", "Athletic / parkour carryover"], 1, 1, 1, 1, "8-12 each", "60 sec", "3", "Keep hips level and finish with the glute, not the low back.", "Simple glute regression that keeps posterior-chain work accessible."),
+  e("Hamstring Slider Curl", ["Hamstrings"], ["Glutes"], ["Bodyweight"], "knee flexion", ["Hypertrophy", "Athletic / parkour carryover", "Strength"], 3, 2, 3, 3, "5-10", "90 sec", "2-3", "Bridge tall and slowly slide heels out before curling back.", "Bodyweight hamstring curl progression for knee-flexion strength when machines are unavailable."),
+  e("Single-Leg Hip Hinge", ["Hamstrings", "Glutes"], ["Lower back"], ["Bodyweight"], "hinge", ["Low-hypertrophy strength", "Athletic / parkour carryover", "Maintenance"], 1, 1, 2, 2, "6-10 each", "60-75 sec", "3", "Reach long through the back leg and keep hips square.", "Low-load posterior-chain control for regression and athletic balance."),
+  e("Seated Calf Raise", ["Calves"], [], ["Machines"], "calf raise", ["Hypertrophy", "Strength", "Athletic / parkour carryover"], 2, 1, 1, 1, "10-20", "60-75 sec", "1-3", "Pause deep at the bottom and finish with the big toe heavy.", "Soleus-biased calf work that complements standing calf raises."),
+  e("Calf Isometric Hold", ["Calves"], [], ["Bodyweight"], "calf raise", ["Low-hypertrophy strength", "Athletic / parkour carryover", "Maintenance"], 1, 1, 1, 1, "20-40 sec", "45-75 sec", "3-4", "Hold mid-range with steady pressure and no Achilles pain spike.", "Tendon-friendly calf regression when jumping or loaded raises are too aggressive."),
+  e("Tibialis Raise", ["Calves"], [], ["Bodyweight"], "calf raise", ["Maintenance", "Athletic / parkour carryover", "Low-hypertrophy strength"], 1, 1, 1, 1, "12-25", "45-60 sec", "3", "Lean on a wall and pull toes up without rocking.", "Balances lower-leg work and helps ankle control without high Achilles load."),
+  e("Countermovement Jump", ["Quads", "Glutes", "Calves"], ["Abs"], ["Bodyweight"], "jump", ["Athletic / parkour carryover", "Strength"], 2, 1, 3, 3, "2-4 reps", "90 sec-2 min", "4", "Dip fast, jump tall, and stop before height drops.", "A simpler vertical-power option than approach jumps."),
+  e("Low Box Drop Landing", ["Quads", "Glutes", "Calves"], ["Abs"], ["Bench"], "landing", ["Athletic / parkour carryover", "Low-hypertrophy strength"], 1, 1, 2, 2, "3-5 reps", "75-90 sec", "4", "Step off, land quietly, and freeze with knees tracking.", "Landing exposure that is easier to control than repeated jumps."),
+  e("Side-Lying Adduction", ["Adductors"], ["Abs"], ["Bodyweight"], "adduction", ["Maintenance", "Low-hypertrophy strength", "Athletic / parkour carryover"], 1, 1, 1, 1, "10-15 each", "45-60 sec", "3", "Lift the bottom leg without rolling the hips back.", "Simple adductor regression before Copenhagen planks or machines."),
+  e("Reverse Crunch", ["Abs"], ["Obliques"], ["Bodyweight"], "trunk flexion", ["Hypertrophy", "Strength", "Maintenance"], 1, 1, 1, 1, "8-15", "60 sec", "2-3", "Curl the pelvis up and lower slowly without swinging.", "A floor-based ab option when hanging raises are too hard."),
+  e("Captain Chair Knee Raise", ["Abs"], ["Hip flexors"], ["Machines"], "trunk flexion", ["Hypertrophy", "Strength"], 2, 1, 2, 2, "8-15", "60-75 sec", "1-3", "Push down through the pads and curl the pelvis up.", "A more stable regression from hanging knee raises."),
+  e("Hollow Body Hold", ["Abs"], ["Obliques"], ["Bodyweight"], "anti-extension", ["Low-hypertrophy strength", "Athletic / parkour carryover", "Strength"], 1, 1, 2, 2, "15-35 sec", "45-60 sec", "3", "Press low back down and choose a lever you can own.", "High-value trunk stiffness for calisthenics, flips, and jumps."),
+  e("Stir-the-Pot Plank", ["Abs", "Obliques"], [], ["Machines"], "anti-extension", ["Low-hypertrophy strength", "Athletic / parkour carryover"], 2, 1, 2, 2, "6-10 circles each", "60-75 sec", "3", "Keep hips quiet while the arms move.", "Anti-extension and anti-rotation work without chasing ab pump."),
+  e("Offset Farmer Carry", ["Obliques", "Forearms"], ["Abs", "Upper traps"], ["Dumbbells"], "carry", ["Low-hypertrophy strength", "Athletic / parkour carryover", "Strength"], 3, 1, 1, 2, "30-45 sec", "75-90 sec", "2-3", "Use one heavy and one light dumbbell, then resist leaning.", "A suitcase-carry variation that gives more reroll variety while preserving the trunk role."),
 ];
 
 const STORAGE_KEY = "workoutEngine.v1";
+
+const defaultForecastSettings = {
+  generatorWeeks: 8,
+  recompWeeks: 12,
+  beginnerWeeks: 8,
+  postureWeeks: 6,
+  calisthenicsWeeks: 8,
+  flipWeeks: 8,
+  mobilityWeeks: 6,
+  jumpBaselines: {},
+};
+
+const DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+
+const defaultUiSettings = {
+  theme: "dark",
+  accent: "#64d2a4",
+};
+
+const defaultScheduleSettings = {
+  generator: { enabled: false, days: ["Mon", "Wed", "Fri"] },
+  beginner: { enabled: false, days: ["Mon", "Wed", "Fri"] },
+  posture: { enabled: false, days: ["Mon", "Tue", "Thu", "Sat"] },
+  calisthenics: { enabled: false, days: ["Mon", "Wed", "Fri"] },
+  flips: { enabled: false, days: ["Tue", "Sat"] },
+  mobility: { enabled: false, days: ["Mon", "Tue", "Thu", "Sat"] },
+  recomp: { enabled: false, days: ["Mon", "Wed", "Fri", "Sat"] },
+  jump: { enabled: false, days: ["Mon", "Wed", "Sat"] },
+};
 
 const defaultState = {
   selectedMuscles: [],
@@ -560,6 +662,9 @@ const defaultState = {
   savedRoutines: [],
   logs: [],
   currentWorkout: null,
+  forecastSettings: structuredClone(defaultForecastSettings),
+  ui: { ...defaultUiSettings },
+  schedules: structuredClone(defaultScheduleSettings),
 };
 
 let state = loadState();
@@ -597,6 +702,16 @@ function mergeInjuryState(defaults, saved = {}) {
   }));
 }
 
+function mergeScheduleSettings(saved = {}) {
+  return Object.fromEntries(Object.entries(defaultScheduleSettings).map(([key, defaults]) => {
+    const current = saved?.[key] || {};
+    return [key, {
+      enabled: Boolean(current.enabled),
+      days: Array.isArray(current.days) && current.days.length ? current.days.filter((day) => DAYS.includes(day)) : [...defaults.days],
+    }];
+  }));
+}
+
 function loadState() {
   try {
     const parsed = JSON.parse(localStorage.getItem(STORAGE_KEY));
@@ -616,8 +731,12 @@ function loadState() {
       calisthenicsPlan: { ...defaultState.calisthenicsPlan, ...(parsed.calisthenicsPlan || {}) },
       flipProfile: { ...defaultState.flipProfile, ...(parsed.flipProfile || {}) },
       mobilityProfile: { ...defaultState.mobilityProfile, ...(parsed.mobilityProfile || {}) },
+      forecastSettings: { ...defaultForecastSettings, ...(parsed.forecastSettings || {}) },
+      ui: { ...defaultUiSettings, ...(parsed.ui || {}) },
+      schedules: mergeScheduleSettings(parsed.schedules),
       muscleGoals: parsed.muscleGoals || {},
     };
+    next.forecastSettings.jumpBaselines = { ...defaultForecastSettings.jumpBaselines, ...(parsed.forecastSettings?.jumpBaselines || {}) };
     if (!Array.isArray(next.jumpProfile.goals)) next.jumpProfile.goals = parsed.jumpProfile?.goal ? [parsed.jumpProfile.goal] : [...defaultJumpProfile.goals];
     if (!Array.isArray(next.jumpProfile.equipment)) next.jumpProfile.equipment = [...defaultJumpProfile.equipment];
     if (!Array.isArray(next.beginnerProfile.equipment)) next.beginnerProfile.equipment = [...defaultBeginnerProfile.equipment];
@@ -644,44 +763,15 @@ function saveState() {
 }
 
 function init() {
+  applyUiSettings();
+  wireUiSettings();
   wirePressFeedback();
   wireTabs();
-  renderPickers();
   renderPresets();
-  hydrateReadiness();
   renderInjuryControls("generator");
   renderInjuryControls("jump");
   hydrateCalisthenics();
-  hydrateProfile();
-  hydrateJumpProfile();
-  hydrateRecompProfile();
-  hydrateBeginnerProfile();
-  hydratePostureProfile();
-  hydrateCalisthenicsPlan();
-  hydrateFlipProfile();
-  hydrateMobilityProfile();
-  renderJumpPickers();
-  renderBeginnerEquipment();
-  renderBeginnerPhysiquePriorities();
-  renderPostureEquipment();
-  renderCalisthenicsPickers();
-  renderFlipPickers();
-  renderMobilityPickers();
-  renderGoalEditor();
-  renderWorkout();
-  renderJumpBlock();
-  renderRecompPlan();
-  renderBeginnerPlan();
-  renderPosturePlan();
-  renderCalisthenicsPlan();
-  renderFlipPlan();
-  renderMobilityPlan();
-  renderSavedJumpBlocks();
-  renderSavedRecompPlans();
-  renderSaved();
-  renderLog();
-  renderProgress();
-  renderPreferences();
+  renderAll();
   document.getElementById("generateBtn").addEventListener("click", () => {
     state.currentWorkout = generateWorkout();
     saveState();
@@ -702,6 +792,7 @@ function init() {
     renderAll();
   });
   document.getElementById("exerciseSearch").addEventListener("input", renderPreferences);
+  document.getElementById("stickyBuildBtn")?.addEventListener("click", () => runActiveBuild());
   document.getElementById("workoutResult").addEventListener("click", (event) => {
     const target = eventTargetElement(event);
     if (!target) return;
@@ -820,6 +911,71 @@ function eventTargetElement(event) {
   return event.target?.parentElement || null;
 }
 
+function applyUiSettings() {
+  document.body.dataset.theme = state.ui.theme || "dark";
+  document.documentElement.style.setProperty("--accent", state.ui.accent || "#64d2a4");
+}
+
+function wireUiSettings() {
+  const panel = document.getElementById("uiPanel");
+  const themeInput = document.getElementById("themeInput");
+  const accentInput = document.getElementById("accentInput");
+  document.getElementById("customizeBtn")?.addEventListener("click", () => panel?.classList.toggle("open"));
+  document.getElementById("closeUiPanelBtn")?.addEventListener("click", () => panel?.classList.remove("open"));
+  if (themeInput) {
+    themeInput.value = state.ui.theme;
+    themeInput.onchange = () => {
+      state.ui.theme = themeInput.value;
+      saveState();
+      applyUiSettings();
+    };
+  }
+  if (accentInput) {
+    accentInput.value = state.ui.accent;
+    accentInput.oninput = () => {
+      state.ui.accent = accentInput.value;
+      saveState();
+      applyUiSettings();
+    };
+  }
+}
+
+function activeTabId() {
+  return document.querySelector(".tab.active")?.dataset.tab || "generator";
+}
+
+function runActiveBuild() {
+  const map = {
+    generator: "generateBtn",
+    beginner: "generateBeginnerBtn",
+    posture: "generatePostureBtn",
+    calisthenics: "generateCalisthenicsPlanBtn",
+    flips: "generateFlipPlanBtn",
+    mobility: "generateMobilityPlanBtn",
+    recomp: "generateRecompBtn",
+    jump: "generateJumpBlockBtn",
+  };
+  const id = map[activeTabId()];
+  if (id) document.getElementById(id)?.click();
+}
+
+function updateStickyBuildBar() {
+  const button = document.getElementById("stickyBuildBtn");
+  if (!button) return;
+  const labels = {
+    generator: "Generate Session",
+    beginner: "Build Beginner Plan",
+    posture: "Diagnose Posture",
+    calisthenics: "Build Skill Plan",
+    flips: "Build Flip Plan",
+    mobility: "Build Mobility Plan",
+    recomp: "Build Recomp Plan",
+    jump: "Build Jump Block",
+  };
+  button.textContent = labels[activeTabId()] || "Build";
+  button.disabled = !labels[activeTabId()];
+}
+
 function wirePressFeedback() {
   document.addEventListener("pointerdown", (event) => {
     if (!(event.target instanceof Element)) return;
@@ -850,8 +1006,10 @@ function wireTabs() {
       if (tab.dataset.tab === "progress") renderProgress();
       if (tab.dataset.tab === "jump") renderSavedJumpBlocks();
       if (tab.dataset.tab === "recomp") renderSavedRecompPlans();
+      updateStickyBuildBar();
     });
   });
+  updateStickyBuildBar();
 }
 
 function renderPickers() {
@@ -1033,9 +1191,7 @@ function hydrateProfile() {
     ["trainingAgeInput", "trainingAge"],
     ["densityInput", "density"],
     ["noveltyInput", "novelty"],
-    ["surfaceInput", "surface"],
     ["limiterInput", "limiter"],
-    ["jumpExperienceInput", "jumpExperience"],
   ];
   fields.forEach(([id, key]) => {
     const input = document.getElementById(id);
@@ -1163,6 +1319,8 @@ function hydrateBeginnerProfile() {
     ["beginnerSessionsInput", "sessions"],
     ["beginnerLengthInput", "length"],
     ["beginnerConfidenceInput", "confidence"],
+    ["beginnerGenderInput", "gender"],
+    ["beginnerBodyFocusInput", "bodyFocus"],
     ["beginnerDaysInput", "days"],
   ].forEach(([id, key]) => {
     const input = document.getElementById(id);
@@ -1470,7 +1628,8 @@ function generateBeginnerPlan() {
   const sets = profile.length === "20" ? "2" : strength ? "3-4" : "3";
   const reps = strength ? "5-8" : growth ? "8-12" : "8-10";
   const density = fatLoss ? "Finish with 8-12 minutes of brisk incline walking, bike, or step intervals." : "Finish with 5 minutes of easy mobility or walking.";
-  const slots = beginnerSlots(profile, { strength, growth, aesthetics }).slice(0, profile.length === "20" ? 4 : 5);
+  const slotCap = profile.length === "20" ? 4 : profile.length === "50" ? 6 : 5;
+  const slots = beginnerSlots(profile, { strength, growth, aesthetics }).slice(0, slotCap);
   const routine = slots
     .map((slot, index) => createBeginnerExercise(slot, profile, { sets, reps, index }))
     .filter(Boolean);
@@ -1480,6 +1639,7 @@ function generateBeginnerPlan() {
     strength ? "Strength is high: add weight only when every rep looks the same and you finish with reps in reserve." : "Progress by adding reps first, then load.",
     fatLoss ? "Fat loss is high: keep lifting quality, then use steps and short finishers for the calorie burn." : "Fat loss is not the main driver, so the plan protects recovery and skill.",
     profile.confidence === "low" ? "Low confidence: repeat this same template for 2-3 weeks before adding variety." : "Use the same movement slots each week, but rotate easy substitutions when needed.",
+    profile.bodyFocus === "upper" ? "Upper body priority is on: lower-body work is reduced so chest, lats, delts, arms, and trunk get the useful slots." : profile.bodyFocus === "lower" ? "Lower body priority is on: upper work stays minimal while legs, glutes, hamstrings, and calves get priority." : "Upper and lower body are both included.",
     profile.days === "busy" ? "Busy schedule: any 2 completed sessions count. Do not restart the week because one day moves." : `${sessions} sessions per week with at least one rest day between harder lower-body sessions.`,
   ];
   return {
@@ -1496,24 +1656,25 @@ function generateBeginnerPlan() {
 function beginnerSlots(profile, flags) {
   const priorities = profile.usePhysiquePriorities ? profile.physiquePriorities : [];
   const wants = (id) => priorities.includes(id);
-  const pushTarget = wants("biggerChest") ? "Upper chest" : flags.aesthetics ? "Upper chest" : "Mid/lower chest";
-  const lowerTarget = wants("biggerGlutes") ? "Glutes" : flags.aesthetics ? "Glutes" : "Quads";
-  const slots = [
-    { slot: "lower", label: wants("biggerGlutes") ? "Glute-focused lower base" : "Lower-body base", targetMuscle: lowerTarget, patterns: ["squat", "single leg", "hinge"], preferred: wants("biggerGlutes") ? ["bulgarian-split-squat", "db-romanian-deadlift", "goblet-squat", "deep-leg-press"] : ["deep-leg-press", "goblet-squat", "bulgarian-split-squat", "step-down"], goal: flags.strength ? "Strength" : "Strength + Hypertrophy" },
-    { slot: "push", label: wants("biggerChest") ? "Chest priority push" : "Beginner push", targetMuscle: pushTarget, patterns: ["horizontal press", "upper press"], preferred: wants("biggerChest") ? ["incline-db-press", "feet-elevated-push-up", "db-bench-press", "machine-chest-press"] : ["db-bench-press", "machine-chest-press", "push-up", "feet-elevated-push-up"], goal: flags.growth ? "Hypertrophy" : "Strength + Hypertrophy" },
-    { slot: "pull", label: wants("vTaper") || wants("absSummer") ? "V-taper pull" : "Beginner pull", targetMuscle: "Lats", patterns: ["vertical pull", "row"], preferred: ["lat-pulldown", "pull-up-negative", "scapular-pull-up", "one-arm-db-row", "chest-supported-db-row"], goal: flags.strength ? "Strength" : "Strength + Hypertrophy" },
-    { slot: "hinge", label: wants("athleticLegs") ? "Athletic posterior chain" : "Hinge / posterior chain", targetMuscle: "Hamstrings", patterns: ["hinge", "knee flexion"], preferred: ["hamstring-curl", "db-romanian-deadlift", "back-extension"], goal: "Strength + Hypertrophy" },
+  const masculineAbs = wants("absSummer") && profile.gender !== "female";
+  const feminineAbs = wants("absSummer") && profile.gender === "female";
+  const pushTarget = wants("biggerChest") || masculineAbs ? "Upper chest" : flags.aesthetics ? "Upper chest" : "Mid/lower chest";
+  const lowerTarget = wants("biggerGlutes") || (feminineAbs && flags.aesthetics) ? "Glutes" : flags.aesthetics ? "Glutes" : "Quads";
+  const upperSlots = [
+    { slot: "push", label: wants("biggerChest") || masculineAbs ? "Upper chest priority" : "Beginner push", targetMuscle: pushTarget, patterns: ["horizontal press", "upper press"], preferred: wants("biggerChest") || masculineAbs ? ["incline-db-press", "low-incline-machine-press", "feet-elevated-push-up", "db-bench-press", "machine-chest-press", "incline-push-up"] : ["db-bench-press", "machine-chest-press", "incline-push-up", "push-up", "feet-elevated-push-up"], goal: flags.growth ? "Hypertrophy" : "Strength + Hypertrophy" },
+    { slot: "pull", label: wants("vTaper") || masculineAbs ? "V-taper lat priority" : "Beginner pull", targetMuscle: "Lats", patterns: ["vertical pull", "row"], preferred: ["lat-pulldown", "half-kneeling-single-arm-pulldown", "eccentric-chin-up", "pull-up-negative", "scapular-pull-up", "inverted-row", "one-arm-db-row", "chest-supported-machine-row", "chest-supported-db-row"], goal: flags.strength ? "Strength" : "Strength + Hypertrophy" },
+    { slot: "aesthetic", label: wants("widerShoulders") || wants("vTaper") || masculineAbs ? "Shoulder width accessory" : "Aesthetic accessory", targetMuscle: "Side delts", patterns: ["lateral raise", "rear delt", "row"], preferred: ["machine-lateral-raise", "db-lateral-raise", "lean-away-cable-lateral-raise", "cable-lateral-raise", "band-lateral-raise", "cable-face-pull", "band-face-pull", "prone-db-rear-delt-raise"], goal: "Hypertrophy" },
   ];
+  const lowerSlots = [
+    { slot: "lower", label: wants("biggerGlutes") ? "Glute-focused lower base" : "Lower-body base", targetMuscle: lowerTarget, patterns: ["squat", "single leg", "hinge"], preferred: wants("biggerGlutes") ? ["bulgarian-split-squat", "reverse-lunge", "db-hip-thrust", "db-romanian-deadlift", "goblet-squat", "deep-leg-press"] : ["deep-leg-press", "goblet-squat", "box-squat-to-bench", "front-foot-elevated-split-squat", "reverse-lunge", "step-down"], goal: flags.strength ? "Strength" : "Strength + Hypertrophy" },
+    { slot: "hinge", label: wants("athleticLegs") ? "Athletic posterior chain" : "Hinge / posterior chain", targetMuscle: "Hamstrings", patterns: ["hinge", "knee flexion"], preferred: ["hamstring-curl", "hamstring-slider-curl", "db-romanian-deadlift", "single-leg-hip-hinge", "back-extension"], goal: "Strength + Hypertrophy" },
+  ];
+  const coreSlot = { slot: "core", label: feminineAbs ? "Lean waist + trunk control" : "Waist + trunk control", targetMuscle: "Abs", patterns: ["anti-extension", "anti-rotation", "anti-lateral flexion"], preferred: ["dead-bug", "hollow-body-hold", "pallof-press", "band-pallof-press", "side-plank"], goal: "Low-hypertrophy strength" };
+  const armSlot = { slot: "arms", label: "Arm accessory", targetMuscle: "Biceps", patterns: ["curl", "elbow extension"], preferred: ["cable-curl", "preacher-curl-machine", "db-curl", "hammer-curl", "cable-pushdown", "db-overhead-triceps-extension"], goal: "Hypertrophy" };
+  let slots = profile.bodyFocus === "upper" ? [...upperSlots, coreSlot, armSlot] : profile.bodyFocus === "lower" ? [...lowerSlots, coreSlot, ...upperSlots.slice(0, 1)] : [...upperSlots.slice(0, masculineAbs || wants("vTaper") ? 3 : 2), ...lowerSlots, coreSlot];
 
-  if (wants("absSummer") || wants("leanerWaist")) {
-    slots.push({ slot: "core", label: "Waist + trunk control", targetMuscle: "Abs", patterns: ["anti-extension", "anti-rotation", "anti-lateral flexion"], preferred: ["dead-bug", "pallof-press", "band-pallof-press", "side-plank"], goal: "Low-hypertrophy strength" });
-  } else if (wants("widerShoulders") || wants("vTaper") || flags.aesthetics) {
-    slots.push({ slot: "aesthetic", label: wants("widerShoulders") ? "Shoulder width accessory" : "Aesthetic accessory", targetMuscle: "Side delts", patterns: ["lateral raise", "rear delt", "row"], preferred: ["db-lateral-raise", "cable-lateral-raise", "band-face-pull", "prone-db-rear-delt-raise"], goal: "Hypertrophy" });
-  } else if (wants("biggerArms")) {
-    slots.push({ slot: "arms", label: "Arm accessory", targetMuscle: "Biceps", patterns: ["curl", "elbow extension"], preferred: ["db-curl", "hammer-curl", "cable-pushdown", "db-overhead-triceps-extension"], goal: "Hypertrophy" });
-  } else {
-    slots.push({ slot: "core", label: "Core control", targetMuscle: "Abs", patterns: ["anti-extension", "anti-rotation", "anti-lateral flexion"], preferred: ["dead-bug", "pallof-press", "band-pallof-press", "side-plank"], goal: "Low-hypertrophy strength" });
-  }
+  if (wants("biggerArms") && !slots.some((slot) => slot.slot === "arms")) slots.push(armSlot);
+  if ((wants("absSummer") || wants("leanerWaist")) && !slots.some((slot) => slot.slot === "core")) slots.push(coreSlot);
   return slots;
 }
 
@@ -1522,6 +1683,8 @@ function beginnerPhysiqueTranslations(profile) {
   const priorities = new Set(profile.physiquePriorities);
   const notes = [];
   if (priorities.has("absSummer")) notes.push("Abs for summer translation: visible abs mostly come from lower body fat plus enough shoulder/lats/chest to create a V-taper. The plan trains core, but it will not waste the whole session on ab burnouts.");
+  if (priorities.has("absSummer") && profile.gender === "female") notes.push("Feminine abs framing: the plan keeps trunk work useful but does not automatically force a big V-taper bias unless you also choose V-taper or upper-body priority.");
+  if (priorities.has("absSummer") && profile.gender !== "female") notes.push("Masculine abs framing: the app treats this as low body fat plus upper chest, lats, and side delts for the visual frame most beginners actually mean.");
   if (priorities.has("leanerWaist")) notes.push("Leaner waist translation: use fat-loss habits, steps, and trunk control. Side-bend volume is kept low so the goal stays a smaller-looking waist, not more oblique pump.");
   if (priorities.has("biggerChest")) notes.push("Bigger chest translation: prioritize upper-chest-friendly pressing and push-up progressions, then add volume slowly so shoulders and elbows keep up.");
   if (priorities.has("vTaper")) notes.push("V-taper translation: lats and side delts matter more than doing endless ab exercises.");
@@ -1565,9 +1728,9 @@ function pickBeginnerExercise(slot, profile, usedIds = new Set(), currentId = ""
 function beginnerPlanExercise(exercise, slot, profile, prescription) {
   const strength = profile.strengthGain >= 7;
   const growth = profile.muscleGrowth >= 6;
-  const isPullupPattern = ["pull-up", "pull-up-negative", "scapular-pull-up", "band-assisted-pull-up"].includes(exercise.id);
+  const isPullupPattern = ["pull-up", "pull-up-negative", "eccentric-chin-up", "scapular-pull-up", "band-assisted-pull-up"].includes(exercise.id);
   let reps = strength ? "5-8" : growth ? "8-12" : prescription.reps;
-  if (isPullupPattern) reps = exercise.id === "pull-up-negative" ? "2-4 slow negatives" : "3-8 clean reps";
+  if (isPullupPattern) reps = ["pull-up-negative", "eccentric-chin-up"].includes(exercise.id) ? "2-4 slow negatives" : "3-8 clean reps";
   if (exercise.pattern.includes("anti") || exercise.defaultReps.includes("sec")) reps = exercise.defaultReps;
   const item = {
     id: crypto.randomUUID(),
@@ -1582,8 +1745,8 @@ function beginnerPlanExercise(exercise, slot, profile, prescription) {
     reps,
     rest: strength ? "90 sec-2 min" : "60-90 sec",
     rir: profile.confidence === "low" ? "3-4" : "2-3",
-    eccentric: exercise.id === "pull-up-negative" ? "5 sec" : tempoForExercise(exercise, slot.goal).eccentric,
-    concentric: exercise.id === "pull-up-negative" ? "Step/jump assist" : tempoForExercise(exercise, slot.goal).concentric,
+    eccentric: ["pull-up-negative", "eccentric-chin-up"].includes(exercise.id) ? "5 sec" : tempoForExercise(exercise, slot.goal).eccentric,
+    concentric: ["pull-up-negative", "eccentric-chin-up"].includes(exercise.id) ? "Step/jump assist" : tempoForExercise(exercise, slot.goal).concentric,
     why: `${slot.label}: ${exercise.why}`,
     tradeoff: "",
     isRegressed: false,
@@ -1687,8 +1850,13 @@ function renderBeginnerPlan() {
       <p class="note">${plan.finisher}</p>
       <h3>Rules</h3>
       <ul>${plan.notes.map((note) => `<li>${note}</li>`).join("")}</ul>
+      ${renderProgramTools("beginner", plan.routine, plan.title)}
+      ${renderForecastControls("beginner", forecastWeeks("beginner"), "Forecast for")}
     </article>
+    ${plan.forecast ? renderForecastCard(plan.forecast.title, plan.forecast.summary, plan.forecast.metrics) : ""}
   `;
+  wireForecastControls("beginner", () => runPlanForecast("beginner", "currentBeginnerPlan", renderBeginnerPlan, generateBeginnerForecast, "#beginnerResult"));
+  wireProgramTools("beginner", plan.routine, plan.title);
   container.querySelectorAll("[data-beginner-reroll]").forEach((button) => {
     button.addEventListener("click", (event) => {
       event.stopPropagation();
@@ -1710,6 +1878,7 @@ function renderBeginnerPlan() {
 }
 
 function renderBeginnerExerciseCard(item) {
+  const tempo = tempoForExercise(item.exercise, item.goal);
   return `
     <article class="exercise-card">
       <div class="exercise-top">
@@ -1727,18 +1896,28 @@ function renderBeginnerExerciseCard(item) {
         </div>
       </div>
       <div class="spec-grid">
-        <div class="spec"><span>Sets</span><strong>${item.sets}</strong></div>
-        <div class="spec"><span>Reps / time</span><strong>${item.reps}</strong></div>
-        <div class="spec"><span>Rest</span><strong>${item.rest}</strong></div>
-        <div class="spec"><span>RIR</span><strong>${item.rir}</strong></div>
-        <div class="spec"><span>Eccentric</span><strong>${item.eccentric}</strong></div>
-        <div class="spec"><span>Concentric</span><strong>${item.concentric}</strong></div>
+        <div class="spec"><span>Sets ${infoTip("How many rounds of this exercise to do.")}</span><strong>${item.sets}</strong></div>
+        <div class="spec"><span>Reps / time ${infoTip("How many reps, seconds, or each-side reps to complete per set.")}</span><strong>${item.reps}</strong></div>
+        <div class="spec"><span>Rest ${infoTip("How long to recover before the next set.")}</span><strong>${item.rest}</strong></div>
+        <div class="spec"><span>RIR ${infoTip("Reps in reserve. RIR 2 means stop when you could still do about two good reps.")}</span><strong>${item.rir}</strong></div>
+        <div class="spec"><span>Eccentric ${infoTip("The lowering or lengthening part of the rep. Slower eccentrics teach control.")}</span><strong>${item.eccentric || tempo.eccentric}</strong></div>
+        <div class="spec"><span>Concentric ${infoTip("The lifting or shortening part of the rep. Smooth means no jerking or bouncing.")}</span><strong>${item.concentric || tempo.concentric}</strong></div>
       </div>
+      <details class="beginner-help">
+        <summary>How to do it</summary>
+        <p><strong>What it is:</strong> ${item.exercise.why}</p>
+        <p><strong>Execution:</strong> ${item.exercise.cue}</p>
+        <p><strong>Beginner check:</strong> Pick a version where the last rep still looks like the first. If form changes, use Regress before adding more weight.</p>
+      </details>
       <p><strong>Cue:</strong> ${item.exercise.cue}</p>
       <p><strong>Why:</strong> ${item.why}</p>
       ${item.tradeoff ? `<p class="note">${item.tradeoff}</p>` : ""}
     </article>
   `;
+}
+
+function infoTip(text) {
+  return `<button class="info-dot" type="button" aria-label="${escapeAttr(text)}" title="${escapeAttr(text)}">i</button>`;
 }
 
 function rerollBeginnerExercise(planId) {
@@ -1829,11 +2008,11 @@ function beginnerSlotFromItem(item) {
 
 function beginnerPreferredForSlot(slot) {
   return {
-    lower: ["deep-leg-press", "goblet-squat", "bulgarian-split-squat", "step-down"],
-    push: ["db-bench-press", "machine-chest-press", "push-up", "feet-elevated-push-up"],
-    pull: ["lat-pulldown", "pull-up-negative", "scapular-pull-up", "one-arm-db-row", "chest-supported-db-row"],
-    hinge: ["hamstring-curl", "db-romanian-deadlift", "back-extension"],
-    aesthetic: ["db-lateral-raise", "cable-lateral-raise", "db-curl", "cable-pushdown"],
+    lower: ["deep-leg-press", "goblet-squat", "box-squat-to-bench", "reverse-lunge", "front-foot-elevated-split-squat", "step-down"],
+    push: ["db-bench-press", "machine-chest-press", "incline-push-up", "push-up", "low-incline-machine-press", "feet-elevated-push-up"],
+    pull: ["lat-pulldown", "half-kneeling-single-arm-pulldown", "eccentric-chin-up", "pull-up-negative", "scapular-pull-up", "inverted-row", "one-arm-db-row", "chest-supported-machine-row", "chest-supported-db-row"],
+    hinge: ["hamstring-curl", "hamstring-slider-curl", "db-romanian-deadlift", "single-leg-glute-bridge", "back-extension"],
+    aesthetic: ["machine-lateral-raise", "db-lateral-raise", "lean-away-cable-lateral-raise", "cable-lateral-raise", "band-lateral-raise", "cable-curl", "db-curl", "cable-pushdown"],
     arms: ["db-curl", "hammer-curl", "cable-pushdown", "db-overhead-triceps-extension"],
     core: ["dead-bug", "pallof-press", "band-pallof-press", "side-plank"],
   }[slot] || [];
@@ -1918,6 +2097,9 @@ function renderPosturePlan() {
     container.innerHTML = "";
     return;
   }
+  const drills = Array.isArray(plan.drills) ? plan.drills : [];
+  const diagnosis = Array.isArray(plan.diagnosis) ? plan.diagnosis : [];
+  const notes = Array.isArray(plan.notes) ? plan.notes : [];
   container.innerHTML = `
     <article class="result-card">
       <h2>${plan.title}</h2>
@@ -1928,16 +2110,21 @@ function renderPosturePlan() {
       </div>
       <h3>Likely Weak Links</h3>
       <div class="stack">
-        ${plan.diagnosis.map((item) => `<div class="list-item"><strong>${item.label}</strong><p>${item.score}/10 signal strength</p></div>`).join("")}
+        ${diagnosis.map((item) => `<div class="list-item"><strong>${item.label}</strong><p>${item.score}/10 signal strength</p></div>`).join("")}
       </div>
       <h3>Daily Reset</h3>
       <div class="stack">
-        ${plan.drills.map((item, index) => `<div class="exercise-card"><div class="exercise-title"><span class="exercise-index">${index + 1}</span><strong>${item}</strong></div></div>`).join("")}
+        ${drills.map((item, index) => `<div class="exercise-card"><div class="exercise-title"><span class="exercise-index">${index + 1}</span><strong>${item}</strong></div></div>`).join("")}
       </div>
       <h3>Notes</h3>
-      <ul>${plan.notes.map((note) => `<li>${note}</li>`).join("")}</ul>
+      <ul>${notes.map((note) => `<li>${note}</li>`).join("")}</ul>
+      ${renderProgramTools("posture", drills, plan.title)}
+      ${renderForecastControls("posture", forecastWeeks("posture", 6), "Forecast for")}
     </article>
+    ${plan.forecast ? renderForecastCard(plan.forecast.title, plan.forecast.summary, plan.forecast.metrics) : ""}
   `;
+  wireProgramTools("posture", drills, plan.title);
+  wireForecastControls("posture", () => runPlanForecast("posture", "currentPosturePlan", renderPosturePlan, generatePostureForecast, "#postureResult"));
 }
 
 function generateCalisthenicsPlan() {
@@ -2021,6 +2208,9 @@ function renderCalisthenicsPlan() {
     container.innerHTML = "";
     return;
   }
+  const sessions = Array.isArray(plan.sessions) ? plan.sessions : [];
+  const drills = sessions.flatMap((session) => session.drills || []);
+  const notes = Array.isArray(plan.notes) ? plan.notes : [];
   container.innerHTML = `
     <article class="result-card">
       <h2>${plan.title}</h2>
@@ -2030,7 +2220,7 @@ function renderCalisthenicsPlan() {
         <span class="pill">${plan.profile.equipment.join(", ")}</span>
       </div>
       <div class="stack">
-        ${plan.sessions.map((session) => `
+        ${sessions.map((session) => `
           <section class="exercise-card">
             <h3>${session.name}</h3>
             <ol>${session.drills.map((drill) => `<li>${drill}</li>`).join("")}</ol>
@@ -2038,9 +2228,14 @@ function renderCalisthenicsPlan() {
         `).join("")}
       </div>
       <h3>Rules</h3>
-      <ul>${plan.notes.map((note) => `<li>${note}</li>`).join("")}</ul>
+      <ul>${notes.map((note) => `<li>${note}</li>`).join("")}</ul>
+      ${renderProgramTools("calisthenics", drills, plan.title)}
+      ${renderForecastControls("calisthenics", forecastWeeks("calisthenics"), "Forecast for")}
     </article>
+    ${plan.forecast ? renderForecastCard(plan.forecast.title, plan.forecast.summary, plan.forecast.metrics) : ""}
   `;
+  wireProgramTools("calisthenics", drills, plan.title);
+  wireForecastControls("calisthenics", () => runPlanForecast("calisthenics", "currentCalisthenicsPlan", renderCalisthenicsPlan, generateCalisthenicsForecast, "#calisthenicsPlanResult"));
 }
 
 function generateFlipPlan() {
@@ -2139,6 +2334,9 @@ function renderFlipPlan() {
     container.innerHTML = "";
     return;
   }
+  const sessions = Array.isArray(plan.sessions) ? plan.sessions : [];
+  const drills = sessions.flatMap((session) => session.drills || []);
+  const notes = Array.isArray(plan.notes) ? plan.notes : [];
   container.innerHTML = `
     <article class="result-card">
       <h2>${plan.title}</h2>
@@ -2148,7 +2346,7 @@ function renderFlipPlan() {
         <span class="pill">${plan.profile.equipment.join(", ")}</span>
       </div>
       <div class="stack">
-        ${plan.sessions.map((session) => `
+        ${sessions.map((session) => `
           <section class="exercise-card">
             <h3>${session.name}</h3>
             <ol>${session.drills.map((drill) => `<li>${drill}</li>`).join("")}</ol>
@@ -2156,9 +2354,14 @@ function renderFlipPlan() {
         `).join("")}
       </div>
       <h3>Safety Rules</h3>
-      <ul>${plan.notes.map((note) => `<li>${note}</li>`).join("")}</ul>
+      <ul>${notes.map((note) => `<li>${note}</li>`).join("")}</ul>
+      ${renderProgramTools("flips", drills, plan.title)}
+      ${renderForecastControls("flip", forecastWeeks("flip"), "Forecast for")}
     </article>
+    ${plan.forecast ? renderForecastCard(plan.forecast.title, plan.forecast.summary, plan.forecast.metrics) : ""}
   `;
+  wireProgramTools("flips", drills, plan.title);
+  wireForecastControls("flip", () => runPlanForecast("flip", "currentFlipPlan", renderFlipPlan, generateFlipForecast, "#flipPlanResult"));
 }
 
 function generateMobilityPlan() {
@@ -2216,6 +2419,8 @@ function renderMobilityPlan() {
     container.innerHTML = "";
     return;
   }
+  const drills = Array.isArray(plan.drills) ? plan.drills : [];
+  const notes = Array.isArray(plan.notes) ? plan.notes : [];
   container.innerHTML = `
     <article class="result-card">
       <h2>${plan.title}</h2>
@@ -2225,16 +2430,21 @@ function renderMobilityPlan() {
         <span class="pill">${plan.profile.intensity}</span>
       </div>
       <div class="stack">
-        ${plan.drills.map((drill, index) => `
+        ${drills.map((drill, index) => `
           <div class="exercise-card">
             <div class="exercise-title"><span class="exercise-index">${index + 1}</span><strong>${drill}</strong></div>
           </div>
         `).join("")}
       </div>
       <h3>Rules</h3>
-      <ul>${plan.notes.map((note) => `<li>${note}</li>`).join("")}</ul>
+      <ul>${notes.map((note) => `<li>${note}</li>`).join("")}</ul>
+      ${renderProgramTools("mobility", drills, plan.title)}
+      ${renderForecastControls("mobility", forecastWeeks("mobility", 6), "Forecast for")}
     </article>
+    ${plan.forecast ? renderForecastCard(plan.forecast.title, plan.forecast.summary, plan.forecast.metrics) : ""}
   `;
+  wireProgramTools("mobility", drills, plan.title);
+  wireForecastControls("mobility", () => runPlanForecast("mobility", "currentMobilityPlan", renderMobilityPlan, generateMobilityForecast, "#mobilityPlanResult"));
 }
 
 function generateWorkout() {
@@ -3136,7 +3346,7 @@ function formatJumpStrengthSupport(profile, key, role, injury) {
 function bestLowerStrengthExercise(profile) {
   if (profile.equipment.includes("Leg press")) return "Deep Leg Press";
   if (profile.equipment.includes("Barbell")) return "Back Squat";
-  if (profile.equipment.includes("Dumbbells")) return "Goblet Squat";
+  if (profile.equipment.includes("Dumbbells")) return "Front-Foot Elevated Split Squat";
   return "Tempo split squat";
 }
 
@@ -3151,11 +3361,12 @@ function bestHingeExercise(profile) {
   if (profile.equipment.includes("Barbell")) return "Barbell Romanian Deadlift";
   if (profile.equipment.includes("Dumbbells")) return "DB Romanian Deadlift";
   if (profile.equipment.includes("Back extension")) return "Back Extension";
-  return "Single-leg hip hinge";
+  return "Hamstring Slider Curl";
 }
 
 function bestCalfExercise(profile) {
   if (profile.equipment.includes("Calf raise machine")) return "Standing Calf Raise";
+  if (profile.equipment.includes("Machines")) return "Seated Calf Raise";
   if (profile.equipment.includes("Dumbbells")) return "DB Single-Leg Calf Raise";
   return "Single-Leg Calf Raise";
 }
@@ -3169,7 +3380,7 @@ function bestAdductorExercise(profile) {
 function bestGluteExercise(profile) {
   if (profile.equipment.includes("Barbell")) return "Barbell Hip Thrust";
   if (profile.equipment.includes("Dumbbells") && profile.equipment.includes("Bench")) return "DB Hip Thrust";
-  if (profile.equipment.includes("Dumbbells")) return "DB Step-up";
+  if (profile.equipment.includes("Dumbbells")) return "DB Step-Up";
   return "Single-leg glute bridge";
 }
 
@@ -3260,6 +3471,7 @@ function renderJumpBlock() {
         <button class="primary" id="saveJumpBlockBtn">Save Block</button>
         <button class="ghost" id="forecastJumpBlockBtn">Forecast</button>
       </div>
+      ${renderProgramTools("jump", jumpBlockProgramItems(block), block.title)}
     </article>
     ${block.forecast ? renderJumpForecast(block.forecast) : ""}
     <div class="stack">
@@ -3268,6 +3480,12 @@ function renderJumpBlock() {
   `;
   document.getElementById("saveJumpBlockBtn")?.addEventListener("click", saveCurrentJumpBlock);
   document.getElementById("forecastJumpBlockBtn")?.addEventListener("click", forecastCurrentJumpBlock);
+  wireProgramTools("jump", jumpBlockProgramItems(block), block.title);
+  wireJumpForecastBaselineInputs();
+}
+
+function jumpBlockProgramItems(block) {
+  return block.weeks?.[0]?.sessions?.flatMap((session) => [`${session.name}: ${session.cue}`, ...session.drills]) || [];
 }
 
 function forecastCurrentJumpBlock() {
@@ -3296,26 +3514,31 @@ function generateJumpForecast(block) {
       key: "squat",
       name: "Squat / Leg Press Strength",
       gain: forecastGain(7.2, baseMultiplier * goalBoost(["vertical", "approachVertical"]) * weakBoost("quadStrength"), 3, 13),
+      description: "Use this for your current squat, leg press, or closest knee-dominant strength lift.",
     },
     {
       key: "hinge",
       name: "Hinge / Hamstring Strength",
       gain: forecastGain(6.4, baseMultiplier * goalBoost(["acceleration", "maxVelocity", "sprintSpeed"]) * weakBoost("hamstringStrength"), 3, 12),
+      description: "Use this for your current RDL, hinge, hamstring curl, or closest posterior-chain strength lift.",
     },
     {
       key: "calf",
       name: "Calf Raise / Tendon Capacity",
       gain: forecastGain(5.8, baseMultiplier * goalBoost(["reactiveStiffness", "tendonDurability"]) * weakBoost("calfStrength"), 2, 11),
+      description: "Use this for your current calf raise load or controlled tendon-capacity benchmark.",
     },
     {
       key: "singleLeg",
       name: "Single-Leg Control Strength",
       gain: forecastGain(6.8, baseMultiplier * goalBoost(["runningLongJump", "landingSkill"]) * Math.max(weakBoost("gluteStrength"), weakBoost("adductorStrength")), 3, 12),
+      description: "Use this for split squat, step-down, single-leg press, or your best single-leg control lift.",
     },
     {
       key: "jumpPower",
       name: "Jump Power Expression",
       gain: forecastGain(5.4, baseMultiplier * goalBoost(["vertical", "approachVertical", "standingBroad", "runningLongJump"]) * (diagnosis.type === "Slow-strength dominant jumper" ? 1.16 : 1), 2, 10),
+      description: "Use this as a rough percentage lift for measured jump output, not a loaded gym exercise.",
     },
   ];
   return {
@@ -3339,18 +3562,355 @@ function renderJumpForecast(forecast) {
         </div>
       </div>
       <div class="forecast-grid">
-        ${forecast.metrics.map((metric, index) => `
-          <div class="forecast-metric forecast-${index % 5}">
-            <div>
-              <strong>${metric.name}</strong>
-              <small>Projected 8-week change</small>
-            </div>
-            <span>+${metric.gain}%</span>
-          </div>
-        `).join("")}
+        ${forecast.metrics.map((metric, index) => renderForecastMetric(metric, index, { baselineSection: "jump" })).join("")}
       </div>
     </article>
   `;
+}
+
+function renderForecastControls(section, weeks, label = "Forecast weeks") {
+  return `
+    <div class="forecast-control">
+      <label>
+        ${label}
+        <input type="number" min="1" max="52" step="1" value="${weeks}" data-forecast-weeks="${section}" />
+      </label>
+      <button class="ghost" data-run-forecast="${section}">Forecast</button>
+    </div>
+  `;
+}
+
+function renderProgramTools(section, items, title) {
+  const schedule = state.schedules[section] || defaultScheduleSettings[section];
+  const program = buildWeeklyProgram(section, items, title);
+  return `
+    <section class="program-tools">
+      <div class="inline-head">
+        <h3>Schedule + Copy</h3>
+        <button class="ghost" data-program-build="${section}">Program</button>
+      </div>
+      <div class="chip-grid compact-days">
+        ${DAYS.map((day) => `<button class="chip ${schedule.days.includes(day) ? "active" : ""}" data-schedule-day="${section}:${day}">${day}</button>`).join("")}
+      </div>
+      <div class="card-actions">
+        <button class="small-button" data-copy-list="${section}">Copy exercise list</button>
+        <button class="small-button" data-copy-program="${section}">Copy weekly program</button>
+      </div>
+      <textarea class="copy-box" id="${section}CopyBox" readonly>${program}</textarea>
+    </section>
+  `;
+}
+
+function wireProgramTools(section, items, title) {
+  document.querySelectorAll(`[data-schedule-day^="${section}:"]`).forEach((button) => {
+    button.addEventListener("click", () => {
+      const day = button.dataset.scheduleDay.split(":")[1];
+      const schedule = state.schedules[section] || structuredClone(defaultScheduleSettings[section]);
+      schedule.days = toggleArrayValue(schedule.days, day);
+      if (!schedule.days.length) schedule.days = [day];
+      schedule.days.sort((a, b) => DAYS.indexOf(a) - DAYS.indexOf(b));
+      state.schedules[section] = schedule;
+      saveState();
+      renderAll();
+    });
+  });
+  document.querySelectorAll(`[data-program-build="${section}"]`).forEach((button) => {
+    button.addEventListener("click", () => {
+      const box = document.getElementById(`${section}CopyBox`);
+      if (box) box.value = buildWeeklyProgram(section, items, title);
+    });
+  });
+  document.querySelectorAll(`[data-copy-list="${section}"]`).forEach((button) => {
+    button.addEventListener("click", () => copyText(exerciseListText(items, title), button));
+  });
+  document.querySelectorAll(`[data-copy-program="${section}"]`).forEach((button) => {
+    button.addEventListener("click", () => copyText(buildWeeklyProgram(section, items, title), button));
+  });
+}
+
+function exerciseName(item) {
+  return item.exercise?.name || item.name || String(item).split(" - ")[0];
+}
+
+function exerciseLine(item) {
+  if (typeof item === "string") return item;
+  return `${exerciseName(item)} - ${item.sets || "2-3"} x ${item.reps || item.defaultReps || "controlled reps"}, rest ${item.rest || "60-90 sec"}, RIR ${item.rir || "2-3"}`;
+}
+
+function exerciseListText(items, title = "Workout") {
+  return `${title}\n${items.map((item, index) => `${index + 1}. ${exerciseLine(item)}`).join("\n")}`;
+}
+
+function buildWeeklyProgram(section, items, title = "Program") {
+  const days = (state.schedules[section]?.days?.length ? state.schedules[section].days : defaultScheduleSettings[section]?.days || ["Mon", "Wed", "Fri"]);
+  const split = distributeProgramItems(items, days.length);
+  return `${title} Weekly Program\nDays: ${days.join(", ")}\n\n${days.map((day, index) => `${day}\n${split[index].map((item, itemIndex) => `${itemIndex + 1}. ${exerciseLine(item)}`).join("\n") || "Recovery / optional easy walk"}`).join("\n\n")}`;
+}
+
+function distributeProgramItems(items, dayCount) {
+  const buckets = Array.from({ length: Math.max(1, dayCount) }, () => []);
+  items.forEach((item, index) => {
+    const pattern = item.exercise?.pattern || "";
+    const offset = ["squat", "hinge", "single leg", "jump", "plyometric"].includes(pattern) ? index * 2 : index;
+    buckets[offset % buckets.length].push(item);
+  });
+  return buckets;
+}
+
+async function copyText(text, button) {
+  try {
+    await navigator.clipboard.writeText(text);
+    const original = button.textContent;
+    button.textContent = "Copied";
+    window.setTimeout(() => (button.textContent = original), 900);
+  } catch {
+    const box = button.closest(".program-tools")?.querySelector(".copy-box");
+    if (box) {
+      box.value = text;
+      box.select();
+    }
+  }
+}
+
+function renderForecastCard(title, summary, metrics, options = {}) {
+  return `
+    <article class="result-card forecast-card">
+      <div class="inline-head">
+        <div>
+          <h2>${title}</h2>
+          <p>${summary}</p>
+        </div>
+      </div>
+      <div class="forecast-grid">
+        ${metrics.map((metric, index) => renderForecastMetric(metric, index, options)).join("")}
+      </div>
+      <p class="forecast-prompt">Visualization idea: upload a current picture plus these stats to ChatGPT and paste: “Using this forecast and my current photo, describe a realistic visual outcome after this timeframe. Keep it practical and avoid exaggerating.”</p>
+    </article>
+  `;
+}
+
+function renderForecastMetric(metric, index, options = {}) {
+  const baselineValue = options.baselineSection ? positiveNumber(state.forecastSettings.jumpBaselines[metric.key]) : 0;
+  const projected = baselineValue ? baselineValue * (1 + Number(metric.gain || 0) / 100) : 0;
+  return `
+    <div class="forecast-metric forecast-${index % 5}">
+      <div>
+        <strong>${metric.name}</strong>
+        <small>${metric.description || "Projected change if consistency, recovery, and progression are solid."}</small>
+        ${options.baselineSection ? `
+          <label class="forecast-baseline">
+            Current
+            <input type="number" min="0" step="0.5" inputmode="decimal" value="${baselineValue || ""}" placeholder="weight" data-forecast-baseline="${metric.key}" />
+          </label>
+          ${projected ? `<small>Estimated result: ${formatNumber(projected)}${metric.unit || " in the same unit"}</small>` : `<small>Enter your current rep weight to estimate exact weight.</small>`}
+        ` : ""}
+      </div>
+      <span>${metric.value || `+${metric.gain}%`}</span>
+    </div>
+  `;
+}
+
+function wireForecastControls(section, callback) {
+  document.querySelectorAll(`[data-forecast-weeks="${section}"]`).forEach((input) => {
+    input.addEventListener("input", () => {
+      const key = `${section}Weeks`;
+      state.forecastSettings[key] = Math.max(1, Math.min(52, Number(input.value) || state.forecastSettings[key] || 8));
+      saveState();
+    });
+  });
+  document.querySelectorAll(`[data-run-forecast="${section}"]`).forEach((button) => {
+    button.addEventListener("click", callback);
+  });
+}
+
+function wireJumpForecastBaselineInputs() {
+  document.querySelectorAll("[data-forecast-baseline]").forEach((input) => {
+    input.addEventListener("input", () => {
+      state.forecastSettings.jumpBaselines[input.dataset.forecastBaseline] = input.value;
+      saveState();
+      if (!state.currentJumpBlock?.forecast) return;
+      renderJumpBlock();
+    });
+  });
+}
+
+function formatNumber(value) {
+  const rounded = Math.round(value * 10) / 10;
+  return Number.isInteger(rounded) ? String(rounded) : rounded.toFixed(1);
+}
+
+function forecastWeeks(section, fallback = 8) {
+  return Math.max(1, Math.min(52, Number(state.forecastSettings[`${section}Weeks`]) || fallback));
+}
+
+function weeklyAdaptationFactor(weeks, halfLife = 8) {
+  return 1 - Math.exp(-weeks / halfLife);
+}
+
+function runGeneratorForecast() {
+  if (!state.currentWorkout) return;
+  state.currentWorkout.forecast = generateGeneratorForecast(state.currentWorkout, forecastWeeks("generator"));
+  saveState();
+  renderWorkout();
+  document.querySelector("#workoutResult .forecast-card")?.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+function generateGeneratorForecast(workout, weeks) {
+  const hypertrophyGoals = workout.exercises.filter((item) => item.goal.includes("Hypertrophy")).length;
+  const strengthGoals = workout.exercises.filter((item) => item.goal.includes("Strength")).length;
+  const athleticGoals = workout.exercises.filter((item) => item.goal.includes("Athletic")).length;
+  const painDrag = workout.readiness?.pain === "moderate" ? 0.55 : workout.readiness?.pain === "mild" ? 0.78 : 1;
+  const energyBoost = workout.readiness?.energy === "high" ? 1.08 : workout.readiness?.energy === "low" ? 0.82 : 1;
+  const volume = workout.exercises.reduce((sum, item) => sum + setCount(item.sets, 2), 0);
+  const factor = weeklyAdaptationFactor(weeks, 9) * painDrag * energyBoost;
+  const strengthGain = forecastGain(2.5 + strengthGoals * 0.9 + state.profile.strengthBias * 0.35, factor, 1, 16);
+  const hypertrophyGain = forecastGain(1.2 + hypertrophyGoals * 0.55 + Math.min(volume, 24) * 0.18, factor, 0.5, 9);
+  const workCapacityGain = forecastGain(2 + workout.exercises.length * 0.6 + state.profile.volumeTolerance * 0.25, factor, 1, 14);
+  const athleticGain = forecastGain(1.5 + athleticGoals * 1.2 + state.profile.neuralBias * 0.25 + state.profile.jumpBias * 0.2, factor, 0.5, 12);
+  return {
+    title: `${weeks}-Week Routine Forecast`,
+    summary: `Estimated if you repeat this routine consistently for ${weeks} weeks, progress loads/reps when targets are clean, and keep pain from escalating.`,
+    metrics: [
+      { name: "Main Lift Strength", gain: strengthGain, description: "Best estimate for primary movement strength, assuming progressive overload and stable technique." },
+      { name: "Target Muscle Size Signal", gain: hypertrophyGain, description: "Estimated hypertrophy stimulus, not a guaranteed visible size change." },
+      { name: "Session Work Capacity", gain: workCapacityGain, description: "Likely improvement in tolerating the same work with better reps, density, or recovery." },
+      { name: "Athletic Carryover", gain: athleticGain, description: "Estimated transfer to force control, bracing, stiffness, and cleaner movement intent." },
+    ],
+  };
+}
+
+function runRecompForecast() {
+  if (!state.currentRecompPlan) return;
+  state.currentRecompPlan.forecast = generateRecompForecast(state.currentRecompPlan, forecastWeeks("recomp", Number(state.currentRecompPlan.profile.timeline) || 12));
+  saveState();
+  renderRecompPlan();
+  document.querySelector("#recompResult .forecast-card")?.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+function generateRecompForecast(plan, weeks) {
+  const profile = plan.profile;
+  const weightLb = recompWeightLb(profile);
+  if (!weightLb) {
+    return {
+      title: `${weeks}-Week Recomp Forecast`,
+      summary: "Enter bodyweight in the recomp setup to calculate estimated fat loss and muscle gain.",
+      metrics: [{ name: "Bodyweight Needed", value: "Missing", description: "The forecast needs current bodyweight to estimate pounds gained or lost." }],
+    };
+  }
+  const maintenance = estimateMaintenanceCalories(profile, weightLb);
+  const weeklyLossPct = targetWeeklyLossPct(profile);
+  const targetWeight = positiveNumber(profile.targetWeight);
+  const desiredLossLb = targetWeight ? Math.max(0, weightLb - toLb(targetWeight, profile.unit)) : weightLb * (weeklyLossPct / 100) * weeks;
+  const weeklyLoss = Math.min(desiredLossLb / weeks || weightLb * (weeklyLossPct / 100), weightLb * 0.012);
+  const fatLost = Math.max(0, weeklyLoss * weeks * (profile.proteinConsistency >= 6 ? 0.88 : 0.78));
+  const musclePotential = (profile.muscleGainPriority / 10) * (profile.proteinConsistency / 10) * (profile.trainingConsistency / 10);
+  const trackingDrag = profile.tracking === "no" ? 0.78 : profile.tracking === "flexible" ? 0.9 : 1;
+  const deficitDrag = profile.deficitAggression >= 8 ? 0.55 : profile.deficitAggression >= 6 ? 0.75 : 1;
+  const muscleGained = Math.max(0, Math.min(weeks * 0.22, weeks * 0.11 * musclePotential * trackingDrag * deficitDrag));
+  const scaleChange = fatLost - muscleGained;
+  const scalePrefix = scaleChange >= 0 ? "-" : "+";
+  const unit = profile.unit === "kg" ? "kg" : "lb";
+  const convert = (lb) => profile.unit === "kg" ? lb / 2.20462 : lb;
+  return {
+    title: `${weeks}-Week Recomp Forecast`,
+    summary: `Estimate based on current bodyweight, activity, tracking style, calorie pressure, protein consistency, and the plan's weekly adjustment rules. Estimated maintenance: ${maintenance} kcal/day.`,
+    metrics: [
+      { name: "Fat Lost", value: `${formatNumber(convert(fatLost))} ${unit}`, description: "Expected fat-mass loss if weekly averages follow the plan." },
+      { name: "Muscle Gained", value: `${formatNumber(convert(muscleGained))} ${unit}`, description: "Conservative lean-mass estimate; this depends heavily on training quality from the Generator." },
+      { name: "Scale Weight Change", value: `${scalePrefix}${formatNumber(Math.abs(convert(scaleChange)))} ${unit}`, description: "Fat lost minus estimated muscle gained. Water/glycogen can hide this short term." },
+      { name: "Average Weekly Pace", value: `${formatNumber(convert(weeklyLoss))} ${unit}/week`, description: "Capped to avoid reckless loss rates." },
+    ],
+  };
+}
+
+function runPlanForecast(section, planKey, renderer, generator, resultSelector) {
+  const plan = state[planKey];
+  if (!plan) return;
+  plan.forecast = generator(plan, forecastWeeks(section));
+  saveState();
+  renderer();
+  document.querySelector(`${resultSelector} .forecast-card`)?.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+function generateBeginnerForecast(plan, weeks) {
+  const profile = plan.profile;
+  const consistency = profile.confidence === "high" ? 1.08 : profile.confidence === "low" ? 0.78 : 0.92;
+  const factor = weeklyAdaptationFactor(weeks, 8) * consistency;
+  return {
+    title: `${weeks}-Week Beginner Forecast`,
+    summary: "Estimated beginner progress if sessions are repeated consistently, reps stay clean, and regressions are used when needed.",
+    metrics: [
+      { name: "Exercise Skill", gain: forecastGain(8 + (profile.confidence === "high" ? 2 : 0), factor, 4, 22), description: "Cleaner reps, less confusion, and better control on the same exercises." },
+      { name: "Strength Base", gain: forecastGain(6 + profile.strengthGain * 0.8, factor, 3, 20), description: "General load/repetition improvement across beginner compounds." },
+      { name: "Muscle-Building Signal", gain: forecastGain(4 + profile.muscleGrowth * 0.5 + profile.aesthetics * 0.3, factor, 2, 14), description: "Hypertrophy stimulus trend, not a visible-size guarantee." },
+      { name: "Fat-Loss Support", gain: forecastGain(3 + profile.fatLoss * 0.6, factor, 1, 12), description: "Improvement in weekly activity, density, and habit support from the plan." },
+    ],
+  };
+}
+
+function generatePostureForecast(plan, weeks) {
+  const avgSignal = plan.diagnosis.reduce((sum, item) => sum + item.score, 0) / Math.max(1, plan.diagnosis.length);
+  const painDrag = plan.profile.pain === "moderate" ? 0.62 : plan.profile.pain === "mild" ? 0.82 : 1;
+  const factor = weeklyAdaptationFactor(weeks, 5) * painDrag;
+  return {
+    title: `${weeks}-Week Posture Forecast`,
+    summary: "Estimated change in movement-control signals if the reset is done most days and drills stay low pain.",
+    metrics: [
+      { name: "Weak-Link Signal Reduction", value: `${formatNumber(forecastGain(avgSignal * 6, factor, 6, 38))}%`, description: "How much the top posture signals may feel less obvious during normal movement." },
+      { name: "Knee / Hip Control", gain: forecastGain(4 + plan.profile.kneeTracking * 0.5 + plan.profile.hipStability * 0.5, factor, 2, 24), description: "Projected improvement in single-leg control and cleaner tracking." },
+      { name: "Shoulder Position Control", gain: forecastGain(4 + plan.profile.forwardShoulder * 0.5 + plan.profile.scapularControl * 0.5, factor, 2, 24), description: "Projected improvement in scapular setting and less forward-shoulder drift." },
+      { name: "Daily Mobility Tolerance", gain: forecastGain(5 + plan.profile.ankleMobility * 0.3 + plan.profile.thoracicMobility * 0.3, factor, 2, 22), description: "Ability to access better positions without forcing them." },
+    ],
+  };
+}
+
+function generateCalisthenicsForecast(plan, weeks) {
+  const profile = plan.profile;
+  const jointDrag = profile.jointTolerance <= 4 ? 0.68 : profile.jointTolerance >= 7 ? 1.06 : 0.9;
+  const factor = weeklyAdaptationFactor(weeks, 9) * jointDrag;
+  return {
+    title: `${weeks}-Week Calisthenics Forecast`,
+    summary: "Estimated skill and strength progress with crisp practice, enough rest, and no elbow/wrist/shoulder flare-ups.",
+    metrics: [
+      { name: "Skill Hold Time", gain: forecastGain(8 + profile.skillPractice * 0.9, factor, 4, 28), description: "Projected improvement in holds like tuck lever, support hold, handstand line, or L-sit variations." },
+      { name: "Bent-Arm Strength", gain: forecastGain(5 + profile.bentArm * 0.8, factor, 3, 22), description: "Projected pull-up, dip, push-up, and row strength trend." },
+      { name: "Straight-Arm Strength", gain: forecastGain(4 + profile.straightArm * 0.9, factor, 2, 24), description: "Projected locked-elbow/scapular strength trend for planche/front-lever style work." },
+      { name: "Compression / Core Control", gain: forecastGain(4 + profile.coreCompression * 0.7, factor, 2, 20), description: "Projected improvement in L-sit, hollow, and active compression control." },
+    ],
+  };
+}
+
+function generateFlipForecast(plan, weeks) {
+  const profile = plan.profile;
+  const surfaceDrag = profile.surface === "floor" ? 0.72 : profile.surface === "trampoline" ? 1.08 : 0.9;
+  const factor = weeklyAdaptationFactor(weeks, 7) * surfaceDrag;
+  return {
+    title: `${weeks}-Week Flip Forecast`,
+    summary: "Estimated prerequisite progress. New flips still require safe surfaces, smart progressions, and ideally qualified spotting.",
+    metrics: [
+      { name: "Landing Consistency", gain: forecastGain(5 + profile.landingControl * 0.9, factor, 3, 26), description: "Projected improvement in sticking landings and absorbing force quietly." },
+      { name: "Tuck Speed", gain: forecastGain(4 + profile.tuckSpeed * 0.85, factor, 2, 24), description: "Projected improvement in fast knee drive, compact shape, and rotation support." },
+      { name: "Air Awareness", gain: forecastGain(4 + profile.airAwareness * 0.85, factor, 2, 24), description: "Projected improvement in spotting, shapes, and orientation drills." },
+      { name: "Takeoff Pop", gain: forecastGain(3 + profile.jumpPower * 0.75, factor, 2, 20), description: "Projected improvement in set jumps and usable takeoff height." },
+    ],
+  };
+}
+
+function generateMobilityForecast(plan, weeks) {
+  const profile = plan.profile;
+  const frequency = Number(profile.frequency) || 4;
+  const frequencyBoost = frequency >= 6 ? 1.12 : frequency <= 2 ? 0.78 : 0.95;
+  const factor = weeklyAdaptationFactor(weeks, 6) * frequencyBoost;
+  return {
+    title: `${weeks}-Week Mobility Forecast`,
+    summary: "Estimated ROM/control improvement if sessions are repeated at the selected frequency and stretches stay calm instead of painful.",
+    metrics: [
+      { name: "Passive Range", gain: forecastGain(5 + profile.passiveFlexibility * 0.8, factor, 3, 26), description: "Projected improvement in relaxed end-range access." },
+      { name: "Active Range", gain: forecastGain(4 + profile.activeFlexibility * 0.85, factor, 2, 24), description: "Projected improvement in lifting, holding, and controlling the range." },
+      { name: "Joint Control", gain: forecastGain(4 + profile.jointMobility * 0.8, factor, 2, 24), description: "Projected improvement in usable mobility and end-range ownership." },
+      { name: "Loaded Position Strength", gain: forecastGain(3 + profile.loadedMobility * 0.8, factor, 2, 22), description: "Projected improvement in strength inside squat, split, hinge, or overhead positions." },
+    ],
+  };
 }
 
 function renderJumpWeek(week) {
@@ -3624,6 +4184,12 @@ function renderRecompPlan() {
     container.innerHTML = "";
     return;
   }
+  const metrics = Array.isArray(plan.metrics) ? plan.metrics : [];
+  const notes = Array.isArray(plan.notes) ? plan.notes : [];
+  const nutrition = Array.isArray(plan.nutrition) ? plan.nutrition : [];
+  const training = Array.isArray(plan.training) ? plan.training : [];
+  const adjustments = Array.isArray(plan.adjustments) ? plan.adjustments : [];
+  const recompItems = [...nutrition, ...training, ...adjustments];
   container.innerHTML = `
     <article class="result-card">
       <div class="section-head">
@@ -3633,20 +4199,25 @@ function renderRecompPlan() {
         </div>
       </div>
       <div class="meta-strip">
-        ${plan.metrics.map(([label, value]) => `<span class="pill">${label}: ${value}</span>`).join("")}
+        ${metrics.map(([label, value]) => `<span class="pill">${label}: ${value}</span>`).join("")}
       </div>
-      ${plan.notes.map((note) => `<p class="note">${note}</p>`).join("")}
+      ${notes.map((note) => `<p class="note">${note}</p>`).join("")}
       <div class="card-actions">
         <button class="primary" id="saveRecompPlanBtn">Save Plan</button>
       </div>
+      ${renderProgramTools("recomp", recompItems, plan.title)}
+      ${renderForecastControls("recomp", forecastWeeks("recomp", Number(plan.profile.timeline) || 12), "Forecast for")}
     </article>
+    ${plan.forecast ? renderForecastCard(plan.forecast.title, plan.forecast.summary, plan.forecast.metrics) : ""}
     <div class="grid two">
-      ${renderPlanCard("Nutrition", plan.nutrition)}
-      ${renderPlanCard("Activity + Food Environment", plan.training)}
+      ${renderPlanCard("Nutrition", nutrition)}
+      ${renderPlanCard("Activity + Food Environment", training)}
     </div>
-    ${renderPlanCard("Weekly Adjustment Rules", plan.adjustments)}
+    ${renderPlanCard("Weekly Adjustment Rules", adjustments)}
   `;
   document.getElementById("saveRecompPlanBtn")?.addEventListener("click", saveCurrentRecompPlan);
+  wireProgramTools("recomp", recompItems, plan.title);
+  wireForecastControls("recomp", runRecompForecast);
 }
 
 function renderPlanCard(title, items) {
@@ -3737,7 +4308,10 @@ function renderWorkout() {
         <button class="primary" id="saveRoutineBtn">Save Routine</button>
         <button class="ghost" id="logCurrentBtn">Log This</button>
       </div>
+      ${renderProgramTools("generator", workout.exercises, workout.title)}
+      ${renderForecastControls("generator", forecastWeeks("generator"), "Forecast if repeated for")}
     </article>
+    ${workout.forecast ? renderForecastCard(workout.forecast.title, workout.forecast.summary, workout.forecast.metrics) : ""}
     <div class="stack">
       ${workout.exercises.map(renderExerciseCard).join("")}
     </div>
@@ -3747,6 +4321,8 @@ function renderWorkout() {
     showTab("log");
     renderLog();
   });
+  wireProgramTools("generator", workout.exercises, workout.title);
+  wireForecastControls("generator", runGeneratorForecast);
 }
 
 function renderExerciseCard(item) {
@@ -3895,7 +4471,7 @@ function applyRegressionPrescription(item, previous) {
   item.rir = "3-4";
   item.rest = previous.rest?.includes("3") ? "2-3 min" : lengthenRest(previous.rest || item.rest);
 
-  if (item.exercise.id === "pull-up-negative") {
+  if (["pull-up-negative", "eccentric-chin-up"].includes(item.exercise.id)) {
     item.sets = Math.min(3, Math.max(2, previousSets || 2));
     item.reps = "2-4 reps";
     item.eccentric = "5 sec";
@@ -3919,6 +4495,27 @@ function applyRegressionPrescription(item, previous) {
     item.reps = "5-8 clean reps";
     item.eccentric = "2 sec lower";
     item.concentric = "Controlled shrug-down";
+    return;
+  }
+  if (["calf-isometric-hold", "split-squat-iso-hold", "wall-handstand-line-hold", "hollow-body-hold"].includes(item.exercise.id)) {
+    item.reps = item.exercise.defaultReps;
+    item.eccentric = "Hold steady";
+    item.concentric = "Controlled setup";
+    item.rir = "3-5";
+    return;
+  }
+  if (["incline-push-up", "box-squat-to-bench", "side-lying-adduction", "reverse-crunch", "single-leg-glute-bridge"].includes(item.exercise.id)) {
+    item.reps = "6-12 easy reps";
+    item.eccentric = "3 sec";
+    item.concentric = "Smooth";
+    item.rir = "3-4";
+    return;
+  }
+  if (["hamstring-slider-curl", "tempo-split-squat", "front-foot-elevated-split-squat"].includes(item.exercise.id)) {
+    item.reps = item.exercise.id === "hamstring-slider-curl" ? "4-8 controlled" : "5-8 each";
+    item.eccentric = "3-5 sec";
+    item.concentric = "Smooth";
+    item.rir = "3-4";
     return;
   }
 
@@ -4212,39 +4809,50 @@ function showTab(id) {
   document.querySelector(`.tab[data-tab="${id}"]`)?.click();
 }
 
+function safeRender(fn, label) {
+  try {
+    fn();
+  } catch (error) {
+    console.warn(`Skipped ${label} render`, error);
+  }
+}
+
 function renderAll() {
-  hydrateReadiness();
-  hydrateProfile();
-  hydrateJumpProfile();
-  hydrateRecompProfile();
-  hydrateBeginnerProfile();
-  hydratePostureProfile();
-  hydrateCalisthenicsPlan();
-  hydrateFlipProfile();
-  hydrateMobilityProfile();
-  renderPickers();
-  renderJumpPickers();
-  renderBeginnerEquipment();
-  renderBeginnerPhysiquePriorities();
-  renderPostureEquipment();
-  renderCalisthenicsPickers();
-  renderFlipPickers();
-  renderMobilityPickers();
-  renderGoalEditor();
-  renderWorkout();
-  renderJumpBlock();
-  renderRecompPlan();
-  renderBeginnerPlan();
-  renderPosturePlan();
-  renderCalisthenicsPlan();
-  renderFlipPlan();
-  renderMobilityPlan();
-  renderSavedJumpBlocks();
-  renderSavedRecompPlans();
-  renderSaved();
-  renderLog();
-  renderProgress();
-  renderPreferences();
+  [
+    [hydrateReadiness, "readiness"],
+    [hydrateProfile, "profile"],
+    [hydrateJumpProfile, "jump profile"],
+    [hydrateRecompProfile, "recomp profile"],
+    [hydrateBeginnerProfile, "beginner profile"],
+    [hydratePostureProfile, "posture profile"],
+    [hydrateCalisthenicsPlan, "calisthenics profile"],
+    [hydrateFlipProfile, "flip profile"],
+    [hydrateMobilityProfile, "mobility profile"],
+    [renderPickers, "pickers"],
+    [renderJumpPickers, "jump pickers"],
+    [renderBeginnerEquipment, "beginner equipment"],
+    [renderBeginnerPhysiquePriorities, "beginner physique"],
+    [renderPostureEquipment, "posture equipment"],
+    [renderCalisthenicsPickers, "calisthenics pickers"],
+    [renderFlipPickers, "flip pickers"],
+    [renderMobilityPickers, "mobility pickers"],
+    [renderGoalEditor, "goals"],
+    [renderWorkout, "workout"],
+    [renderJumpBlock, "jump block"],
+    [renderRecompPlan, "recomp"],
+    [renderBeginnerPlan, "beginner"],
+    [renderPosturePlan, "posture"],
+    [renderCalisthenicsPlan, "calisthenics"],
+    [renderFlipPlan, "flips"],
+    [renderMobilityPlan, "mobility"],
+    [renderSavedJumpBlocks, "saved jump blocks"],
+    [renderSavedRecompPlans, "saved recomp"],
+    [renderSaved, "saved routines"],
+    [renderLog, "log"],
+    [renderProgress, "progress"],
+    [renderPreferences, "preferences"],
+    [updateStickyBuildBar, "sticky build"],
+  ].forEach(([fn, label]) => safeRender(fn, label));
 }
 
 function escapeAttr(value) {

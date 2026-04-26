@@ -13,8 +13,32 @@
           <p class="eyebrow">Rule-based training planner</p>
           <h1>Workout Engine</h1>
         </div>
-        <button class="icon-button" id="resetDataBtn" title="Reset local app data" aria-label="Reset local app data">Reset</button>
+        <div class="top-actions">
+          <button class="icon-button" id="customizeBtn" title="Customize UI" aria-label="Customize UI">UI</button>
+          <button class="icon-button" id="resetDataBtn" title="Reset local app data" aria-label="Reset local app data">Reset</button>
+        </div>
       </header>
+
+      <section class="ui-panel" id="uiPanel" aria-label="UI customization">
+        <div class="inline-head">
+          <h3>UI Customization</h3>
+          <button class="small-button" id="closeUiPanelBtn">Close</button>
+        </div>
+        <div class="readiness-grid">
+          <label>
+            Theme
+            <select id="themeInput">
+              <option value="dark">Dark</option>
+              <option value="light">Light</option>
+              <option value="midnight">Midnight</option>
+            </select>
+          </label>
+          <label>
+            Accent color
+            <input id="accentInput" type="color" value="#64d2a4" />
+          </label>
+        </div>
+      </section>
 
       <nav class="tabs" aria-label="Main sections">
         <button class="tab active" data-tab="generator">Generator</button>
@@ -156,14 +180,6 @@
                 </select>
               </label>
               <label>
-                Jump surface
-                <select id="surfaceInput">
-                  <option value="normal" selected>Normal gym floor</option>
-                  <option value="soft">Soft / grass</option>
-                  <option value="hard">Hard / concrete</option>
-                </select>
-              </label>
-              <label>
                 Limiting factor
                 <select id="limiterInput">
                   <option value="none" selected>None</option>
@@ -171,14 +187,6 @@
                   <option value="conditioning">Conditioning</option>
                   <option value="skill">Technique</option>
                   <option value="setup">Setup time</option>
-                </select>
-              </label>
-              <label>
-                Jump experience
-                <select id="jumpExperienceInput">
-                  <option value="new">New / cautious</option>
-                  <option value="some" selected>Some experience</option>
-                  <option value="trained">Trained jumper</option>
                 </select>
               </label>
             </div>
@@ -243,6 +251,22 @@
                   <option value="low">Low</option>
                   <option value="medium" selected>Medium</option>
                   <option value="high">High</option>
+                </select>
+              </label>
+              <label>
+                Goal framing
+                <select id="beginnerGenderInput">
+                  <option value="unspecified" selected>Neutral / not sure</option>
+                  <option value="male">Masculine V-taper bias</option>
+                  <option value="female">Feminine shape bias</option>
+                </select>
+              </label>
+              <label>
+                Body focus
+                <select id="beginnerBodyFocusInput">
+                  <option value="both" selected>Upper + lower</option>
+                  <option value="upper">Upper body priority</option>
+                  <option value="lower">Lower body priority</option>
                 </select>
               </label>
               <label>
@@ -766,6 +790,9 @@
           </section>
         </section>
       </main>
+      <div class="sticky-build" id="stickyBuildBar">
+        <button class="primary" id="stickyBuildBtn">Build</button>
+      </div>
     </div>
 
     <script src="app.js"></script>
