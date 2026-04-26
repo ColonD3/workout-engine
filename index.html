@@ -1,0 +1,466 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Workout Engine</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Rule-based training planner</p>
+          <h1>Workout Engine</h1>
+        </div>
+        <button class="icon-button" id="resetDataBtn" title="Reset local app data" aria-label="Reset local app data">Reset</button>
+      </header>
+
+      <nav class="tabs" aria-label="Main sections">
+        <button class="tab active" data-tab="generator">Generator</button>
+        <button class="tab" data-tab="recomp">Recomp</button>
+        <button class="tab" data-tab="jump">Jump Blocks</button>
+        <button class="tab" data-tab="saved">Saved</button>
+        <button class="tab" data-tab="log">Log</button>
+        <button class="tab" data-tab="progress">Progress</button>
+        <button class="tab" data-tab="prefs">Prefs</button>
+        <button class="tab" data-tab="about">About</button>
+      </nav>
+
+      <main>
+        <section class="panel active" id="generator">
+          <div class="section-head">
+            <div>
+              <h2>Build Session</h2>
+              <p>Choose muscles, equipment, per-muscle intent, and readiness.</p>
+            </div>
+            <button class="primary" id="generateBtn">Generate</button>
+          </div>
+
+          <div class="grid two">
+            <section class="card">
+              <h3>Muscles</h3>
+              <div class="chip-grid" id="musclePicker"></div>
+            </section>
+
+            <section class="card">
+              <h3>Equipment</h3>
+              <div class="chip-grid" id="equipmentPicker"></div>
+            </section>
+          </div>
+
+          <section class="card">
+            <div class="inline-head">
+              <h3>Presets</h3>
+              <button class="ghost" id="clearSelectionsBtn">Clear</button>
+            </div>
+            <div class="preset-row" id="presetRow"></div>
+          </section>
+
+          <section class="card">
+            <h3>Per-Muscle Goals</h3>
+            <div id="goalEditor" class="goal-editor empty-state">Select muscles to assign goals.</div>
+          </section>
+
+          <section class="card">
+            <h3>Readiness</h3>
+            <div class="readiness-grid">
+              <label>
+                Energy
+                <select id="energyInput">
+                  <option value="low">Low</option>
+                  <option value="medium" selected>Medium</option>
+                  <option value="high">High</option>
+                </select>
+              </label>
+              <label>
+                Soreness
+                <select id="sorenessInput">
+                  <option value="low" selected>Low</option>
+                  <option value="medium">Medium</option>
+                  <option value="high">High</option>
+                </select>
+              </label>
+              <label>
+                Pain flag
+                <select id="painInput">
+                  <option value="none" selected>None</option>
+                  <option value="mild">Mild</option>
+                  <option value="moderate">Moderate</option>
+                </select>
+              </label>
+              <label>
+                Session length
+                <select id="lengthInput">
+                  <option value="20">20 minutes</option>
+                  <option value="35">35 minutes</option>
+                  <option value="50" selected>50 minutes</option>
+                  <option value="70">70 minutes</option>
+                </select>
+              </label>
+            </div>
+          </section>
+
+          <section class="card">
+            <h3>Current Injuries</h3>
+            <p class="compact-copy">Select anything that affects training today, then set average working pain.</p>
+            <div class="chip-grid" id="generatorInjuryPicker"></div>
+            <div class="readiness-grid profile-selects" id="generatorInjuryPain"></div>
+          </section>
+
+          <section class="card">
+            <div class="inline-head">
+              <h3>Calisthenics Skill</h3>
+              <button class="ghost" id="resetCalisthenicsBtn">Reset</button>
+            </div>
+            <p class="compact-copy">Use this when straight-arm strength, planche/front-lever style strength, or skill carryover matters.</p>
+            <div class="chip-grid" id="calisthenicsToggle"></div>
+            <div class="slider-grid profile-selects" id="calisthenicsSliders"></div>
+          </section>
+
+          <section class="card">
+            <div class="inline-head">
+              <h3>Athlete Profile</h3>
+              <button class="ghost" id="resetProfileBtn">Reset</button>
+            </div>
+            <p class="compact-copy">Fast sliders that steer exercise selection, volume, rest, and intensity.</p>
+            <div class="slider-grid" id="profileSliders"></div>
+            <div class="readiness-grid profile-selects">
+              <label>
+                Training age
+                <select id="trainingAgeInput">
+                  <option value="beginner">Beginner</option>
+                  <option value="intermediate" selected>Intermediate</option>
+                  <option value="advanced">Advanced</option>
+                </select>
+              </label>
+              <label>
+                Session density
+                <select id="densityInput">
+                  <option value="easy">Easy pace</option>
+                  <option value="normal" selected>Normal</option>
+                  <option value="dense">Dense / supersets</option>
+                </select>
+              </label>
+              <label>
+                Exercise novelty
+                <select id="noveltyInput">
+                  <option value="stable" selected>Stable favorites</option>
+                  <option value="balanced">Balanced</option>
+                  <option value="varied">More variety</option>
+                </select>
+              </label>
+              <label>
+                Jump surface
+                <select id="surfaceInput">
+                  <option value="normal" selected>Normal gym floor</option>
+                  <option value="soft">Soft / grass</option>
+                  <option value="hard">Hard / concrete</option>
+                </select>
+              </label>
+              <label>
+                Limiting factor
+                <select id="limiterInput">
+                  <option value="none" selected>None</option>
+                  <option value="joints">Joints / tendons</option>
+                  <option value="conditioning">Conditioning</option>
+                  <option value="skill">Technique</option>
+                  <option value="setup">Setup time</option>
+                </select>
+              </label>
+              <label>
+                Jump experience
+                <select id="jumpExperienceInput">
+                  <option value="new">New / cautious</option>
+                  <option value="some" selected>Some experience</option>
+                  <option value="trained">Trained jumper</option>
+                </select>
+              </label>
+            </div>
+          </section>
+
+          <section class="result" id="workoutResult"></section>
+        </section>
+
+        <section class="panel" id="recomp">
+          <div class="section-head">
+            <div>
+              <h2>Body Recomp</h2>
+              <p>Build a fat-loss plan with or without calorie tracking.</p>
+            </div>
+            <button class="primary" id="generateRecompBtn">Build Plan</button>
+          </div>
+
+          <section class="card">
+            <div class="inline-head">
+              <h3>Goal Bias</h3>
+              <button class="ghost" id="resetRecompBtn">Reset</button>
+            </div>
+            <p class="compact-copy">Set whether this is a pure cut or a slower recomp that protects/gains muscle.</p>
+            <div class="slider-grid" id="recompSliders"></div>
+          </section>
+
+          <section class="card">
+            <h3>Body + Timeline</h3>
+            <div class="readiness-grid">
+              <label>
+                Units
+                <select id="recompUnitInput">
+                  <option value="lb" selected>lb / inches</option>
+                  <option value="kg">kg / cm</option>
+                </select>
+              </label>
+              <label>
+                Bodyweight
+                <input id="bodyweightInput" type="number" min="1" step="0.1" placeholder="e.g. 180" />
+              </label>
+              <label>
+                Target weight
+                <input id="targetWeightInput" type="number" min="1" step="0.1" placeholder="Optional" />
+              </label>
+              <label>
+                Timeline
+                <select id="timelineInput">
+                  <option value="4">4 weeks</option>
+                  <option value="8" selected>8 weeks</option>
+                  <option value="12">12 weeks</option>
+                  <option value="16">16 weeks</option>
+                </select>
+              </label>
+              <label>
+                Height
+                <input id="heightInput" type="number" min="1" step="0.1" placeholder="Optional" />
+              </label>
+              <label>
+                Age
+                <input id="ageInput" type="number" min="1" step="1" placeholder="Optional" />
+              </label>
+              <label>
+                Sex for estimate
+                <select id="sexInput">
+                  <option value="unspecified" selected>Skip</option>
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                </select>
+              </label>
+              <label>
+                Activity
+                <select id="activityInput">
+                  <option value="sedentary">Mostly sitting</option>
+                  <option value="light" selected>Lightly active</option>
+                  <option value="moderate">Moderately active</option>
+                  <option value="high">Very active</option>
+                </select>
+              </label>
+            </div>
+          </section>
+
+          <section class="card">
+            <h3>Execution Style</h3>
+            <div class="readiness-grid">
+              <label>
+                Calorie tracking
+                <select id="trackingInput">
+                  <option value="yes">Yes, I will track</option>
+                  <option value="flexible" selected>Flexible / rough tracking</option>
+                  <option value="no">No calorie counting</option>
+                </select>
+              </label>
+              <label>
+                Eating out / week
+                <select id="eatingOutInput">
+                  <option value="0">0</option>
+                  <option value="1" selected>1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4+</option>
+                </select>
+              </label>
+              <label>
+                Current steps / day
+                <input id="stepsInput" type="number" min="0" step="500" placeholder="e.g. 7000" />
+              </label>
+              <label>
+                Meals / day
+                <select id="mealsInput">
+                  <option value="2">2</option>
+                  <option value="3" selected>3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                </select>
+              </label>
+            </div>
+          </section>
+
+          <section class="result" id="recompResult"></section>
+
+          <section class="card">
+            <h3>Saved Recomp Plans</h3>
+            <div id="savedRecompPlans" class="stack empty-state">No recomp plans saved yet.</div>
+          </section>
+        </section>
+
+        <section class="panel" id="jump">
+          <div class="section-head">
+            <div>
+              <h2>Jump Blocks</h2>
+              <p>Diagnose your jump profile and build an 8-week block.</p>
+            </div>
+            <button class="primary" id="generateJumpBlockBtn">Build Block</button>
+          </div>
+
+          <section class="card">
+            <div class="inline-head">
+              <h3>Jump Block Setup</h3>
+              <button class="ghost" id="resetJumpProfileBtn">Reset</button>
+            </div>
+            <p class="compact-copy">Select one or more goals. The block blends the priorities across the week.</p>
+            <div class="chip-grid" id="jumpGoalPicker"></div>
+          </section>
+
+          <section class="card">
+            <h3>Jump Equipment</h3>
+            <div class="chip-grid" id="jumpEquipmentPicker"></div>
+          </section>
+
+          <section class="card">
+            <h3>Block Controls</h3>
+            <div class="readiness-grid">
+              <label>
+                Sessions / week
+                <select id="jumpSessionsInput">
+                  <option value="2">2</option>
+                  <option value="3" selected>3</option>
+                  <option value="4">4</option>
+                </select>
+              </label>
+              <label>
+                Jump experience
+                <select id="jumpBlockExperienceInput">
+                  <option value="new">New / cautious</option>
+                  <option value="some" selected>Some experience</option>
+                  <option value="trained">Trained jumper</option>
+                </select>
+              </label>
+              <label>
+                Surface
+                <select id="jumpBlockSurfaceInput">
+                  <option value="normal" selected>Normal gym floor</option>
+                  <option value="soft">Soft / grass</option>
+                  <option value="hard">Hard / concrete</option>
+                </select>
+              </label>
+              <label>
+                Insurance level
+                <select id="jumpInsuranceInput">
+                  <option value="low">Low: minimal support</option>
+                  <option value="medium" selected>Medium: balanced support</option>
+                  <option value="high">High: robust support</option>
+                </select>
+              </label>
+            </div>
+          </section>
+
+          <section class="card">
+            <h3>Jump Injuries</h3>
+            <p class="compact-copy">Jump blocks only adapt for knee and Achilles status.</p>
+            <div class="chip-grid" id="jumpInjuryPicker"></div>
+            <div class="readiness-grid profile-selects" id="jumpInjuryPain"></div>
+          </section>
+
+          <section class="card">
+            <h3>Weakness Finder</h3>
+            <p class="compact-copy">Use rough 0-10 self-ratings. The diagnosis is a coaching heuristic, not a lab test.</p>
+            <div class="slider-grid" id="jumpSliders"></div>
+          </section>
+
+          <section class="card">
+            <div class="inline-head">
+              <h3>Jump Strength Profile</h3>
+            </div>
+            <p class="compact-copy">Optional muscle strength sliders. Use them when you know one area is clearly ahead or behind.</p>
+            <div class="chip-grid" id="jumpStrengthToggle"></div>
+            <div class="slider-grid" id="jumpStrengthSliders"></div>
+          </section>
+
+          <section class="result" id="jumpBlockResult"></section>
+
+          <section class="card">
+            <h3>Saved Jump Blocks</h3>
+            <div id="savedJumpBlocks" class="stack empty-state">No jump blocks saved yet.</div>
+          </section>
+        </section>
+
+        <section class="panel" id="saved">
+          <div class="section-head">
+            <div>
+              <h2>Saved Routines</h2>
+              <p>Generated plans saved in this browser.</p>
+            </div>
+          </div>
+          <div id="savedList" class="stack empty-state">No saved routines yet.</div>
+        </section>
+
+        <section class="panel" id="log">
+          <div class="section-head">
+            <div>
+              <h2>Training Log</h2>
+              <p>Record what actually happened.</p>
+            </div>
+          </div>
+          <div id="logComposer" class="stack empty-state">Generate or load a routine to log it.</div>
+          <div class="card">
+            <h3>Recent Logs</h3>
+            <div id="logList" class="stack empty-state">No logs yet.</div>
+          </div>
+        </section>
+
+        <section class="panel" id="progress">
+          <div class="section-head">
+            <div>
+              <h2>Progress</h2>
+              <p>Simple local training signals.</p>
+            </div>
+          </div>
+          <div id="progressView" class="stack"></div>
+        </section>
+
+        <section class="panel" id="prefs">
+          <div class="section-head">
+            <div>
+              <h2>Exercise Preferences</h2>
+              <p>Favorites are preferred. Blocked exercises are avoided.</p>
+            </div>
+          </div>
+          <section class="card">
+            <label>
+              Find exercise
+              <input id="exerciseSearch" type="search" placeholder="Search exercises" />
+            </label>
+            <div id="exercisePreferenceList" class="exercise-list"></div>
+          </section>
+          <div class="grid two">
+            <section class="card">
+              <h3>Favorites</h3>
+              <div id="favoriteList" class="stack empty-state">No favorites yet.</div>
+            </section>
+            <section class="card">
+              <h3>Blocked</h3>
+              <div id="blockedList" class="stack empty-state">No blocked exercises.</div>
+            </section>
+          </div>
+        </section>
+
+        <section class="panel" id="about">
+          <section class="card about-card">
+            <h2>How It Works</h2>
+            <p>This app uses rule-based workout generation based on muscles, goals, equipment, readiness, and preferences. It is not medical advice.</p>
+            <p>Each exercise has tags for muscles, equipment, pattern, fatigue, joint stress, difficulty, and goal fit. The athlete sliders bias the engine toward hypertrophy, max strength, neural/power work, jump exposure, tendon capacity, joint caution, density, and variation.</p>
+          </section>
+        </section>
+      </main>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
